@@ -13,3 +13,11 @@ about:
 ---
 
 Thomas Lilygren is a senior engineering major at Harvey Mudd College with a keen interest in electrical and systems engineering. His career aspirations involve combining his electrical engineering skills with his business internship experience and economics concentration through the development of his own business. In his free time, he enjoys golfing, climbing, and reading philosophy. Join him on his journey as he explores the fascinating and expansive world of microprocessor design! 
+
+Thomas Lilygren is a recent graduate from [Harvey Mudd College](https://www.hmc.edu/engineering/) with a keen interest in electrical and computer engineering. 
+
+## Resume
+
+[Download PDF](Resume_Sp26.pdf){.btn .btn-primary}
+
+<embed src="Resume_Sp26.pdf" type="application/pdf" width="100%" height="800px" />
