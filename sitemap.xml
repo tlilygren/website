@@ -2,30 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tlilygren.github.io/website/blog.html</loc>
-    <lastmod>2026-06-13T02:42:20.528Z</lastmod>
+    <lastmod>2026-06-18T01:31:46.953Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tlilygren.github.io/website/e207.html</loc>
+    <lastmod>2026-06-18T01:52:27.451Z</lastmod>
   </url>
   <url>
     <loc>https://tlilygren.github.io/website/index.html</loc>
-    <lastmod>2026-06-13T04:00:21.894Z</lastmod>
+    <lastmod>2026-06-18T04:33:48.144Z</lastmod>
   </url>
   <url>
-    <loc>https://tlilygren.github.io/website/posts/first-post.html</loc>
-    <lastmod>2026-06-13T02:42:20.777Z</lastmod>
+    <loc>https://tlilygren.github.io/website/class.html</loc>
+    <lastmod>2026-06-18T01:38:04.750Z</lastmod>
   </url>
   <url>
-    <loc>https://tlilygren.github.io/website/posts/lab-1-reflection.html</loc>
-    <lastmod>2026-06-13T02:42:20.777Z</lastmod>
+    <loc>https://tlilygren.github.io/website/posts/lab-2-reflection.html</loc>
+    <lastmod>2026-06-13T02:42:20.778Z</lastmod>
   </url>
   <url>
-    <loc>https://tlilygren.github.io/website/labs/lab3/e155-lab3.html</loc>
+    <loc>https://tlilygren.github.io/website/e155.html</loc>
+    <lastmod>2026-06-18T01:51:34.989Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tlilygren.github.io/website/labs/lab4/e155-lab4.html</loc>
     <lastmod>2026-06-13T02:42:20.776Z</lastmod>
   </url>
   <url>
-    <loc>https://tlilygren.github.io/website/labs/lab5/e155-lab5.html</loc>
-    <lastmod>2026-06-13T02:42:20.777Z</lastmod>
+    <loc>https://tlilygren.github.io/website/labs/lab2/e155-lab2.html</loc>
+    <lastmod>2026-06-13T02:42:20.647Z</lastmod>
   </url>
   <url>
-    <loc>https://tlilygren.github.io/website/labs/lab6/e155-lab6.html</loc>
+    <loc>https://tlilygren.github.io/website/labs/lab7/e155-lab7.html</loc>
     <lastmod>2026-06-13T02:42:20.777Z</lastmod>
   </url>
   <url>
@@ -33,24 +41,36 @@
     <lastmod>2026-06-13T02:42:20.530Z</lastmod>
   </url>
   <url>
-    <loc>https://tlilygren.github.io/website/labs/lab7/e155-lab7.html</loc>
+    <loc>https://tlilygren.github.io/website/labs/lab6/e155-lab6.html</loc>
     <lastmod>2026-06-13T02:42:20.777Z</lastmod>
   </url>
   <url>
-    <loc>https://tlilygren.github.io/website/labs/lab2/e155-lab2.html</loc>
-    <lastmod>2026-06-13T02:42:20.647Z</lastmod>
+    <loc>https://tlilygren.github.io/website/labs/lab5/e155-lab5.html</loc>
+    <lastmod>2026-06-13T02:42:20.777Z</lastmod>
   </url>
   <url>
-    <loc>https://tlilygren.github.io/website/labs/lab4/e155-lab4.html</loc>
+    <loc>https://tlilygren.github.io/website/labs/lab3/e155-lab3.html</loc>
     <lastmod>2026-06-13T02:42:20.776Z</lastmod>
   </url>
   <url>
-    <loc>https://tlilygren.github.io/website/posts/lab-2-reflection.html</loc>
-    <lastmod>2026-06-13T02:42:20.778Z</lastmod>
+    <loc>https://tlilygren.github.io/website/e151.html</loc>
+    <lastmod>2026-06-18T01:51:53.842Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tlilygren.github.io/website/posts/lab-1-reflection.html</loc>
+    <lastmod>2026-06-13T02:42:20.777Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tlilygren.github.io/website/posts/first-post.html</loc>
+    <lastmod>2026-06-13T02:42:20.777Z</lastmod>
   </url>
   <url>
     <loc>https://tlilygren.github.io/website/labs.html</loc>
     <lastmod>2026-06-13T02:42:20.530Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tlilygren.github.io/website/personal.html</loc>
+    <lastmod>2026-06-18T01:52:49.901Z</lastmod>
   </url>
   <url>
     <loc>https://tlilygren.github.io/website/resources.html</loc>

@@ -2,100 +2,44 @@
   {
     "objectID": "blog.html",
     "href": "blog.html",
-    "title": "E155 Blogs",
+    "title": "Blogs",
     "section": "",
-    "text": "Here I outline why I enrolled in E155 and what I hope to gain from my experience.\n\n\n\nHere I reflect on the struggles and successes that defined my first lab in E155."
+    "text": "Blogs"
   },
   {
-    "objectID": "blog.html#reflection-0-goals-for-microps",
-    "href": "blog.html#reflection-0-goals-for-microps",
-    "title": "E155 Blogs",
+    "objectID": "e207.html",
+    "href": "e207.html",
+    "title": "Digital Signal Processing",
     "section": "",
-    "text": "Here I outline why I enrolled in E155 and what I hope to gain from my experience."
-  },
-  {
-    "objectID": "blog.html#reflection-lab-1-fpga-and-mcu-setup-and-testing",
-    "href": "blog.html#reflection-lab-1-fpga-and-mcu-setup-and-testing",
-    "title": "E155 Blogs",
-    "section": "",
-    "text": "Here I reflect on the struggles and successes that defined my first lab in E155."
+    "text": "Digital Signal Processing"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "E155 Portfolio",
+    "title": "Thomas Lilygren",
     "section": "",
-    "text": "Thomas Lilygren is a senior engineering major at Harvey Mudd College with a keen interest in electrical and systems engineering. His career aspirations involve combining his electrical engineering skills with his business internship experience and economics concentration through the development of his own business. In his free time, he enjoys golfing, climbing, and reading philosophy. Join him on his journey as he explores the fascinating and expansive world of microprocessor design!\nThomas Lilygren is a recent graduate from Harvey Mudd College with a keen interest in electrical and computer engineering."
+    "text": "LinkedIn\n  \n  \n    \n     Github\n  \n  \n    \n     Email"
   },
   {
-    "objectID": "index.html#resume",
-    "href": "index.html#resume",
-    "title": "E155 Portfolio",
-    "section": "Resume",
-    "text": "Resume\nDownload PDF"
+    "objectID": "index.html#spring-2026-resume-open-resume-in-new-tab",
+    "href": "index.html#spring-2026-resume-open-resume-in-new-tab",
+    "title": "Thomas Lilygren",
+    "section": "Spring 2026 Resume   Open resume in new tab",
+    "text": "Spring 2026 Resume   Open resume in new tab"
   },
   {
-    "objectID": "posts/first-post.html",
-    "href": "posts/first-post.html",
-    "title": "Goals for MicroPs",
+    "objectID": "posts/lab-2-reflection.html",
+    "href": "posts/lab-2-reflection.html",
+    "title": "Lab 2 Reflection",
     "section": "",
-    "text": "I remember wanting to take MicroPs before I even declared as an engineering major. Not only because the projects from previous cohorts left me in awe, but also because each person I talked to described this as one of their most rewarding experiences. E155 explores so many facets of digital and hardware design and instills coveted skills that apply to all realms of engineering. I hope to use this opportunity to push myself beyond the limits I untinentionally impose on myself and embrace the uncertainty that comes along with the rigorous curriculum. I aspire to learn the techniques, time management, decision-making skills, and debugging practices that industry experts employ on a day-to-day basis. On top of this, I hope to forge new friendships with my peers, bonding over the struggles, challeneges, and long lab hours that we will share throughout the semester."
+    "text": "After completing lab 1, I felt that I had more of a grasp effort, dedication, and time required to complete this lab to the best of my abilities. I set aside of bulk of my time to work on this lab, while still designating enough time for my other work and commitments. I had a hard time grasping the overall flow of how a time-multiplexer works and how it should be implemented, but thanks Xavier’s clear explanation, I felt the Verilog aspect was not as difficult as I initially assumed. I ran into an odd issue where a majority of the inputs displayed the correct values, but experienced an odd behavior at a few specific combinations. I spent hours trying to debug what was seemingly a hardware issue, but thankfully, a superb grutor, Troy, experienced the same issue I had when he worked on this lab. The issue was that the internal pull-up resistor was too weak and caused a latching behavior. By editing the internal pullup resistor in the Device Constraint Editor, my problem was miraculously solved! Additionally, my experience with testbenches typically involved test vectors, so to test all 256 possible switch combinations for the led sum logic, I manually wrote out close to 200 of them before realizing that there must be a better way. I learned how to write testbenches with assert statements and implemented my first successful iterating for loops in my multiplexer testbench. These experiences, while time-consuming in the moment, added more debugging tools that I can rely on in the future.\nI’ve heard many warnings about lab 3, but I feel confident that I can get through it. There were many times this lab and the last one where I felt like giving up and that I was in over my head, but ultimately, I found a way to get through. I am extremely grateful for my peers, Prof. Spencer, Xavier, and the grutors for helping me walk through certain steps and explaining concepts I initially found perplexing. Lab 3 strikes at an inconvenient time for me, since I have a project deliverable and clinic design review presentation due around the same time as my check-in, but I plan to get an early start, plan out my time to satisfy all commitments, and still allocate time for personal health, like exercising. I am proud of myself for these first two labs, and I maintain that feeling throughout the semester."
   },
   {
-    "objectID": "posts/lab-1-reflection.html",
-    "href": "posts/lab-1-reflection.html",
-    "title": "Lab 1 Reflection",
+    "objectID": "e155.html",
+    "href": "e155.html",
+    "title": "Microprocessor-Based Systems: Design and Applications",
     "section": "",
-    "text": "This lab was a good introduction into E155 and the work and dedication that these labs require. I spent the first few days getting my bearings and figuring out how to solder SMT connections and parse through the lab manual in a constructive way. There were many times where I felt like I was in over my head, but working with others and collaboration made this lab very informative and fun. I feel that I can use the Lattice and Questa software comfortably, which should help a lot in subsequent labs. I got closer with my peers and gained confidence that will at least carry me through the next week. I did not do the best job planning out my work, as I spent most of my time on this lab rather than other commitments. Going into Lab 2, I hope to establish a better plan, utilize grutoring hours more, and maintain more balance with my workload and social commitments."
-  },
-  {
-    "objectID": "labs/lab1/e155-lab1.html",
-    "href": "labs/lab1/e155-lab1.html",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
-    "section": "",
-    "text": "In this lab, proper functionality of the E155 development board was confirmed by exercising the on-board 48 MHz high-speed oscillator, controlling three embedded LEDs, and manipulating a seven-segment display connected with GPIO pins. The high-speed oscillator behaves as a clock that was divided with a counter to modify the blinking frequency of one of the on-board LEDs. A switch panel on the development board was used to control the other two embedded LEDs and the imaging on the external seven-segment display."
-  },
-  {
-    "objectID": "labs/lab1/e155-lab1.html#introduction",
-    "href": "labs/lab1/e155-lab1.html#introduction",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
-    "section": "",
-    "text": "In this lab, proper functionality of the E155 development board was confirmed by exercising the on-board 48 MHz high-speed oscillator, controlling three embedded LEDs, and manipulating a seven-segment display connected with GPIO pins. The high-speed oscillator behaves as a clock that was divided with a counter to modify the blinking frequency of one of the on-board LEDs. A switch panel on the development board was used to control the other two embedded LEDs and the imaging on the external seven-segment display."
-  },
-  {
-    "objectID": "labs/lab1/e155-lab1.html#design-and-testing",
-    "href": "labs/lab1/e155-lab1.html#design-and-testing",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
-    "section": "Design and Testing",
-    "text": "Design and Testing\nAs part of confirming the functionality of the FPGA and E155 development board, three embedded LEDs were expected to abide by the logic displayed in the tables below. The S values represent the elements of the 4-input switch on the board.\n\n\n\nS1\nS0\nled[0]\n\n\n\n\n0\n0\n0\n\n\n0\n1\n1\n\n\n1\n0\n1\n\n\n1\n1\n0\n\n\n\n\n\n\nS3\nS2\nled[1]\n\n\n\n\n0\n0\n0\n\n\n0\n1\n0\n\n\n1\n0\n0\n\n\n1\n1\n1\n\n\n\n\n\n\nled[2]\n\n\n\n\nBlink at 2.4 Hz\n\n\n\nWith an on-board switch panel linked to the UPduino 3.1 FPGA board, a SystemVerilog file implemented the conditional logic to illuminate two of the three LEDs. While the third LED operated independent of switch logic, its control was established using the built-in 48 MHz high-speed oscillator (HSOSC) from the iCE40 UltraPlus primitive library. A 24-bit counter was used to divide the 48 MHz clock cycle down to the desired 2.4 Hz. Further board GPIO testing was conducted by powering an HDSP-511A seven-segment display to uniquely display each hexadecimal digit (0-F). Segments were illuminated depending on the same switch element that governed the first two embedded LEDs, meaning the segment outputs relied solely on combinational logic. The hexadecimal digits displayed mirrored the binary combination that the switches displayed. To ensure uniform brightness, regardless of the number of segments powered, each pin on the display was wired in parallel with 1 kOhm resistors to limit current draw, as calculated in Figure 2.\nDesign implementation was executed through two separate modules in Lattice Raidant. The combinational logic governing the seven-segment display was written in an isolated module that was later called upon in the top-level module. The top-level module implemented the 48 MHz HSOSC, the clock divider, the conditional LED logic, and called upon the seven segment display module. The pull-up resistor in the development board means active components have a logical low and those inactive have a logical high.\nBefore implementation, the hardware and modules each received through testing. The 3.3 V and 5 V regulators on the board were confirmed to be operational using an external power supply and a multimeter before installing the FPGA and MCU. Testbenches were established for each module to confirm satisfactory waveforms and logic within Questa simulations. The 2.4 Hz oscillating LED was read on an oscilloscope to confirm the clock had been established and properly divded. Current draw calculations for the on-board LEDs and seven-segment display, as well as the clock divider calculations are provided in Figures 1, 2, and 3, respectively.\n\nCalculations\nThe three LEDs on the development board and external seven-segment display are powered with 3.3 V from the FPGA. Each LED requires a current-limiting resistor to preserve the diode while maintaining sufficient brightness. By incorporating the source voltage, voltage drop across each diode, and the desired current, the proper resistor values were obtained with Ohm’s Law (V = IR).\nThe LEDs illuminated on the development board during this lab were blue, indicating a forward voltage drop around 2.6 V. These diodes are high-efficiency, meaning they can glow at currents less than 1 mA. The deep red diodes on each segment of the seven-segment display exhibit a forward voltage drop of 2 V. Sufficient and safe illuminesence for those external LEDs can be obtained with a current ranging from 1-10 mA.\n\n\n\nFigure 1: The calculations to limit current draw for the on-board LEDs\n\n\n\n\n\nFigure 2: The calculations to limit current draw for the seven-segment display\n\n\nThe 48 MHz clock was divided with a counter. A counter of length n divides the clock at a rate of \\(2^n\\). Since 48 MHz cannot reach 2.4 Hz simply by dividing by some \\(2^n\\), the counter can be compared to and reset when it reaches a specific decimal value. The decimal value is found to be 5,000,000 as that divides the 48 MHz into an even square signal with a 2.4 Hz frequency."
-  },
-  {
-    "objectID": "labs/lab1/e155-lab1.html#technical-documentation",
-    "href": "labs/lab1/e155-lab1.html#technical-documentation",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
-    "section": "Technical Documentation",
-    "text": "Technical Documentation\n\nBlock Diagrams\nThe source code for the project can be found at Github Repository.\nThe following block diagrams in Figures 3 and 4 show the overall flow, inputs, and outputs within each module of the lab. The top module includes the HSOSC component, the counter, combinational logic for the first two LEDs, and the seven segment display module.\n\n\n\nFigure 3: The block diagram describing the inputs, outputs, and flow within the top module\n\n\nFigure 4 shows the inputs, outputs, and flow of the seven segment display module. This module is purely combinational with only one input and one output.\n\n\n\nFigure 4: The block diagram describing the inputs, outputs, and flow within the sevensegment module\n\n\n\n\nSchematic\nFigure 5 displays the electrical schematic for the three on-board LEDs using the correct resistor values established in Figure 2.\n\n\n\nFigure 5: The electrical schematic for the on-board LEDs to ensure proper illuminesence without extreme current draw\n\n\nFigure 6 presents the electrical schematic for the seven-segment display with the proper resistor values determined in Figure 2. The GPIO pins each segment is connected to can act as a power source or a ground.\n\n\n\nFigure 6: The electrical schematic for the external seven-segment display to ensure proper illuminesence without extreme current draw"
-  },
-  {
-    "objectID": "labs/lab1/e155-lab1.html#results-and-discussion",
-    "href": "labs/lab1/e155-lab1.html#results-and-discussion",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
-    "section": "Results and Discussion",
-    "text": "Results and Discussion\nFigure 7 shows the waveforms from the top module. The first line shows the clock cycles, the second highlights the reset state, and the third describes the switch inputs. Notice the switch inputs contain all possible hexadecimal digits that should be displayed on the segments. Since led[2] oscillates at the same frequency regardless of the input values, that component was confirmed separately with the oscilloscope image in Figure 9.\n\n\n\nFigure 7: A screenshot of the QuestaSim simulation demonstrating that the top module exhibits the correct logic for led[1], led[0], and all segment outputs.\n\n\nFigure 8 shows the waveforms generated from the seven-segment module simulation. These waveform simulations also appear in the top module simulation, but it is best to confirm that both modules work properly to aid in debugging combinational logic issues or implementation issues. Notice all segments demonstrate the desired behavior outlined in the test vectors.\n\n\n\nFigure 8: The QuestaSim simulation waveforms showcasing that each segment of the seven segment display produces the correct logic for all possible inputs.\n\n\nFigure 9 outlines the periodic square wave influenced by the oscillating LED. Using built-in functions on the oscilloscope, the frequency is measured to be 2.4 Hz, as desired.\n\n\n\nFigure 9: This oscilloscope image reveals led[2] oscillating at the desired 2.4 Hz, indicating proper division of the high-speed oscillator."
-  },
-  {
-    "objectID": "labs/lab1/e155-lab1.html#conclusion",
-    "href": "labs/lab1/e155-lab1.html#conclusion",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
-    "section": "Conclusion",
-    "text": "Conclusion\nThe simulations and hardware implementations show that this lab was successful in all regards. The LEDs activated and behaved in their expected manner and the seven-segment display showed all hexadecimal digits when expected. The lab took roughly 25 hours to complete."
-  },
-  {
-    "objectID": "labs/lab1/e155-lab1.html#ai-prototype-summary",
-    "href": "labs/lab1/e155-lab1.html#ai-prototype-summary",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
-    "section": "AI Prototype Summary",
-    "text": "AI Prototype Summary\nThe power of AI continues to grow by the day and may be a useful tool when programming hardware such as the code developed in this Lab. To test the efficacy and reliability of its capabilities, the following prompt was entered into ChatGPT and synthesized in the Radiant software: “Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg.”\n\n\n\nFigure 10: Initial ChatGPT request with the prompt above\n\n\nAfter the initial request, ChatGPT’s code yielded a 35901063 error, meaning that it did not instantiate the high-frequency oscillator.\n\n\n\nFigure 11: ChatGPT rewrite after listing the code above.\n\n\nAfter the first revision a new error code, 1025000, appeared. This means that the parameter “CLKHF_DIV” was not defined in the module.\n\n\n\nFigure 12: ChatGPT second rewrite\n\n\nA new error (35811103) appeared. Lattice stated that it could not resolve blackbox module “SB_HFOSC” in the device.\nA few more subsequent attempts were prompted, but the design continuously could not synthesize. According to this trial, ChatGPT still has a long way to go before it can reliably program hardware."
+    "text": "Microprocessor-Based Systems: Design and Applications"
   },
   {
     "objectID": "labs/lab2/e155-lab2.html",
@@ -154,11 +98,74 @@
     "text": "AI Prototype\nChatGPT’s hardware design for the first lab failed after multiple prompts and updates with Lattice Radiant’s error codes. Here, its capabilities are tested again with the following prompt: “Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits.”\n\n\n\nFigure 13: Initial prompt to ChatGPT\n\n\nUnlike last, ChatGPT developed hardware code that synthesized in Lattice Radiant on the first try without any reference code from lab 1. It appears that ChatGPT’s ability to program hardware is improving. Still, its capabilities will be tested when it has a base script to refer to with the following prompt: “Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits. Use the seven segment decoder and oscillator provided in the attached files.”\n\n\n\nFigure 14: ChatGPT prompt with lab 1 reference code\n\n\nAfter providing reference code from lab 1, ChatGPT ran into its first error in that it called a seven-segment display module that it did not create. Once prompted to create the seven-segment display module, it copied the code in the module it had been provided and Lattice Synthesized the project without issue.\nIt is clear that ChatGPT is gaining traction with hardware design and programming whether receiving help with working code or not. Instead of using the ternary operator for a multiplexer, ChatGPT opts for a case statement, which behaves the same, but is less elegant. The AI also uses different instances of variables when calling the seven-segment display module. For example, instead of using “sevensegment display(s, seg),” it uses “sevensegment display(.s(current_intput), .seg(seg)).” The code appears to behave the same, but I prefer my implementation over ChatGPT’s."
   },
   {
-    "objectID": "posts/lab-2-reflection.html",
-    "href": "posts/lab-2-reflection.html",
-    "title": "Lab 2 Reflection",
+    "objectID": "labs/lab1/e155-lab1.html",
+    "href": "labs/lab1/e155-lab1.html",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
     "section": "",
-    "text": "After completing lab 1, I felt that I had more of a grasp effort, dedication, and time required to complete this lab to the best of my abilities. I set aside of bulk of my time to work on this lab, while still designating enough time for my other work and commitments. I had a hard time grasping the overall flow of how a time-multiplexer works and how it should be implemented, but thanks Xavier’s clear explanation, I felt the Verilog aspect was not as difficult as I initially assumed. I ran into an odd issue where a majority of the inputs displayed the correct values, but experienced an odd behavior at a few specific combinations. I spent hours trying to debug what was seemingly a hardware issue, but thankfully, a superb grutor, Troy, experienced the same issue I had when he worked on this lab. The issue was that the internal pull-up resistor was too weak and caused a latching behavior. By editing the internal pullup resistor in the Device Constraint Editor, my problem was miraculously solved! Additionally, my experience with testbenches typically involved test vectors, so to test all 256 possible switch combinations for the led sum logic, I manually wrote out close to 200 of them before realizing that there must be a better way. I learned how to write testbenches with assert statements and implemented my first successful iterating for loops in my multiplexer testbench. These experiences, while time-consuming in the moment, added more debugging tools that I can rely on in the future.\nI’ve heard many warnings about lab 3, but I feel confident that I can get through it. There were many times this lab and the last one where I felt like giving up and that I was in over my head, but ultimately, I found a way to get through. I am extremely grateful for my peers, Prof. Spencer, Xavier, and the grutors for helping me walk through certain steps and explaining concepts I initially found perplexing. Lab 3 strikes at an inconvenient time for me, since I have a project deliverable and clinic design review presentation due around the same time as my check-in, but I plan to get an early start, plan out my time to satisfy all commitments, and still allocate time for personal health, like exercising. I am proud of myself for these first two labs, and I maintain that feeling throughout the semester."
+    "text": "In this lab, proper functionality of the E155 development board was confirmed by exercising the on-board 48 MHz high-speed oscillator, controlling three embedded LEDs, and manipulating a seven-segment display connected with GPIO pins. The high-speed oscillator behaves as a clock that was divided with a counter to modify the blinking frequency of one of the on-board LEDs. A switch panel on the development board was used to control the other two embedded LEDs and the imaging on the external seven-segment display."
+  },
+  {
+    "objectID": "labs/lab1/e155-lab1.html#introduction",
+    "href": "labs/lab1/e155-lab1.html#introduction",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "",
+    "text": "In this lab, proper functionality of the E155 development board was confirmed by exercising the on-board 48 MHz high-speed oscillator, controlling three embedded LEDs, and manipulating a seven-segment display connected with GPIO pins. The high-speed oscillator behaves as a clock that was divided with a counter to modify the blinking frequency of one of the on-board LEDs. A switch panel on the development board was used to control the other two embedded LEDs and the imaging on the external seven-segment display."
+  },
+  {
+    "objectID": "labs/lab1/e155-lab1.html#design-and-testing",
+    "href": "labs/lab1/e155-lab1.html#design-and-testing",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "Design and Testing",
+    "text": "Design and Testing\nAs part of confirming the functionality of the FPGA and E155 development board, three embedded LEDs were expected to abide by the logic displayed in the tables below. The S values represent the elements of the 4-input switch on the board.\n\n\n\nS1\nS0\nled[0]\n\n\n\n\n0\n0\n0\n\n\n0\n1\n1\n\n\n1\n0\n1\n\n\n1\n1\n0\n\n\n\n\n\n\nS3\nS2\nled[1]\n\n\n\n\n0\n0\n0\n\n\n0\n1\n0\n\n\n1\n0\n0\n\n\n1\n1\n1\n\n\n\n\n\n\nled[2]\n\n\n\n\nBlink at 2.4 Hz\n\n\n\nWith an on-board switch panel linked to the UPduino 3.1 FPGA board, a SystemVerilog file implemented the conditional logic to illuminate two of the three LEDs. While the third LED operated independent of switch logic, its control was established using the built-in 48 MHz high-speed oscillator (HSOSC) from the iCE40 UltraPlus primitive library. A 24-bit counter was used to divide the 48 MHz clock cycle down to the desired 2.4 Hz. Further board GPIO testing was conducted by powering an HDSP-511A seven-segment display to uniquely display each hexadecimal digit (0-F). Segments were illuminated depending on the same switch element that governed the first two embedded LEDs, meaning the segment outputs relied solely on combinational logic. The hexadecimal digits displayed mirrored the binary combination that the switches displayed. To ensure uniform brightness, regardless of the number of segments powered, each pin on the display was wired in parallel with 1 kOhm resistors to limit current draw, as calculated in Figure 2.\nDesign implementation was executed through two separate modules in Lattice Raidant. The combinational logic governing the seven-segment display was written in an isolated module that was later called upon in the top-level module. The top-level module implemented the 48 MHz HSOSC, the clock divider, the conditional LED logic, and called upon the seven segment display module. The pull-up resistor in the development board means active components have a logical low and those inactive have a logical high.\nBefore implementation, the hardware and modules each received through testing. The 3.3 V and 5 V regulators on the board were confirmed to be operational using an external power supply and a multimeter before installing the FPGA and MCU. Testbenches were established for each module to confirm satisfactory waveforms and logic within Questa simulations. The 2.4 Hz oscillating LED was read on an oscilloscope to confirm the clock had been established and properly divded. Current draw calculations for the on-board LEDs and seven-segment display, as well as the clock divider calculations are provided in Figures 1, 2, and 3, respectively.\n\nCalculations\nThe three LEDs on the development board and external seven-segment display are powered with 3.3 V from the FPGA. Each LED requires a current-limiting resistor to preserve the diode while maintaining sufficient brightness. By incorporating the source voltage, voltage drop across each diode, and the desired current, the proper resistor values were obtained with Ohm’s Law (V = IR).\nThe LEDs illuminated on the development board during this lab were blue, indicating a forward voltage drop around 2.6 V. These diodes are high-efficiency, meaning they can glow at currents less than 1 mA. The deep red diodes on each segment of the seven-segment display exhibit a forward voltage drop of 2 V. Sufficient and safe illuminesence for those external LEDs can be obtained with a current ranging from 1-10 mA.\n\n\n\nFigure 1: The calculations to limit current draw for the on-board LEDs\n\n\n\n\n\nFigure 2: The calculations to limit current draw for the seven-segment display\n\n\nThe 48 MHz clock was divided with a counter. A counter of length n divides the clock at a rate of \\(2^n\\). Since 48 MHz cannot reach 2.4 Hz simply by dividing by some \\(2^n\\), the counter can be compared to and reset when it reaches a specific decimal value. The decimal value is found to be 5,000,000 as that divides the 48 MHz into an even square signal with a 2.4 Hz frequency."
+  },
+  {
+    "objectID": "labs/lab1/e155-lab1.html#technical-documentation",
+    "href": "labs/lab1/e155-lab1.html#technical-documentation",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\n\nBlock Diagrams\nThe source code for the project can be found at Github Repository.\nThe following block diagrams in Figures 3 and 4 show the overall flow, inputs, and outputs within each module of the lab. The top module includes the HSOSC component, the counter, combinational logic for the first two LEDs, and the seven segment display module.\n\n\n\nFigure 3: The block diagram describing the inputs, outputs, and flow within the top module\n\n\nFigure 4 shows the inputs, outputs, and flow of the seven segment display module. This module is purely combinational with only one input and one output.\n\n\n\nFigure 4: The block diagram describing the inputs, outputs, and flow within the sevensegment module\n\n\n\n\nSchematic\nFigure 5 displays the electrical schematic for the three on-board LEDs using the correct resistor values established in Figure 2.\n\n\n\nFigure 5: The electrical schematic for the on-board LEDs to ensure proper illuminesence without extreme current draw\n\n\nFigure 6 presents the electrical schematic for the seven-segment display with the proper resistor values determined in Figure 2. The GPIO pins each segment is connected to can act as a power source or a ground.\n\n\n\nFigure 6: The electrical schematic for the external seven-segment display to ensure proper illuminesence without extreme current draw"
+  },
+  {
+    "objectID": "labs/lab1/e155-lab1.html#results-and-discussion",
+    "href": "labs/lab1/e155-lab1.html#results-and-discussion",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nFigure 7 shows the waveforms from the top module. The first line shows the clock cycles, the second highlights the reset state, and the third describes the switch inputs. Notice the switch inputs contain all possible hexadecimal digits that should be displayed on the segments. Since led[2] oscillates at the same frequency regardless of the input values, that component was confirmed separately with the oscilloscope image in Figure 9.\n\n\n\nFigure 7: A screenshot of the QuestaSim simulation demonstrating that the top module exhibits the correct logic for led[1], led[0], and all segment outputs.\n\n\nFigure 8 shows the waveforms generated from the seven-segment module simulation. These waveform simulations also appear in the top module simulation, but it is best to confirm that both modules work properly to aid in debugging combinational logic issues or implementation issues. Notice all segments demonstrate the desired behavior outlined in the test vectors.\n\n\n\nFigure 8: The QuestaSim simulation waveforms showcasing that each segment of the seven segment display produces the correct logic for all possible inputs.\n\n\nFigure 9 outlines the periodic square wave influenced by the oscillating LED. Using built-in functions on the oscilloscope, the frequency is measured to be 2.4 Hz, as desired.\n\n\n\nFigure 9: This oscilloscope image reveals led[2] oscillating at the desired 2.4 Hz, indicating proper division of the high-speed oscillator."
+  },
+  {
+    "objectID": "labs/lab1/e155-lab1.html#conclusion",
+    "href": "labs/lab1/e155-lab1.html#conclusion",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe simulations and hardware implementations show that this lab was successful in all regards. The LEDs activated and behaved in their expected manner and the seven-segment display showed all hexadecimal digits when expected. The lab took roughly 25 hours to complete."
+  },
+  {
+    "objectID": "labs/lab1/e155-lab1.html#ai-prototype-summary",
+    "href": "labs/lab1/e155-lab1.html#ai-prototype-summary",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\nThe power of AI continues to grow by the day and may be a useful tool when programming hardware such as the code developed in this Lab. To test the efficacy and reliability of its capabilities, the following prompt was entered into ChatGPT and synthesized in the Radiant software: “Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg.”\n\n\n\nFigure 10: Initial ChatGPT request with the prompt above\n\n\nAfter the initial request, ChatGPT’s code yielded a 35901063 error, meaning that it did not instantiate the high-frequency oscillator.\n\n\n\nFigure 11: ChatGPT rewrite after listing the code above.\n\n\nAfter the first revision a new error code, 1025000, appeared. This means that the parameter “CLKHF_DIV” was not defined in the module.\n\n\n\nFigure 12: ChatGPT second rewrite\n\n\nA new error (35811103) appeared. Lattice stated that it could not resolve blackbox module “SB_HFOSC” in the device.\nA few more subsequent attempts were prompted, but the design continuously could not synthesize. According to this trial, ChatGPT still has a long way to go before it can reliably program hardware."
+  },
+  {
+    "objectID": "e151.html",
+    "href": "e151.html",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Analog Circuit Design"
+  },
+  {
+    "objectID": "posts/lab-1-reflection.html",
+    "href": "posts/lab-1-reflection.html",
+    "title": "Lab 1 Reflection",
+    "section": "",
+    "text": "This lab was a good introduction into E155 and the work and dedication that these labs require. I spent the first few days getting my bearings and figuring out how to solder SMT connections and parse through the lab manual in a constructive way. There were many times where I felt like I was in over my head, but working with others and collaboration made this lab very informative and fun. I feel that I can use the Lattice and Questa software comfortably, which should help a lot in subsequent labs. I got closer with my peers and gained confidence that will at least carry me through the next week. I did not do the best job planning out my work, as I spent most of my time on this lab rather than other commitments. Going into Lab 2, I hope to establish a better plan, utilize grutoring hours more, and maintain more balance with my workload and social commitments."
+  },
+  {
+    "objectID": "posts/first-post.html",
+    "href": "posts/first-post.html",
+    "title": "Goals for MicroPs",
+    "section": "",
+    "text": "I remember wanting to take MicroPs before I even declared as an engineering major. Not only because the projects from previous cohorts left me in awe, but also because each person I talked to described this as one of their most rewarding experiences. E155 explores so many facets of digital and hardware design and instills coveted skills that apply to all realms of engineering. I hope to use this opportunity to push myself beyond the limits I untinentionally impose on myself and embrace the uncertainty that comes along with the rigorous curriculum. I aspire to learn the techniques, time management, decision-making skills, and debugging practices that industry experts employ on a day-to-day basis. On top of this, I hope to forge new friendships with my peers, bonding over the struggles, challeneges, and long lab hours that we will share throughout the semester."
   },
   {
     "objectID": "labs.html",
@@ -215,6 +222,13 @@
     "title": "E155 Labs",
     "section": "",
     "text": "Lab 7 description"
+  },
+  {
+    "objectID": "personal.html",
+    "href": "personal.html",
+    "title": "Personal Projects",
+    "section": "",
+    "text": "Personal Projects"
   },
   {
     "objectID": "resources.html",
