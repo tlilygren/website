@@ -276,13 +276,13 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>With an on-board switch panel linked to the UPduino 3.1 FPGA board, a SystemVerilog file implemented the conditional logic to illuminate two of the three LEDs. While the third LED operated independent of switch logic, its control was established using the built-in 48 MHz high-speed oscillator (HSOSC) from the iCE40 UltraPlus primitive library. A 24-bit counter was used to divide the 48 MHz clock cycle down to the desired 2.4 Hz. Further board GPIO testing was conducted by powering an HDSP-511A seven-segment display to uniquely display each hexadecimal digit (0-F). Segments were illuminated depending on the same switch element that governed the first two embedded LEDs, meaning the segment outputs relied solely on combinational logic. The hexadecimal digits displayed mirrored the binary combination that the switches displayed. To ensure uniform brightness, regardless of the number of segments powered, each pin on the display was wired in parallel with 1 kOhm resistors to limit current draw, as calculated in Figure 2.<br>
-Design implementation was executed through two separate modules in Lattice Raidant. The combinational logic governing the seven-segment display was written in an isolated module that was later called upon in the top-level module. The top-level module implemented the 48 MHz HSOSC, the clock divider, the conditional LED logic, and called upon the seven segment display module. The pull-up resistor in the development board means active components have a logical low and those inactive have a logical high.<br>
-Before implementation, the hardware and modules each received through testing. The 3.3 V and 5 V regulators on the board were confirmed to be operational using an external power supply and a multimeter before installing the FPGA and MCU. Testbenches were established for each module to confirm satisfactory waveforms and logic within Questa simulations. The 2.4 Hz oscillating LED was read on an oscilloscope to confirm the clock had been established and properly divded. Current draw calculations for the on-board LEDs and seven-segment display, as well as the clock divider calculations are provided in Figures 1, 2, and 3, respectively.</p>
+<p>With an on-board switch panel linked to the UPduino 3.1 FPGA board, a SystemVerilog file implemented the conditional logic to illuminate two of the three LEDs. While the third LED operated independent of switch logic, its control was established using the built-in 48 MHz high-speed oscillator (HSOSC) from the iCE40 UltraPlus primitive library. A 24-bit counter was used to divide the 48 MHz clock cycle down to the desired 2.4 Hz. <br> Further board GPIO testing was conducted by powering an HDSP-511A seven-segment display to uniquely display each hexadecimal digit (0-F). Segments were illuminated depending on the same switch element that governed the first two embedded LEDs, meaning the segment outputs relied solely on combinational logic. The hexadecimal digits displayed mirrored the binary combination that the switches displayed. To ensure uniform brightness, regardless of the number of segments powered, each pin on the display was wired in parallel with 1 kOhm resistors to limit current draw, as calculated in Figure 2.<br>
+<br> Design implementation was executed through two separate modules in Lattice Raidant. The combinational logic governing the seven-segment display was written in an isolated module that was later called upon in the top-level module. The top-level module implemented the 48 MHz HSOSC, the clock divider, the conditional LED logic, and called upon the seven segment display module. The pull-up resistor in the development board means active components have a logical low and those inactive have a logical high.<br>
+<br> Before implementation, the hardware and modules each received through testing. The 3.3 V and 5 V regulators on the board were confirmed to be operational using an external power supply and a multimeter before installing the FPGA and MCU. Testbenches were established for each module to confirm satisfactory waveforms and logic within Questa simulations. The 2.4 Hz oscillating LED was read on an oscilloscope to confirm the clock had been established and properly divded. Current draw calculations for the on-board LEDs and seven-segment display, as well as the clock divider calculations are provided in Figures 1, 2, and 3, respectively.</p>
 <section id="calculations" class="level3">
 <h3 class="anchored" data-anchor-id="calculations">Calculations</h3>
 <p>The three LEDs on the development board and external seven-segment display are powered with 3.3 V from the FPGA. Each LED requires a current-limiting resistor to preserve the diode while maintaining sufficient brightness. By incorporating the source voltage, voltage drop across each diode, and the desired current, the proper resistor values were obtained with Ohm’s Law (V = IR).<br>
-The LEDs illuminated on the development board during this lab were blue, indicating a forward voltage drop around 2.6 V. These diodes are high-efficiency, meaning they can glow at currents less than 1 mA. The deep red diodes on each segment of the seven-segment display exhibit a forward voltage drop of 2 V. Sufficient and safe illuminesence for those external LEDs can be obtained with a current ranging from 1-10 mA.</p>
+<br> The LEDs illuminated on the development board during this lab were blue, indicating a forward voltage drop around 2.6 V. These diodes are high-efficiency, meaning they can glow at currents less than 1 mA. The deep red diodes on each segment of the seven-segment display exhibit a forward voltage drop of 2 V. Sufficient and safe illuminesence for those external LEDs can be obtained with a current ranging from 1-10 mA.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/blue_leds_calcs_new.jpg" class="img-fluid figure-img"></p>
@@ -363,32 +363,21 @@ The LEDs illuminated on the development board during this lab were blue, indicat
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>The simulations and hardware implementations show that this lab was successful in all regards. The LEDs activated and behaved in their expected manner and the seven-segment display showed all hexadecimal digits when expected. The lab took roughly 25 hours to complete.</p>
-</section>
-<section id="ai-prototype-summary" class="level2">
-<h2 class="anchored" data-anchor-id="ai-prototype-summary">AI Prototype Summary</h2>
-<p>The power of AI continues to grow by the day and may be a useful tool when programming hardware such as the code developed in this Lab. To test the efficacy and reliability of its capabilities, the following prompt was entered into ChatGPT and synthesized in the Radiant software: “Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg.”</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/ai1.jpg" class="img-fluid figure-img"></p>
-<figcaption>Figure 10: Initial ChatGPT request with the prompt above</figcaption>
-</figure>
-</div>
-<p>After the initial request, ChatGPT’s code yielded a 35901063 error, meaning that it did not instantiate the high-frequency oscillator.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/ai2.jpg" class="img-fluid figure-img"></p>
-<figcaption>Figure 11: ChatGPT rewrite after listing the code above.</figcaption>
-</figure>
-</div>
-<p>After the first revision a new error code, 1025000, appeared. This means that the parameter “CLKHF_DIV” was not defined in the module.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/ai3.jpg" class="img-fluid figure-img"></p>
-<figcaption>Figure 12: ChatGPT second rewrite</figcaption>
-</figure>
-</div>
-<p>A new error (35811103) appeared. Lattice stated that it could not resolve blackbox module “SB_HFOSC” in the device.<br>
-A few more subsequent attempts were prompted, but the design continuously could not synthesize. According to this trial, ChatGPT still has a long way to go before it can reliably program hardware.</p>
+<!-- ## AI Prototype Summary
+The power of AI continues to grow by the day and may be a useful tool when programming hardware such as the code developed in this Lab. To test the efficacy and reliability of its capabilities, the following prompt was entered into ChatGPT and synthesized in the Radiant software: "Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg."
+
+![Figure 10: Initial ChatGPT request with the prompt above](images/ai1.jpg)
+
+After the initial request, ChatGPT's code yielded a 35901063 error, meaning that it did not instantiate the high-frequency oscillator.
+
+![Figure 11: ChatGPT rewrite after listing the code above.](images/ai2.jpg)
+
+After the first revision a new error code, 1025000, appeared. This means that the parameter "CLKHF_DIV" was not defined in the module.
+
+![Figure 12: ChatGPT second rewrite](images/ai3.jpg)
+
+A new error (35811103) appeared. Lattice stated that it could not resolve blackbox module "SB_HFOSC" in the device.  
+A few more subsequent attempts were prompted, but the design continuously could not synthesize. According to this trial, ChatGPT still has a long way to go before it can reliably program hardware. -->
 
 
 </section>
