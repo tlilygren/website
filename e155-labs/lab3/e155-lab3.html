@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Thomas Lilygren">
+<meta name="dcterms.date" content="2025-09-23">
+<meta name="description" content="Lab 3 requires successfully programming a 4x4 keypad to produce hexadecimal digits on a dual seven-segment display.">
 
-<title>labs – Thomas Lilygren</title>
+<title>Lab 3: Keypad Scanner – Thomas Lilygren</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,23 +26,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Thomas Lilygren</span>
     </a>
   </div>
@@ -89,27 +92,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./e155.html"> 
+    <a class="nav-link" href="../../e155.html"> 
 <span class="menu-text">Microprocessor Design</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./e151.html"> 
+    <a class="nav-link" href="../../e151.html"> 
 <span class="menu-text">Analog Circuit Design</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./e207.html"> 
+    <a class="nav-link" href="../../e207.html"> 
 <span class="menu-text">Digital Signal Processing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./class.html"> 
+    <a class="nav-link" href="../../class.html"> 
 <span class="menu-text">Class Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./personal.html"> 
+    <a class="nav-link" href="../../personal.html"> 
 <span class="menu-text">Personal Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../../blog.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
 </ul>
@@ -125,43 +128,116 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 3: Keypad Scanner</h1>
+</div>
+
+<div>
+  <div class="description">
+    Lab 3 requires successfully programming a 4x4 keypad to produce hexadecimal digits on a dual seven-segment display.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Thomas Lilygren </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 23, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-<section id="e155-labs" class="level1">
-<h1>E155 Labs</h1>
-<section id="lab-1-fpga-and-mcu-testing-and-setup" class="level2">
-<h2 class="anchored" data-anchor-id="lab-1-fpga-and-mcu-testing-and-setup"><a href="labs/lab1/e155-lab1.qmd">Lab 1: FPGA and MCU Testing and Setup</a></h2>
-<p>Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog.</p>
-</section>
-<section id="lab-2-multiplexed-7-segment-display" class="level2">
-<h2 class="anchored" data-anchor-id="lab-2-multiplexed-7-segment-display"><a href="labs/lab2/e155-lab2.qmd">Lab 2: Multiplexed 7-Segment Display</a></h2>
-<p>This lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits</p>
-</section>
-<section id="lab-3-keypad-scanner" class="level2">
-<h2 class="anchored" data-anchor-id="lab-3-keypad-scanner"><a href="labs/lab3/e155-lab3.qmd">Lab 3: Keypad Scanner</a></h2>
-<p>Lab 3 description</p>
-</section>
-<section id="lab-4-digital-audio" class="level2">
-<h2 class="anchored" data-anchor-id="lab-4-digital-audio"><a href="labs/lab4/e155-lab4.qmd">Lab 4: Digital Audio</a></h2>
-<p>Lab 4 description</p>
-</section>
-<section id="lab-5-interrupts" class="level2">
-<h2 class="anchored" data-anchor-id="lab-5-interrupts"><a href="labs/lab5/e155-lab5.qmd">Lab 5: Interrupts</a></h2>
-<p>Lab 5 description</p>
-</section>
-<section id="lab-6-the-internet-of-things-and-serial-peripheral-interface" class="level2">
-<h2 class="anchored" data-anchor-id="lab-6-the-internet-of-things-and-serial-peripheral-interface"><a href="labs/lab6/e155-lab6.qmd">Lab 6: The Internet of Things and Serial Peripheral Interface</a></h2>
-<p>Lab 6 description</p>
-</section>
-<section id="lab-7-the-advanced-encryption-standard" class="level2">
-<h2 class="anchored" data-anchor-id="lab-7-the-advanced-encryption-standard"><a href="labs/lab7/e155-lab7.qmd">Lab 7: The Advanced Encryption Standard</a></h2>
-<p>Lab 7 description</p>
+</header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In Lab 3, a 4x4 keypad scanner is encoded in SystemVerilog to showcase two hexadecimal digits on a dual seven-segment display. The lab focuses on addressing issues like metastability from asynchronous inputs and button debouncing, while building on concepts from lab 2 like time-multiplexing and driving like outputs with the same GPIO pins.</p>
 </section>
+<section id="design-and-testing" class="level2">
+<h2 class="anchored" data-anchor-id="design-and-testing">Design and Testing</h2>
+<p>A comprehensive finite state machine serves as the backbone for this lab, and it must be thoroughly understood before implementing any hardware code. This 21-state finite state machine initializes row, column, and enable values, conducts a scanning process to find the key pressed, calls on a separate debouncer finite state machine, controls the display logic, and only one value is recorded regardless of how long a key is pressed. A detailed state transition diagram for this main finite state machine can be found in Figure 1.</p>
+<p>The keypad scanner itself has no inherent power or ground pins. To bypass this initial hurdle, all rows are initially driven low (powered) while all columns set high with 10 kOhm pull-up resistors embedded in this iCE40UP 5K FPGA board. After this initialization step, the main finite state machine begins the scanning process, powering one row at a time and reading the column behavior. When a button is pressed, it shorts the corresponding row and column that it intersects. If one column remains low for a given powered row, the FSM skips over the rest of the scanning states and enters a debouncing state designated for that particular row. Otherwise, the scanning process continues, setting the next row low and checking the same column condition.</p>
+<p>After the scanning portion of the main FSM, it branches into four different paths, one for each of the possible rows that could be shorting one of the columns. These debouncing states activate a debounce enable variable and call on a separate module that implements a counter to delay the key registration process by roughly 20 ms. Buttons are subject to a bouncing phenomenon in which multiple button presses may register even though the user only physically presses it once. Without accounting for this behavior, the same value would appear multiple times on the dual seven-segment display, even though that is not what the user intended. This 20 ms delay is sufficient to eliminate debouncing without prompting the user to hold the button for too long.</p>
+<p>After passing through the debouncing states, the FSM moves on to the next states that check whether or not the button is still pressed. The key must be held throughout the debouncing stage to formally register the key value to be displayed. This state toggles a display enable variable that allows a formalized key value, generated from the unique row and column combination, to pass through a time-multiplexer and appear on the dual seven-segment display. The multiplexer ensures that the most recent digit appears on the right side of the display and previous digit to appear on the left.</p>
+<p>Once the display behavior is settled, the FSM moves to the next states that check whether the key is still pressed. If the key is still pressed, it must remain in that state before returning to the initial state to ensure that multiple instances of that key do not keep cycling through the FSM and that any other auxilary button presses do not interfere with the value that should be displayed.</p>
+<p>The clock signal driving the entire process is derived from the internal 24 MHz High-Speed Oscillator (HSOSC). A counter was implemented to divide the clock to 120 Hz. This new clock frequency is fast enough such that both displays</p>
+<section id="finite-state-machines" class="level3">
+<h3 class="anchored" data-anchor-id="finite-state-machines">Finite State Machines</h3>
+<p>The main finite state machine reads the columns and determines whether that it is a valid input, meaning that only one button is pressed at a time. States 1 through 4 implement a scanner that drives one of the four rows low at a time. These scanning states split the FSM into four branches, one for each of the four possible row bits that cause any of the columns to short. The FSM controls a debounce enable variable that controls when the debounce module is active, a display enable variable the directs when the key value can be displayed, and an internal “pressed” variable that remains when there is a valid input. It also receives a “time passed” variable from the debounce module that indicates whether or not the debounce delay has passed.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab3_tl_std.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: Main State Transition Diagram</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="calculations" class="level2">
+<h2 class="anchored" data-anchor-id="calculations">Calculations</h2>
+<p>Like the last lab, the power for the dual seven-segment display is controlled with a 2N3906 PNP transistor that behaves as a switch. To preserve the FPGA’s GPIO pin functionality, the current sunk by the PNP base pin should be less than 8 mA. With a known 3.3 V emitter voltage, 0.7 V emitter to base voltage drop, and a desired current gain of 10, Ohms Law can be applied to determine the ideal resistor value.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab3_tl_pnp_calc.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 2: PNP Base Resistor Calculations</figcaption>
+</figure>
+</div>
+<p>Each segment in the dual display has a forward voltage of 1.8 V. The supplied voltage from the FPGA is 3.3 V and the saturated emitter to collector voltage drop from the transistor is 0.25 V. A current between 1 mA to 8 mA is sufficient to illuminate the LEDs while still protecting the GPIO pins. Using this knowledge, a current-limiting resistor can be calculated with Ohm’s Law, as shown in Figure 4.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab3_tl_sevenseg_calc.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: Seven-Segment Display Resistor Calculations</figcaption>
+</figure>
+</div>
+</section>
+<section id="technical-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
+<section id="block-diagrams" class="level3">
+<h3 class="anchored" data-anchor-id="block-diagrams">Block Diagrams</h3>
+<p>The completion of this lab involved five separate modules: a top-level module that instantiates the clock and calls all submodules, the main FSM that controls the button logic, a debounce module, a multiplexer module the controls which of the two displays receives the digit, and a seven-segment decoder module that receives the key value and generates the corresponding digit. The interactions between each of these modules is illustrated in Figure 5.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Lab3_block1.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 4: Top Module Block Diagram</figcaption>
+</figure>
+</div>
+</section>
+<section id="electrical-schematics" class="level3">
+<h3 class="anchored" data-anchor-id="electrical-schematics">Electrical Schematics</h3>
+<p>The two displays share common outputs. Each corresponding output is fed to a 460 Ohm resistor. To ensure uniform illumination, each output pin pair is wired in parallel with the other output pairs. The current for each segment output is fed into an available GPIO pin on the FPGA board.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Lab3_schematic_new.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 5: Keypad Scanner and Seven-Segment Display Electrical Schematic</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="results-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
+<p>This lab proved to be moderately successful. Absent the synchronizing logic, the keypad successfully scans through all rows to generate the proper key value input. The 20 ms debounce logic requires the button to be pressed slightly longer for the output to fully register. While I could not properly implement the synchronization aspect of the lab, I believe that it is very possible to actually implement in the near future. The primary issue was that the synchronized columns would appear two clock cycles behind the rest of the logic, meaning the set row values would get stuck at specific values. By setting the rows high in one state, implementing a two-clock-cycle delay, and then scanning the synchronized columns, this issue could be solved as the rows and synchronized columns would follow the same timing. This would increase the duration for which the user must depress the button to ensure all necessary state register the button press to display the value.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This was a tough lab. Even over the course of two weeks and between 35-40 hours of work, timing issues from the synchronizer proved too difficult to overcome. Without the synchronizer the hardware implementation still works well, although there is more room for error and metastability. While the lab may be over, I will continue to work on this project in my free time to implement the synchronizer and expand my verification abilities by writing testbenches for all modules, although that should have been the step before hardware implementation.</p>
+
+
 </section>
 
 </main> <!-- /main -->

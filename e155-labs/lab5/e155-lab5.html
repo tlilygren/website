@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Thomas Lilygren">
+<meta name="dcterms.date" content="2025-10-07">
+<meta name="description" content="Lab 5 prompts the use of interrupts to efficiently interpret the quadratures of a motor to determine its angular velocity and direction.">
 
-<title>labs – Thomas Lilygren</title>
+<title>Lab 5: Interrupts – Thomas Lilygren</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,23 +26,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Thomas Lilygren</span>
     </a>
   </div>
@@ -89,27 +92,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./e155.html"> 
+    <a class="nav-link" href="../../e155.html"> 
 <span class="menu-text">Microprocessor Design</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./e151.html"> 
+    <a class="nav-link" href="../../e151.html"> 
 <span class="menu-text">Analog Circuit Design</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./e207.html"> 
+    <a class="nav-link" href="../../e207.html"> 
 <span class="menu-text">Digital Signal Processing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./class.html"> 
+    <a class="nav-link" href="../../class.html"> 
 <span class="menu-text">Class Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./personal.html"> 
+    <a class="nav-link" href="../../personal.html"> 
 <span class="menu-text">Personal Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../../blog.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
 </ul>
@@ -125,43 +128,106 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 5: Interrupts</h1>
+</div>
+
+<div>
+  <div class="description">
+    Lab 5 prompts the use of interrupts to efficiently interpret the quadratures of a motor to determine its angular velocity and direction.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Thomas Lilygren </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 7, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-<section id="e155-labs" class="level1">
-<h1>E155 Labs</h1>
-<section id="lab-1-fpga-and-mcu-testing-and-setup" class="level2">
-<h2 class="anchored" data-anchor-id="lab-1-fpga-and-mcu-testing-and-setup"><a href="labs/lab1/e155-lab1.qmd">Lab 1: FPGA and MCU Testing and Setup</a></h2>
-<p>Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog.</p>
-</section>
-<section id="lab-2-multiplexed-7-segment-display" class="level2">
-<h2 class="anchored" data-anchor-id="lab-2-multiplexed-7-segment-display"><a href="labs/lab2/e155-lab2.qmd">Lab 2: Multiplexed 7-Segment Display</a></h2>
-<p>This lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits</p>
-</section>
-<section id="lab-3-keypad-scanner" class="level2">
-<h2 class="anchored" data-anchor-id="lab-3-keypad-scanner"><a href="labs/lab3/e155-lab3.qmd">Lab 3: Keypad Scanner</a></h2>
-<p>Lab 3 description</p>
-</section>
-<section id="lab-4-digital-audio" class="level2">
-<h2 class="anchored" data-anchor-id="lab-4-digital-audio"><a href="labs/lab4/e155-lab4.qmd">Lab 4: Digital Audio</a></h2>
-<p>Lab 4 description</p>
-</section>
-<section id="lab-5-interrupts" class="level2">
-<h2 class="anchored" data-anchor-id="lab-5-interrupts"><a href="labs/lab5/e155-lab5.qmd">Lab 5: Interrupts</a></h2>
-<p>Lab 5 description</p>
-</section>
-<section id="lab-6-the-internet-of-things-and-serial-peripheral-interface" class="level2">
-<h2 class="anchored" data-anchor-id="lab-6-the-internet-of-things-and-serial-peripheral-interface"><a href="labs/lab6/e155-lab6.qmd">Lab 6: The Internet of Things and Serial Peripheral Interface</a></h2>
-<p>Lab 6 description</p>
-</section>
-<section id="lab-7-the-advanced-encryption-standard" class="level2">
-<h2 class="anchored" data-anchor-id="lab-7-the-advanced-encryption-standard"><a href="labs/lab7/e155-lab7.qmd">Lab 7: The Advanced Encryption Standard</a></h2>
-<p>Lab 7 description</p>
+</header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Lab 5 aims to measure the angular velocity and detect the direction of a spinning motor using two built-in quadrature sensors generating identical square wave signals offset by 90º. The STM32L432KCU MCU records the number of pulses input by the quadratures by generating interrupt signals that increase a counter variable without the MCU needing to constantly scan for these events. After each second, the counter tally is converted to angular velocity using dimensional analysis with specifications from the motor’s datasheet before being reset. By keeping track of the rising and falling edges for both quadratures, the motor’s direction can also be determined.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/quadrature_encoder.gif" class="img-fluid figure-img"></p>
+<figcaption>Animation of Quadrature Encoder. The original animation can be found <a href="https://hmc-e155.github.io/lab/lab5/">here</a></figcaption>
+</figure>
+</div>
 </section>
+<section id="design-and-testing" class="level2">
+<h2 class="anchored" data-anchor-id="design-and-testing">Design and Testing</h2>
+<p>The 25GA-370 DC Motor contains an encoder disk and two optical quadrature sensors, QA and QB. Both quadratures sensors generate identical square wave pulse trains, but the signal from QB is offset from the QA signal by 90 degrees. The signals from these sensors feed into the PA6 and PA8 pins on the MCU for QA and QB, respectively. The rising and falling edges for each signal generate and interrupts</p>
+</section>
+<section id="calculations" class="level2">
+<h2 class="anchored" data-anchor-id="calculations">Calculations</h2>
+<p>The interrupt configuration increments the counter by one at each rising and falling edge trigger for both quadrature pulses. The total count acheived after one second must be converted to angular velocity in revolutions per second. These interrupt signals increment the counter by four for each measured pulse, meaning a correcting factor of four must be applied to convert the variable from ticks to pulses. According to the motor’s datasheet, the motor has 408 pulses per revolution, which can then be used to get the desired velocity. Accuracy can be confirmed by checking the measured specs within the same datasheet.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab5_tl_motor_calcs.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: Motor Angular Velocity with a 10 V applied voltage</figcaption>
+</figure>
+</div>
+</section>
+<section id="technical-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
+<section id="interrupt-flowchart" class="level3">
+<h3 class="anchored" data-anchor-id="interrupt-flowchart">Interrupt Flowchart</h3>
+<p>The MCU continuosly operates in the while loop within the main function after configuring the GPIOs, the interrupts, and one-second timer. Within the while loop, the MCU waits for the timer overflow to inidicate 1 second has passed, and when that overflow flag rises, it converts the count value to angular velocity and prints both the velocity and direction. When the rising or falling edge of a quadrature pulse is detected, the MCU pauses its operations within the main function and jumps to the interrupt handler function. There, it resets interrupt flag, increases the counter, and measures the current and previous states of both quadratures to feed into an external comparator to get the motor’s direction. Once the interrupt is properly handled, it returns back to the main function and resumes operation from where it left off.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab5_tl_flowchart.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 2: Interrupt Flowchart</figcaption>
+</figure>
+</div>
+</section>
+<section id="electric-schematic" class="level3">
+<h3 class="anchored" data-anchor-id="electric-schematic">Electric Schematic</h3>
+<p>The hardware layout for this lab was relatively simple. The motor housed six total connections: an external power supply and ground, two quadrature sensor signals, a 5V quadrature sensor voltage supply, and a quadrature sensor ground. The first two connections were connected to an external power supply capable of generating up to 20V DC. Quadrature A was fed into pin the five-volt tolerant PA6 pin and the signal from Quadrature B was fed into the five-volt tolerant PA8 pin, both on the MCU. The 5V quadrature sensor voltage supply and ground were both provided by the MCU.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Lab5_schematic.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: Motor Electrical Schematic</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="results-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
+<p>The interrupt encoder proved to provide accurate velocity measurements and consistent direction determination, whether operating at very high or low motor speeds. The implementation of interrupts allow the processor within the MCU to carry out other tasks while waiting for an interrupt trigger event to appear, increasing responsiveness, accuracy, and efficiency. In this lab, high-speed resolution was obtained by increasing the counter each time the positive and negative edges of both encoders was detected. Using a traditionally polling method, the MCU would need to constantly monitor and check these flags and operate accordingly. In high-speed and high-precision systems, the polling rate may be too slow and generate incorrect or incomplete data and the CPU requires greater power to consistently circulate through this scanning process and can possibly overheat and diminish performance. Above all, the MCU can only operate as fast as the polling loop allows for, which means that the polling process is not suitable for time-sensitive control.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab5_tl_interruptwaves.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 4: Interrupt Quaratures</figcaption>
+</figure>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>I can confidently say that Lab 5 was completed to full specifications. This lab, including the write-up process, totalled about 10 hours of productive work. The quadrature pattern identified properly determined the motor’s direction and the interrupt method allowed for high-resolution speed calculations, even at extremely high and low apparent speeds.</p>
+
+
 </section>
 
 </main> <!-- /main -->

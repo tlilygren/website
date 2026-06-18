@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Thomas Lilygren">
+<meta name="dcterms.date" content="2025-09-09">
+<meta name="description" content="This lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits">
 
-<title>labs – Thomas Lilygren</title>
+<title>Lab 2: Multiplexed 7-Segment Display – Thomas Lilygren</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,23 +26,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -78,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Thomas Lilygren</span>
     </a>
   </div>
@@ -89,27 +121,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./e155.html"> 
+    <a class="nav-link" href="../../e155.html"> 
 <span class="menu-text">Microprocessor Design</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./e151.html"> 
+    <a class="nav-link" href="../../e151.html"> 
 <span class="menu-text">Analog Circuit Design</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./e207.html"> 
+    <a class="nav-link" href="../../e207.html"> 
 <span class="menu-text">Digital Signal Processing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./class.html"> 
+    <a class="nav-link" href="../../class.html"> 
 <span class="menu-text">Class Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./personal.html"> 
+    <a class="nav-link" href="../../personal.html"> 
 <span class="menu-text">Personal Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../../blog.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
 </ul>
@@ -125,43 +157,166 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 2: Multiplexed 7-Segment Display</h1>
+</div>
+
+<div>
+  <div class="description">
+    This lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Thomas Lilygren </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 9, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-<section id="e155-labs" class="level1">
-<h1>E155 Labs</h1>
-<section id="lab-1-fpga-and-mcu-testing-and-setup" class="level2">
-<h2 class="anchored" data-anchor-id="lab-1-fpga-and-mcu-testing-and-setup"><a href="labs/lab1/e155-lab1.qmd">Lab 1: FPGA and MCU Testing and Setup</a></h2>
-<p>Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog.</p>
-</section>
-<section id="lab-2-multiplexed-7-segment-display" class="level2">
-<h2 class="anchored" data-anchor-id="lab-2-multiplexed-7-segment-display"><a href="labs/lab2/e155-lab2.qmd">Lab 2: Multiplexed 7-Segment Display</a></h2>
-<p>This lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits</p>
-</section>
-<section id="lab-3-keypad-scanner" class="level2">
-<h2 class="anchored" data-anchor-id="lab-3-keypad-scanner"><a href="labs/lab3/e155-lab3.qmd">Lab 3: Keypad Scanner</a></h2>
-<p>Lab 3 description</p>
-</section>
-<section id="lab-4-digital-audio" class="level2">
-<h2 class="anchored" data-anchor-id="lab-4-digital-audio"><a href="labs/lab4/e155-lab4.qmd">Lab 4: Digital Audio</a></h2>
-<p>Lab 4 description</p>
-</section>
-<section id="lab-5-interrupts" class="level2">
-<h2 class="anchored" data-anchor-id="lab-5-interrupts"><a href="labs/lab5/e155-lab5.qmd">Lab 5: Interrupts</a></h2>
-<p>Lab 5 description</p>
-</section>
-<section id="lab-6-the-internet-of-things-and-serial-peripheral-interface" class="level2">
-<h2 class="anchored" data-anchor-id="lab-6-the-internet-of-things-and-serial-peripheral-interface"><a href="labs/lab6/e155-lab6.qmd">Lab 6: The Internet of Things and Serial Peripheral Interface</a></h2>
-<p>Lab 6 description</p>
-</section>
-<section id="lab-7-the-advanced-encryption-standard" class="level2">
-<h2 class="anchored" data-anchor-id="lab-7-the-advanced-encryption-standard"><a href="labs/lab7/e155-lab7.qmd">Lab 7: The Advanced Encryption Standard</a></h2>
-<p>Lab 7 description</p>
+</header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this lab, a time-multiplexer was programmed onto the E155 iCE40 UltraPlus FPGA board with SystemVerilog to control two independent seven-segment displays connected to the same GPIO pins. The displays were capable of showcasing each of the sixteen hexadecimal digits (0-F), and their sum was represented by five external LEDs. This lab introduces a new form of multiplexing and emphasizes the ability to control multiple components with a limited number of available GPIO connections.</p>
 </section>
+<section id="design-and-testing" class="level2">
+<h2 class="anchored" data-anchor-id="design-and-testing">Design and Testing</h2>
+<p>The independent seven-segment displays were controlled with two four-input DIP switches, which acted as the inputs to the time multiplexer. A clock frequency was generated with the 24 MHz internal high-speed oscillator, which employed an eighteen-bit counter to divide it to a reasonable frequency. This frequency was tailored to prevent bleeding and flickering within the displays while still allowing them to appear simultaneously. With a small degree of trial and error, a frequency of 120 Hz was found to satisfy these display conditions. The 120 Hz modified clock frequency acted as the enable to the multiplexer: when the clock enable was low, it would pass the input logic from the DIP switch controlling the first display, and when high, it would pass the logic from the DIP switch controlling the second. Two PNP transistors behaved as gates that controlled when each display received power: the emitter pins received 3.3 V supplied by the FPGA, the base pins were connected to the GPIO pins on the FPGA with a 1 kOhm resistor in wired in series, and the collector pins were connected to the common anodes on the seven-segment displays.</p>
+<p>The seven-segment displays shared a common layout, meaning that the pins the controlling corresponding segments were connected to the same GPIOs with a 470 kOhm resistor wired in series with them. These resistors not only limited the current running through each segment, but also protected the FPGA pins which acted as a ground. The two four-input DIP switches also controlled five external green LEDs implemented on the breadboard design. The five LEDs received power from five separate GPIO pins on the FPGA and were wired in series with 200 Ohm resistors to limit their current draw. The LEDs illuminated to showcase the binary sum of the DIP switch positions, and by extension, the sum of the two hexadecimal digits shown on the seven-segment displays.</p>
+<p>Calculations for resistor connected to the base pins of the PNP transistors are shown in Figure 1, while the calculations to limit the current draw of the seven-segment displays and the external LEDs can be found in Figures 2 and 3, respectively.</p>
+<p>The source code for this lab can be found at this <a href="https://github.com/tlilygren/e155-lab2/tree/main">Github Repository.</a></p>
+</section>
+<section id="calculations" class="level2">
+<h2 class="anchored" data-anchor-id="calculations">Calculations</h2>
+<p>The maximum allowed current sink for the FPGA GPIO switch pins is 8 mA according to the iCE40 UltraPlus 5K datasheet. Using this knowledge along with the known 3.3 V supply entering the emitter pin and known 0.7 V drop between the emitter and base pin, the resistor in series with the 2N3906 PNP transistor’s base pin and the FPGA can be calculated with the formula in Figure 1. Aiming for a current gain of 10, the voltage sinking in the FPGA should be 0.8 mA, well below the established threshold.</p>
+<p>According to the iCE40UP5K datasheet, the FPGA’s GPIO pins can sink a maximum of 8 mA.</p>
+<section id="pnp-transistor-base-resistor-calculation" class="level3">
+<h3 class="anchored" data-anchor-id="pnp-transistor-base-resistor-calculation">PNP Transistor Base Resistor Calculation</h3>
+<section id="base-current-calculation" class="level4">
+<h4 class="anchored" data-anchor-id="base-current-calculation">Base Current Calculation</h4>
+<p>Here, <span class="math inline">\(I_{B}\)</span> represents the current flow through the base terminal and <span class="math inline">\(I_{C}\)</span> denotes the current flow through the collector pin. The PNP transistor operates as a basic switch, so the collector-to-emitter voltage drop, <span class="math inline">\(V_{CE}\)</span>, is the same as <span class="math inline">\(V_{CE(sat)}\)</span>. A <span class="math inline">\(V_{CE(sat)}\)</span> of 0.25 V appears to be most desirable, with a corresponding <span class="math inline">\(I_{C}\)</span> of 10 mAdc and a low <span class="math inline">\(I_{B}\)</span> of 1 mAdc, according to the transistor’s datasheet. Under these same conditions, <span class="math inline">\(V_{BE(sat)}\)</span> has a minimum value of 0.65V. With these known characteristics, the base resistor can be calculated using the equation below:</p>
+<p><span class="math display">\[
+R_{Base} = \frac{V_{E} - V_{BE(sat)}}{I_{B}} \tag{1}
+\]</span> <span class="math display">\[
+R_{Base} = \frac{3.3V - 0.65V}{0.001A}  = 2650\, {\Omega}
+\]</span> <span class="math display">\[
+R_{Base}\, {\approx} \, \mathbf{2.7\,{k\Omega}}
+\]</span></p>
+<p>The seven-segment displays are composed of deep red diodes with a forward voltage of 2 V. These diodes exhibit sufficient birghtness when receiving a current between 1-10 mA. To preserve the functionality of the FPGA’s GPIO pins, a sink current above 8 mA is not advisable. Therefore, a resistor controlling the current between 1 and 5 mA was desired. The calculations for the seven-segment resistor values are shown in Equation 2 below.</p>
+</section>
+</section>
+<section id="led-resistor-calculations" class="level3">
+<h3 class="anchored" data-anchor-id="led-resistor-calculations">LED Resistor Calculations</h3>
+<section id="seven-segment-display" class="level4">
+<h4 class="anchored" data-anchor-id="seven-segment-display">Seven-Segment Display</h4>
+<p><span class="math display">\[
+R_{SEG} = \frac{V_{in}-V_{CE(sat)}-V_{f}}{I} \tag{2}
+\]</span> <span class="math display">\[
+R_{SEG} = \frac{3.3V-0.25V-1.8V}{0.0025} = 500\,{\Omega}
+\]</span> <span class="math display">\[
+R_{SEG} \,{\approx}\,\mathbf{470\,{\Omega}}
+\]</span></p>
+</section>
+<section id="external-leds" class="level4">
+<h4 class="anchored" data-anchor-id="external-leds">External LEDs</h4>
+<p>The five external LEDs were green, meaning they each had a voltage drop of around 1.8 V. Sufficient luminescence is obtained with a current of around 7-10 mA. Understanding that the input voltage from the FPGA is 3.3 V, Ohm’s Law was used to find the satisfactory resistor value of 200 Ohms. This calculation can be found below in Equation 3.</p>
+<p><span class="math display">\[
+R_{LED} = \frac{V_{in}-V_{f}}{I} \tag{3}
+\]</span> <span class="math display">\[
+R_{LED} = \frac{3.3V-1.88V}{0.007} = 203\,{\Omega}
+\]</span> <span class="math display">\[
+R_{LED} \,{\approx}\,\mathbf{200\,{\Omega}}
+\]</span></p>
+</section>
+</section>
+</section>
+<section id="technical-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
+<section id="block-diagrams" class="level3">
+<h3 class="anchored" data-anchor-id="block-diagrams">Block Diagrams</h3>
+<p>The SystemVerilog code to complete the lab deliverables were separated into three modules: one describing the multiplexer logic, another implementing the seven-segment logic from the DIP switch positions, and a third executing the addition for the external LED display. All modules were called in the comprehensive top module outlined below.<br>
+The multiplexer modules instantiates the HSOSC and implements the counter for clock division. Within the module, the enable bit, oscillating at the same frequency as the 120 Hz clock, is fed into a mux established with a ternary operator. The mux receives the two DIP switch inputs, and depending on this enable value, passes one of those two inputs to the output.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab2_block.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: Top module block diagram</figcaption>
+</figure>
+</div>
+</section>
+<section id="electronic-schematics" class="level3">
+<h3 class="anchored" data-anchor-id="electronic-schematics">Electronic Schematics</h3>
+<p>To ensure all segments are equally illuminated, the segments are wired in parallel to each other, and each is wired in series with a 470 Ohm resistor to limit the current through the display and sunk into the FPGA. The two displays share common pin functions, meaning that counterparts are connected together and fed to the same GPIO. The five green external LEDs are powered with the FPGA based on the summation logic implemented in the leds module. Each diode is wired in series with a 200 Ohm current-limiting resistor and fed to ground. These resistors allow 7 mA of current to flow through each LED, which makes it sufficiently bright when on.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Lab2_schematic_new.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 2: Full System Electronic Schematic. Note: groups of resistors are assumed to have the same value.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="results-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
+<p>The external LEDs were confirmed to output the proper binary value through a waveform simulation. All possible switch input combinations were tested and the output sum is present in the waveforms in Figure 3. The two DIP switches were powered low, meaning their bits must be inverted before taking their sum.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab2_ledwaveforms_full.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: LEDs module waveforms</figcaption>
+</figure>
+</div>
+<p>Figure 4 shows a zoomed-in portion of the LED waveforms. This image allows a closer look into the output (led) values at given switch input values.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab2_ledwaveforms_zoom.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 4: LEDs module waveforms zoomed-in</figcaption>
+</figure>
+</div>
+<p>The seven-segment waveforms in Figure 5 are similar to the waveforms showcased in lab 1. Here, the seg outputs and seg_expected outputs are outlined in the same wave signals. Throughout the entire simulation, it is clear that seg is equal to seg_expected, as desired.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab2_7segwaveforms.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 5: Seven-segment waveforms</figcaption>
+</figure>
+</div>
+<p>The multiplexer module waveforms in Figure 6 were implemented with a nested for loop and assert statements. The simulation duration was lengthy, but the logic and behavior remains consistent.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab2_muxwaveforms_full.jpg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Figure 6: Multiplexer waveforms</figcaption>
+</figure>
+</div>
+<p>Figure 7 shows a zoomed-in segment of the multiplexer waves. This wave shows that as the multiplexer enable oscillates between zero and one with the modified clock frequency, the output value alternates between the first and second switch values. The nested for loop allows for all possible switch combinations to be tested and confirmed.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab2_muxwaveforms_zoom.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 7: Multiplexer waveforms zoomed-in</figcaption>
+</figure>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This simulation waveforms paired with the successful hardware implementation indicate that this lab successfully met all design requirements. The displays successfully employ time-multiplexing, show the independent hexadecimal digits simultaneously, and the LEDs show the proper sum of those digits. In all, this lab took roughly 25 hours to complete.</p>
+
+
 </section>
 
 </main> <!-- /main -->

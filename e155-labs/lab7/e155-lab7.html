@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Thomas Lilygren">
+<meta name="dcterms.date" content="2025-10-27">
+<meta name="description" content="Description">
 
-<title>labs – Thomas Lilygren</title>
+<title>Lab 7: The Advanced Encryption Standard – Thomas Lilygren</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,23 +26,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Thomas Lilygren</span>
     </a>
   </div>
@@ -89,27 +92,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./e155.html"> 
+    <a class="nav-link" href="../../e155.html"> 
 <span class="menu-text">Microprocessor Design</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./e151.html"> 
+    <a class="nav-link" href="../../e151.html"> 
 <span class="menu-text">Analog Circuit Design</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./e207.html"> 
+    <a class="nav-link" href="../../e207.html"> 
 <span class="menu-text">Digital Signal Processing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./class.html"> 
+    <a class="nav-link" href="../../class.html"> 
 <span class="menu-text">Class Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./personal.html"> 
+    <a class="nav-link" href="../../personal.html"> 
 <span class="menu-text">Personal Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../../blog.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
 </ul>
@@ -125,43 +128,132 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 7: The Advanced Encryption Standard</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Reflection</div>
+    <div class="quarto-category">Lab Report</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Description
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Thomas Lilygren </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 27, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-<section id="e155-labs" class="level1">
-<h1>E155 Labs</h1>
-<section id="lab-1-fpga-and-mcu-testing-and-setup" class="level2">
-<h2 class="anchored" data-anchor-id="lab-1-fpga-and-mcu-testing-and-setup"><a href="labs/lab1/e155-lab1.qmd">Lab 1: FPGA and MCU Testing and Setup</a></h2>
-<p>Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog.</p>
-</section>
-<section id="lab-2-multiplexed-7-segment-display" class="level2">
-<h2 class="anchored" data-anchor-id="lab-2-multiplexed-7-segment-display"><a href="labs/lab2/e155-lab2.qmd">Lab 2: Multiplexed 7-Segment Display</a></h2>
-<p>This lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits</p>
-</section>
-<section id="lab-3-keypad-scanner" class="level2">
-<h2 class="anchored" data-anchor-id="lab-3-keypad-scanner"><a href="labs/lab3/e155-lab3.qmd">Lab 3: Keypad Scanner</a></h2>
-<p>Lab 3 description</p>
-</section>
-<section id="lab-4-digital-audio" class="level2">
-<h2 class="anchored" data-anchor-id="lab-4-digital-audio"><a href="labs/lab4/e155-lab4.qmd">Lab 4: Digital Audio</a></h2>
-<p>Lab 4 description</p>
-</section>
-<section id="lab-5-interrupts" class="level2">
-<h2 class="anchored" data-anchor-id="lab-5-interrupts"><a href="labs/lab5/e155-lab5.qmd">Lab 5: Interrupts</a></h2>
-<p>Lab 5 description</p>
-</section>
-<section id="lab-6-the-internet-of-things-and-serial-peripheral-interface" class="level2">
-<h2 class="anchored" data-anchor-id="lab-6-the-internet-of-things-and-serial-peripheral-interface"><a href="labs/lab6/e155-lab6.qmd">Lab 6: The Internet of Things and Serial Peripheral Interface</a></h2>
-<p>Lab 6 description</p>
-</section>
-<section id="lab-7-the-advanced-encryption-standard" class="level2">
-<h2 class="anchored" data-anchor-id="lab-7-the-advanced-encryption-standard"><a href="labs/lab7/e155-lab7.qmd">Lab 7: The Advanced Encryption Standard</a></h2>
-<p>Lab 7 description</p>
+</header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This lab dives into the Advanced Encryption Standard (AES) for secure communication. The initiates plain text communication between the STM32L432KCU microcontroller unit and the iCE40UP5K FPGA. The MCU initiates SPI communication with the FPGA, which behaves as the accelerator, providing it with an encryption key and unsecure message. Once the 128-bit message undergoes sufficient AES cycling, the encrypted message is sent back to the MCU.</p>
 </section>
+<section id="design-and-testing" class="level2">
+<h2 class="anchored" data-anchor-id="design-and-testing">Design and Testing</h2>
+<p>The Advanced Encryption Standard requires five fundamental sub-modules: SubBytes, ShiftRows, MixColumns, AddRoundKey, and KeyExpansion. The SubBytes module employs a synchronous sbox function, which converts the message bits to their counterparts outlined in the table in FIPS 197 Figure 7. A synchronous method is employed here to preserve the LUTs onboard the FPGA to ensure physical implementation is possible. A similar rational motivates the KeyExpansion module which systematically generates a new key for the subsequent round based on the current key and round number. Following AES standards, the 128-bit encryption process follows eleven cycles: the first passes the plaintext message into the AddRoundKey function and generates a new key, the second through tenth cycle passes the increasingly encrypted method through the SubBytes, ShiftRows, MixColumns, AddRoundKey, and KeyExpansion modules (in that order), and the last cycle mimics the primary cycle, only bypassing the MixColumns function. These cycles were implemented with a Finite State Machine, governing when modules are active, the current round, and which modules to skip.</p>
+</section>
+<section id="technical-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
+<section id="block-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="block-diagram">Block Diagram</h3>
+<p>This implementation of AES relied on many levels of abstraction. The top module called on the aes_spi module and the aes_core module. The aes_core function houses all sub-modules present within the AES cycle. The top module, aes_core module, and the FSM state transition diagram are illustrated in Figures 1, 2, and 3, respectively.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/aes_top_block.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: Full AES Accelerator Block Diagram</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".png" class="img-fluid figure-img"></p>
+<figcaption>Figure 2: AES Core Block Diagram</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".png" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: FSM State Transition Diagram</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="results-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
+<p>Independent waveforms for each module, and sub-module, by extension, prove proper behavior for the SPI encryption and general message encryption (Figures 4 and 5, respectively). The outputs from these primary aes modules were validated with examples provided in the FIPS 197 appendix, while the building-block modules’ results were validated with personal computation and bit-mapping (Figures 6 through 9). The physical success of this lab was confirmed by measuring the SPI communication with a logic analyzer on the Rigol oscilloscopes provided in lab. The communication patterns were confirmed to match those of the simulation waveforms, indicating that the AES accelerator did not exhaust all FPGA LUTs.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/aes_spi_tb1.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 4: Full AES Accelerator Waveforms</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/aes_core_tb1.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 5: AES Core Accelerator Waveforms</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/image(1).png" class="img-fluid figure-img"></p>
+<figcaption>Figure 6: SubBytes Module Waveforms</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/image.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 7: ShiftRows Module Waveforms</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/image(2).png" class="img-fluid figure-img"></p>
+<figcaption>Figure 8: AddRoundKey Module Waveforms</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/aes_keyexpand.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 9: KeyExpansion Module Waveforms</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".png" class="img-fluid figure-img"></p>
+<figcaption>Figure 10: SPI Communication Confirmed with Logic Analyzer</figcaption>
+</figure>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>After roughly 20-25 productive working hours, this lab meets the listed specifications. The biggest challenge, besides wrapping my head around the lab conceptually, was modifying the aes_core module after running the simulation. The simulation allowed a design with many latches that would disrupt physical implementation. After accounting for these latches, the simulation was executed again and performed as desired.</p>
+
+
 </section>
 
 </main> <!-- /main -->

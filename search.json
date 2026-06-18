@@ -7,25 +7,263 @@
     "text": "Blogs"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Thomas Lilygren",
+    "objectID": "e155-labs/lab4/e155-lab4.html",
+    "href": "e155-labs/lab4/e155-lab4.html",
+    "title": "Lab 4: Digital Audio",
     "section": "",
-    "text": "LinkedIn\n  \n  \n    \n     Github\n  \n  \n    \n     Email"
+    "text": "This lab serves as an in-depth introductioin to the STM32L432KCU timer peripherals. Proper configuration of these peripherals allows Fur Elise and Happy Birthday to play based on a set of input frequencies and note durations."
   },
   {
-    "objectID": "index.html#spring-2026-resume-open-resume-in-new-tab",
-    "href": "index.html#spring-2026-resume-open-resume-in-new-tab",
-    "title": "Thomas Lilygren",
-    "section": "Spring 2026 Resume   Open resume in new tab",
-    "text": "Spring 2026 Resume   Open resume in new tab"
+    "objectID": "e155-labs/lab4/e155-lab4.html#introduction",
+    "href": "e155-labs/lab4/e155-lab4.html#introduction",
+    "title": "Lab 4: Digital Audio",
+    "section": "",
+    "text": "This lab serves as an in-depth introductioin to the STM32L432KCU timer peripherals. Proper configuration of these peripherals allows Fur Elise and Happy Birthday to play based on a set of input frequencies and note durations."
   },
   {
-    "objectID": "posts/lab-2-reflection.html",
-    "href": "posts/lab-2-reflection.html",
-    "title": "Lab 2 Reflection",
+    "objectID": "e155-labs/lab4/e155-lab4.html#design-and-testing",
+    "href": "e155-labs/lab4/e155-lab4.html#design-and-testing",
+    "title": "Lab 4: Digital Audio",
+    "section": "Design and Testing",
+    "text": "Design and Testing\nTimers 15 and 16 were selected to carry out this lab. Timer 15 controls note duration while Timer 16 modulates the frequency for a given input. For both timers, special attention must be paid to the prescalar (PSC) and auto-reload register (ARR) values. The prescalar value divides the 40 MHz input clock and controls measurement resolution, while the auto-reload register value determines the absolute maximum and minimum frequency and duration values that can be achieved at a given prescalar. Both registers for both timers are 16-bits, meaning careful attention must be kept to ensure neither overflows throughout the duration of the songs. For this application, PSC values for both timers were held constant at a value that preserves resolution while modulating the ARR values for the input at a given time. Timer 16 was configured in an alternate mode function for proper GPIO behavior, and the square wave structure relied on the compare-control register to always generate a 50% duty cycle."
+  },
+  {
+    "objectID": "e155-labs/lab4/e155-lab4.html#calculations",
+    "href": "e155-labs/lab4/e155-lab4.html#calculations",
+    "title": "Lab 4: Digital Audio",
+    "section": "Calculations",
+    "text": "Calculations\nBoth timers operate with 16-bit ARR and PSC registers, so they must be configured carefully to ensure sufficient resolution, allow for proper operation, and avoid overflow risks. Understanding these fundamental restrictions, the operating range for note durations can be determined with Equation 1 and the timing resolution can be calculated with Equation 2.\nBoth timer operated with 16-bit ARR and PSC registers that must be carefully configured to ensure a full range of operability with reliable resolution measurements. Maximizing the ARR and PSC values at 65535 yields the maximum duration the MCU can play a note and the minimum frequency that note could be. By minimizing these values to 0, the minimum note duration and maximum note frequency can be determined. Refer to Figures 1-4 for these calculations.\n\nTIM15 Calculations\n\nMaximum and Minimum Supported Time\n\\[\nT = \\frac{(PSC+1)(ARR+1)}{f_{clk}}\\tag{1}\n\\] Max and min for PSC = 0 Max and min for PSC = 399\n\n\nTiming Resolution\n\\[\nRes = \\frac{1}{f_{tim}} = \\frac{PSC+1}{40\\,MHz}\\tag{2}\n\\]\n\n\n\nTIM16 Calculations\n\nMaximum and Minimum Supported Frequency\n\\[\nf_{out} = \\frac{f_{clk}}{(PSC+1)(ARR+1)} \\tag{3}\n\\] Max and min for PSC = 0 Max and min for PSC = 3\nTimer duration resolution can be determined by taking the input frequency of 40 MHz and dividing it by the prescalar. Taking this new frequency and taking its inverse yields the time step between counter ticks. This tick resolution should be capabale of handling minute time changes on the millisecond scale. The frequency output should yield less than 1% error for frequencies between 220 and 1000 Hz. For the preset prescalar, the ARR values for these frequency bounds were determined. Since this value can only be an integer, these values were then rounded and the output frequency for those rounded ARR values were computed. Error for each of these frequencies were well within the 1% error bounds as shown in Figure 6.\n\n\nFrequency Error Calculations\n\\[\nARR = \\frac{f_{clk}}{f_{des}*(PSC+1)}-1 \\tag{4}\n\\]\n\nTable 1: Frequency Errors.\n\n\nNote\nFreq [Hz]\nARR (int)\nOutput Freq [Hz]\nError [%]\n\n\n\n\n\nA3\n220.0\n45454\n219.998\n0.0010\n\n\n\nA3 \\(\\sharp\\) / B3 \\(\\flat\\)\n233.1\n42899\n233.100\n0.0001\n\n\n\nB3\n246.9\n40501\n246.901\n0.0006\n\n\n\nC4\n261.6\n38225\n261.602\n0.0008\n\n\n\nC4 \\(\\sharp\\) / D4 \\(\\flat\\)\n277.2\n36074\n277.200\n0.0001\n\n\n\nD4\n293.7\n34047\n293.703\n0.0010\n\n\n\nD4 \\(\\sharp\\) / E4 \\(\\flat\\)\n311.1\n32143\n311.100\n0.0000\n\n\n\nE4\n329.6\n30339\n329.598\n0.0006\n\n\n\nF4\n349.2\n28636\n349.199\n0.0004\n\n\n\nF4 \\(\\sharp\\) / G4 \\(\\flat\\)\n370.0\n27026\n370.000\n0.0001\n\n\n\nG4\n392.0\n25510\n392.003\n0.0008\n\n\n\nG4 \\(\\sharp\\) / A4 \\(\\flat\\)\n415.3\n24078\n415.300\n0.0001\n\n\n\nA4\n440.0\n22726\n440.005\n0.0012\n\n\n\nA4 \\(\\sharp\\) / B4 \\(\\flat\\)\n466.2\n21449\n466.200\n0.0001\n\n\n\nB4\n493.9\n20246\n493.900\n0.0001\n\n\n\nC5\n523.3\n19108\n523.314\n0.0026\n\n\n\nC5 \\(\\sharp\\) / D5 \\(\\flat\\)\n554.4\n18037\n554.385\n0.0027\n\n\n\nD5\n587.3\n17026\n587.303\n0.0004\n\n\n\nD5 \\(\\sharp\\) / E5 \\(\\flat\\)\n622.2\n16071\n622.200\n0.0000\n\n\n\nE5\n659.2\n15169\n659.196\n0.0006\n\n\n\nF5\n698.4\n14317\n698.422\n0.0031\n\n\n\nF5 \\(\\sharp\\) / G5 \\(\\flat\\)\n740.9\n13496\n740.905\n0.0007\n\n\n\nG5\n784.0\n12754\n784.006\n0.0008\n\n\n\nG5 \\(\\sharp\\) / A5 \\(\\flat\\)\n830.6\n12038\n830.634\n0.0041\n\n\n\nA5\n880.0\n11363\n879.972\n0.0032"
+  },
+  {
+    "objectID": "e155-labs/lab4/e155-lab4.html#technical-documentation",
+    "href": "e155-labs/lab4/e155-lab4.html#technical-documentation",
+    "title": "Lab 4: Digital Audio",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\n\nElectric Schematic\nFigure 7 displays the electronic schematic for the entire system. The square wave holding the note was output on the PA6 GPIO pin and fed into a potentiometer for volume control. The output from this potentiometer was fed into the LM386 audio amplifier and the sound was produced with an 8-ohm, 4-Watt speaker.\n\n\n\nFigure 7: Electronic Schematic"
+  },
+  {
+    "objectID": "e155-labs/lab4/e155-lab4.html#results-and-discussion",
+    "href": "e155-labs/lab4/e155-lab4.html#results-and-discussion",
+    "title": "Lab 4: Digital Audio",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nThis lab meets all excellence specs, providing proper calculations, clear sound, and multiple songs capable of being played. Successful implementation was confirmed by listening to the sound output and using print debug statements to see if the output frequency and durations matched the inputs."
+  },
+  {
+    "objectID": "e155-labs/lab4/e155-lab4.html#conclusion",
+    "href": "e155-labs/lab4/e155-lab4.html#conclusion",
+    "title": "Lab 4: Digital Audio",
+    "section": "Conclusion",
+    "text": "Conclusion\nIn all, this lab took about 20 productive hours. Aside from familiarizing myself with the timer registers for proper initialization and duty cycle behavior, the biggest setback was not realizing that the GPIO pins must be configured in alternate mode. Once this was figured out, debugging progressed much faster as I could see where the script was problematic."
+  },
+  {
+    "objectID": "e155-labs/lab2/e155-lab2.html",
+    "href": "e155-labs/lab2/e155-lab2.html",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
     "section": "",
-    "text": "After completing lab 1, I felt that I had more of a grasp effort, dedication, and time required to complete this lab to the best of my abilities. I set aside of bulk of my time to work on this lab, while still designating enough time for my other work and commitments. I had a hard time grasping the overall flow of how a time-multiplexer works and how it should be implemented, but thanks Xavier’s clear explanation, I felt the Verilog aspect was not as difficult as I initially assumed. I ran into an odd issue where a majority of the inputs displayed the correct values, but experienced an odd behavior at a few specific combinations. I spent hours trying to debug what was seemingly a hardware issue, but thankfully, a superb grutor, Troy, experienced the same issue I had when he worked on this lab. The issue was that the internal pull-up resistor was too weak and caused a latching behavior. By editing the internal pullup resistor in the Device Constraint Editor, my problem was miraculously solved! Additionally, my experience with testbenches typically involved test vectors, so to test all 256 possible switch combinations for the led sum logic, I manually wrote out close to 200 of them before realizing that there must be a better way. I learned how to write testbenches with assert statements and implemented my first successful iterating for loops in my multiplexer testbench. These experiences, while time-consuming in the moment, added more debugging tools that I can rely on in the future.\nI’ve heard many warnings about lab 3, but I feel confident that I can get through it. There were many times this lab and the last one where I felt like giving up and that I was in over my head, but ultimately, I found a way to get through. I am extremely grateful for my peers, Prof. Spencer, Xavier, and the grutors for helping me walk through certain steps and explaining concepts I initially found perplexing. Lab 3 strikes at an inconvenient time for me, since I have a project deliverable and clinic design review presentation due around the same time as my check-in, but I plan to get an early start, plan out my time to satisfy all commitments, and still allocate time for personal health, like exercising. I am proud of myself for these first two labs, and I maintain that feeling throughout the semester."
+    "text": "In this lab, a time-multiplexer was programmed onto the E155 iCE40 UltraPlus FPGA board with SystemVerilog to control two independent seven-segment displays connected to the same GPIO pins. The displays were capable of showcasing each of the sixteen hexadecimal digits (0-F), and their sum was represented by five external LEDs. This lab introduces a new form of multiplexing and emphasizes the ability to control multiple components with a limited number of available GPIO connections."
+  },
+  {
+    "objectID": "e155-labs/lab2/e155-lab2.html#introduction",
+    "href": "e155-labs/lab2/e155-lab2.html#introduction",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "",
+    "text": "In this lab, a time-multiplexer was programmed onto the E155 iCE40 UltraPlus FPGA board with SystemVerilog to control two independent seven-segment displays connected to the same GPIO pins. The displays were capable of showcasing each of the sixteen hexadecimal digits (0-F), and their sum was represented by five external LEDs. This lab introduces a new form of multiplexing and emphasizes the ability to control multiple components with a limited number of available GPIO connections."
+  },
+  {
+    "objectID": "e155-labs/lab2/e155-lab2.html#design-and-testing",
+    "href": "e155-labs/lab2/e155-lab2.html#design-and-testing",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Design and Testing",
+    "text": "Design and Testing\nThe independent seven-segment displays were controlled with two four-input DIP switches, which acted as the inputs to the time multiplexer. A clock frequency was generated with the 24 MHz internal high-speed oscillator, which employed an eighteen-bit counter to divide it to a reasonable frequency. This frequency was tailored to prevent bleeding and flickering within the displays while still allowing them to appear simultaneously. With a small degree of trial and error, a frequency of 120 Hz was found to satisfy these display conditions. The 120 Hz modified clock frequency acted as the enable to the multiplexer: when the clock enable was low, it would pass the input logic from the DIP switch controlling the first display, and when high, it would pass the logic from the DIP switch controlling the second. Two PNP transistors behaved as gates that controlled when each display received power: the emitter pins received 3.3 V supplied by the FPGA, the base pins were connected to the GPIO pins on the FPGA with a 1 kOhm resistor in wired in series, and the collector pins were connected to the common anodes on the seven-segment displays.\nThe seven-segment displays shared a common layout, meaning that the pins the controlling corresponding segments were connected to the same GPIOs with a 470 kOhm resistor wired in series with them. These resistors not only limited the current running through each segment, but also protected the FPGA pins which acted as a ground. The two four-input DIP switches also controlled five external green LEDs implemented on the breadboard design. The five LEDs received power from five separate GPIO pins on the FPGA and were wired in series with 200 Ohm resistors to limit their current draw. The LEDs illuminated to showcase the binary sum of the DIP switch positions, and by extension, the sum of the two hexadecimal digits shown on the seven-segment displays.\nCalculations for resistor connected to the base pins of the PNP transistors are shown in Figure 1, while the calculations to limit the current draw of the seven-segment displays and the external LEDs can be found in Figures 2 and 3, respectively.\nThe source code for this lab can be found at this Github Repository."
+  },
+  {
+    "objectID": "e155-labs/lab2/e155-lab2.html#calculations",
+    "href": "e155-labs/lab2/e155-lab2.html#calculations",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Calculations",
+    "text": "Calculations\nThe maximum allowed current sink for the FPGA GPIO switch pins is 8 mA according to the iCE40 UltraPlus 5K datasheet. Using this knowledge along with the known 3.3 V supply entering the emitter pin and known 0.7 V drop between the emitter and base pin, the resistor in series with the 2N3906 PNP transistor’s base pin and the FPGA can be calculated with the formula in Figure 1. Aiming for a current gain of 10, the voltage sinking in the FPGA should be 0.8 mA, well below the established threshold.\nAccording to the iCE40UP5K datasheet, the FPGA’s GPIO pins can sink a maximum of 8 mA.\n\nPNP Transistor Base Resistor Calculation\n\nBase Current Calculation\nHere, \\(I_{B}\\) represents the current flow through the base terminal and \\(I_{C}\\) denotes the current flow through the collector pin. The PNP transistor operates as a basic switch, so the collector-to-emitter voltage drop, \\(V_{CE}\\), is the same as \\(V_{CE(sat)}\\). A \\(V_{CE(sat)}\\) of 0.25 V appears to be most desirable, with a corresponding \\(I_{C}\\) of 10 mAdc and a low \\(I_{B}\\) of 1 mAdc, according to the transistor’s datasheet. Under these same conditions, \\(V_{BE(sat)}\\) has a minimum value of 0.65V. With these known characteristics, the base resistor can be calculated using the equation below:\n\\[\nR_{Base} = \\frac{V_{E} - V_{BE(sat)}}{I_{B}} \\tag{1}\n\\] \\[\nR_{Base} = \\frac{3.3V - 0.65V}{0.001A}  = 2650\\, {\\Omega}\n\\] \\[\nR_{Base}\\, {\\approx} \\, \\mathbf{2.7\\,{k\\Omega}}\n\\]\nThe seven-segment displays are composed of deep red diodes with a forward voltage of 2 V. These diodes exhibit sufficient birghtness when receiving a current between 1-10 mA. To preserve the functionality of the FPGA’s GPIO pins, a sink current above 8 mA is not advisable. Therefore, a resistor controlling the current between 1 and 5 mA was desired. The calculations for the seven-segment resistor values are shown in Equation 2 below.\n\n\n\nLED Resistor Calculations\n\nSeven-Segment Display\n\\[\nR_{SEG} = \\frac{V_{in}-V_{CE(sat)}-V_{f}}{I} \\tag{2}\n\\] \\[\nR_{SEG} = \\frac{3.3V-0.25V-1.8V}{0.0025} = 500\\,{\\Omega}\n\\] \\[\nR_{SEG} \\,{\\approx}\\,\\mathbf{470\\,{\\Omega}}\n\\]\n\n\nExternal LEDs\nThe five external LEDs were green, meaning they each had a voltage drop of around 1.8 V. Sufficient luminescence is obtained with a current of around 7-10 mA. Understanding that the input voltage from the FPGA is 3.3 V, Ohm’s Law was used to find the satisfactory resistor value of 200 Ohms. This calculation can be found below in Equation 3.\n\\[\nR_{LED} = \\frac{V_{in}-V_{f}}{I} \\tag{3}\n\\] \\[\nR_{LED} = \\frac{3.3V-1.88V}{0.007} = 203\\,{\\Omega}\n\\] \\[\nR_{LED} \\,{\\approx}\\,\\mathbf{200\\,{\\Omega}}\n\\]"
+  },
+  {
+    "objectID": "e155-labs/lab2/e155-lab2.html#technical-documentation",
+    "href": "e155-labs/lab2/e155-lab2.html#technical-documentation",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\n\nBlock Diagrams\nThe SystemVerilog code to complete the lab deliverables were separated into three modules: one describing the multiplexer logic, another implementing the seven-segment logic from the DIP switch positions, and a third executing the addition for the external LED display. All modules were called in the comprehensive top module outlined below.\nThe multiplexer modules instantiates the HSOSC and implements the counter for clock division. Within the module, the enable bit, oscillating at the same frequency as the 120 Hz clock, is fed into a mux established with a ternary operator. The mux receives the two DIP switch inputs, and depending on this enable value, passes one of those two inputs to the output.\n\n\n\nFigure 1: Top module block diagram\n\n\n\n\nElectronic Schematics\nTo ensure all segments are equally illuminated, the segments are wired in parallel to each other, and each is wired in series with a 470 Ohm resistor to limit the current through the display and sunk into the FPGA. The two displays share common pin functions, meaning that counterparts are connected together and fed to the same GPIO. The five green external LEDs are powered with the FPGA based on the summation logic implemented in the leds module. Each diode is wired in series with a 200 Ohm current-limiting resistor and fed to ground. These resistors allow 7 mA of current to flow through each LED, which makes it sufficiently bright when on.\n\n\n\nFigure 2: Full System Electronic Schematic. Note: groups of resistors are assumed to have the same value."
+  },
+  {
+    "objectID": "e155-labs/lab2/e155-lab2.html#results-and-discussion",
+    "href": "e155-labs/lab2/e155-lab2.html#results-and-discussion",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nThe external LEDs were confirmed to output the proper binary value through a waveform simulation. All possible switch input combinations were tested and the output sum is present in the waveforms in Figure 3. The two DIP switches were powered low, meaning their bits must be inverted before taking their sum.\n\n\n\nFigure 3: LEDs module waveforms\n\n\nFigure 4 shows a zoomed-in portion of the LED waveforms. This image allows a closer look into the output (led) values at given switch input values.\n\n\n\nFigure 4: LEDs module waveforms zoomed-in\n\n\nThe seven-segment waveforms in Figure 5 are similar to the waveforms showcased in lab 1. Here, the seg outputs and seg_expected outputs are outlined in the same wave signals. Throughout the entire simulation, it is clear that seg is equal to seg_expected, as desired.\n\n\n\nFigure 5: Seven-segment waveforms\n\n\nThe multiplexer module waveforms in Figure 6 were implemented with a nested for loop and assert statements. The simulation duration was lengthy, but the logic and behavior remains consistent.\n\n\n\nFigure 6: Multiplexer waveforms\n\n\nFigure 7 shows a zoomed-in segment of the multiplexer waves. This wave shows that as the multiplexer enable oscillates between zero and one with the modified clock frequency, the output value alternates between the first and second switch values. The nested for loop allows for all possible switch combinations to be tested and confirmed.\n\n\n\nFigure 7: Multiplexer waveforms zoomed-in"
+  },
+  {
+    "objectID": "e155-labs/lab2/e155-lab2.html#conclusion",
+    "href": "e155-labs/lab2/e155-lab2.html#conclusion",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis simulation waveforms paired with the successful hardware implementation indicate that this lab successfully met all design requirements. The displays successfully employ time-multiplexing, show the independent hexadecimal digits simultaneously, and the LEDs show the proper sum of those digits. In all, this lab took roughly 25 hours to complete."
+  },
+  {
+    "objectID": "e155-labs/lab7/e155-lab7.html",
+    "href": "e155-labs/lab7/e155-lab7.html",
+    "title": "Lab 7: The Advanced Encryption Standard",
+    "section": "",
+    "text": "This lab dives into the Advanced Encryption Standard (AES) for secure communication. The initiates plain text communication between the STM32L432KCU microcontroller unit and the iCE40UP5K FPGA. The MCU initiates SPI communication with the FPGA, which behaves as the accelerator, providing it with an encryption key and unsecure message. Once the 128-bit message undergoes sufficient AES cycling, the encrypted message is sent back to the MCU."
+  },
+  {
+    "objectID": "e155-labs/lab7/e155-lab7.html#introduction",
+    "href": "e155-labs/lab7/e155-lab7.html#introduction",
+    "title": "Lab 7: The Advanced Encryption Standard",
+    "section": "",
+    "text": "This lab dives into the Advanced Encryption Standard (AES) for secure communication. The initiates plain text communication between the STM32L432KCU microcontroller unit and the iCE40UP5K FPGA. The MCU initiates SPI communication with the FPGA, which behaves as the accelerator, providing it with an encryption key and unsecure message. Once the 128-bit message undergoes sufficient AES cycling, the encrypted message is sent back to the MCU."
+  },
+  {
+    "objectID": "e155-labs/lab7/e155-lab7.html#design-and-testing",
+    "href": "e155-labs/lab7/e155-lab7.html#design-and-testing",
+    "title": "Lab 7: The Advanced Encryption Standard",
+    "section": "Design and Testing",
+    "text": "Design and Testing\nThe Advanced Encryption Standard requires five fundamental sub-modules: SubBytes, ShiftRows, MixColumns, AddRoundKey, and KeyExpansion. The SubBytes module employs a synchronous sbox function, which converts the message bits to their counterparts outlined in the table in FIPS 197 Figure 7. A synchronous method is employed here to preserve the LUTs onboard the FPGA to ensure physical implementation is possible. A similar rational motivates the KeyExpansion module which systematically generates a new key for the subsequent round based on the current key and round number. Following AES standards, the 128-bit encryption process follows eleven cycles: the first passes the plaintext message into the AddRoundKey function and generates a new key, the second through tenth cycle passes the increasingly encrypted method through the SubBytes, ShiftRows, MixColumns, AddRoundKey, and KeyExpansion modules (in that order), and the last cycle mimics the primary cycle, only bypassing the MixColumns function. These cycles were implemented with a Finite State Machine, governing when modules are active, the current round, and which modules to skip."
+  },
+  {
+    "objectID": "e155-labs/lab7/e155-lab7.html#technical-documentation",
+    "href": "e155-labs/lab7/e155-lab7.html#technical-documentation",
+    "title": "Lab 7: The Advanced Encryption Standard",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\n\nBlock Diagram\nThis implementation of AES relied on many levels of abstraction. The top module called on the aes_spi module and the aes_core module. The aes_core function houses all sub-modules present within the AES cycle. The top module, aes_core module, and the FSM state transition diagram are illustrated in Figures 1, 2, and 3, respectively.\n\n\n\nFigure 1: Full AES Accelerator Block Diagram\n\n\n\n\n\nFigure 2: AES Core Block Diagram\n\n\n\n\n\nFigure 3: FSM State Transition Diagram"
+  },
+  {
+    "objectID": "e155-labs/lab7/e155-lab7.html#results-and-discussion",
+    "href": "e155-labs/lab7/e155-lab7.html#results-and-discussion",
+    "title": "Lab 7: The Advanced Encryption Standard",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nIndependent waveforms for each module, and sub-module, by extension, prove proper behavior for the SPI encryption and general message encryption (Figures 4 and 5, respectively). The outputs from these primary aes modules were validated with examples provided in the FIPS 197 appendix, while the building-block modules’ results were validated with personal computation and bit-mapping (Figures 6 through 9). The physical success of this lab was confirmed by measuring the SPI communication with a logic analyzer on the Rigol oscilloscopes provided in lab. The communication patterns were confirmed to match those of the simulation waveforms, indicating that the AES accelerator did not exhaust all FPGA LUTs.\n\n\n\nFigure 4: Full AES Accelerator Waveforms\n\n\n\n\n\nFigure 5: AES Core Accelerator Waveforms\n\n\n\n\n\nFigure 6: SubBytes Module Waveforms\n\n\n\n\n\nFigure 7: ShiftRows Module Waveforms\n\n\n\n\n\nFigure 8: AddRoundKey Module Waveforms\n\n\n\n\n\nFigure 9: KeyExpansion Module Waveforms\n\n\n\n\n\nFigure 10: SPI Communication Confirmed with Logic Analyzer"
+  },
+  {
+    "objectID": "e155-labs/lab7/e155-lab7.html#conclusion",
+    "href": "e155-labs/lab7/e155-lab7.html#conclusion",
+    "title": "Lab 7: The Advanced Encryption Standard",
+    "section": "Conclusion",
+    "text": "Conclusion\nAfter roughly 20-25 productive working hours, this lab meets the listed specifications. The biggest challenge, besides wrapping my head around the lab conceptually, was modifying the aes_core module after running the simulation. The simulation allowed a design with many latches that would disrupt physical implementation. After accounting for these latches, the simulation was executed again and performed as desired."
+  },
+  {
+    "objectID": "e155-labs/lab1/e155-lab1.html",
+    "href": "e155-labs/lab1/e155-lab1.html",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "",
+    "text": "In this lab, proper functionality of the E155 development board was confirmed by exercising the on-board 48 MHz high-speed oscillator, controlling three embedded LEDs, and manipulating a seven-segment display connected with GPIO pins. The high-speed oscillator behaves as a clock that was divided with a counter to modify the blinking frequency of one of the on-board LEDs. A switch panel on the development board was used to control the other two embedded LEDs and the imaging on the external seven-segment display."
+  },
+  {
+    "objectID": "e155-labs/lab1/e155-lab1.html#introduction",
+    "href": "e155-labs/lab1/e155-lab1.html#introduction",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "",
+    "text": "In this lab, proper functionality of the E155 development board was confirmed by exercising the on-board 48 MHz high-speed oscillator, controlling three embedded LEDs, and manipulating a seven-segment display connected with GPIO pins. The high-speed oscillator behaves as a clock that was divided with a counter to modify the blinking frequency of one of the on-board LEDs. A switch panel on the development board was used to control the other two embedded LEDs and the imaging on the external seven-segment display."
+  },
+  {
+    "objectID": "e155-labs/lab1/e155-lab1.html#design-and-testing",
+    "href": "e155-labs/lab1/e155-lab1.html#design-and-testing",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "Design and Testing",
+    "text": "Design and Testing\nAs part of confirming the functionality of the FPGA and E155 development board, three embedded LEDs were expected to abide by the logic displayed in the tables below. The S values represent the elements of the 4-input switch on the board.\n\n\n\nS1\nS0\nled[0]\n\n\n\n\n0\n0\n0\n\n\n0\n1\n1\n\n\n1\n0\n1\n\n\n1\n1\n0\n\n\n\n\n\n\nS3\nS2\nled[1]\n\n\n\n\n0\n0\n0\n\n\n0\n1\n0\n\n\n1\n0\n0\n\n\n1\n1\n1\n\n\n\n\n\n\nled[2]\n\n\n\n\nBlink at 2.4 Hz\n\n\n\nWith an on-board switch panel linked to the UPduino 3.1 FPGA board, a SystemVerilog file implemented the conditional logic to illuminate two of the three LEDs. While the third LED operated independent of switch logic, its control was established using the built-in 48 MHz high-speed oscillator (HSOSC) from the iCE40 UltraPlus primitive library. A 24-bit counter was used to divide the 48 MHz clock cycle down to the desired 2.4 Hz. Further board GPIO testing was conducted by powering an HDSP-511A seven-segment display to uniquely display each hexadecimal digit (0-F). Segments were illuminated depending on the same switch element that governed the first two embedded LEDs, meaning the segment outputs relied solely on combinational logic. The hexadecimal digits displayed mirrored the binary combination that the switches displayed. To ensure uniform brightness, regardless of the number of segments powered, each pin on the display was wired in parallel with 1 kOhm resistors to limit current draw, as calculated in Figure 2.\nDesign implementation was executed through two separate modules in Lattice Raidant. The combinational logic governing the seven-segment display was written in an isolated module that was later called upon in the top-level module. The top-level module implemented the 48 MHz HSOSC, the clock divider, the conditional LED logic, and called upon the seven segment display module. The pull-up resistor in the development board means active components have a logical low and those inactive have a logical high.\nBefore implementation, the hardware and modules each received through testing. The 3.3 V and 5 V regulators on the board were confirmed to be operational using an external power supply and a multimeter before installing the FPGA and MCU. Testbenches were established for each module to confirm satisfactory waveforms and logic within Questa simulations. The 2.4 Hz oscillating LED was read on an oscilloscope to confirm the clock had been established and properly divded. Current draw calculations for the on-board LEDs and seven-segment display, as well as the clock divider calculations are provided in Figures 1, 2, and 3, respectively."
+  },
+  {
+    "objectID": "e155-labs/lab1/e155-lab1.html#calculations",
+    "href": "e155-labs/lab1/e155-lab1.html#calculations",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "Calculations",
+    "text": "Calculations\nThe three LEDs on the development board and external seven-segment display are powered with 3.3 V from the FPGA. Each LED requires a current-limiting resistor to preserve the diode while maintaining sufficient brightness. By incorporating the source voltage, voltage drop across each diode, and the desired current, the proper resistor values were obtained with Ohm’s Law (Equation 1).\n\\[\nR = \\frac{V_{in} - V_f}{I_{des}} \\tag{1}\n\\]\nThe LEDs illuminated on the development board during this lab were blue, indicating a forward voltage drop around 2.6 V. These diodes are high-efficiency, meaning they can glow at currents less than 1 mA. The deep red diodes on each segment of the seven-segment display exhibit a forward voltage drop of 2 V. Sufficient and safe illuminesence for those external LEDs can be obtained with a current ranging from 1-10 mA.\n\nTable 4: Current-Limiting Resistor Values for Onboard LEDs and Seven-Segment Display\n\n\n\n\n\n\n\n\n\n\n\\(V_{in}\\,[V]\\)\n\\(V_{f}\\,[V]\\)\n\\(I_{des}\\,[mA]\\)\n\\(\\mathbf{R\\,[{\\Omega}]}\\)\n\n\n\n\nOnboard LEDs\n3.3\n2.6\n0.7\n\\(\\mathbf{1000}\\)\n\n\nSeven-segment\n3.3\n1.8\n3\n\\(\\mathbf{500}\\)\n\n\n\nThe 48 MHz clock was divided with a counter. A counter of length n divides the clock at a rate of \\(2^n\\). Since 48 MHz cannot reach 2.4 Hz simply by dividing by some \\(2^n\\), the counter can be compared to and reset when it reaches a specific decimal value. The decimal value is found to be 5,000,000 as that divides the 48 MHz into an even square signal with a 2.4 Hz frequency."
+  },
+  {
+    "objectID": "e155-labs/lab1/e155-lab1.html#technical-documentation",
+    "href": "e155-labs/lab1/e155-lab1.html#technical-documentation",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\n\nBlock Diagrams\nThe source code for the project can be found at Github Repository.\nThe following block diagrams in Figures 1 and 2 show the overall flow, inputs, and outputs within each module of the lab. The top module includes the HSOSC component, the counter, combinational logic for the first two LEDs, and the seven segment display module.\n\n\n\nFigure 1: The block diagram describing the inputs, outputs, and flow within the top module\n\n\n\n\nSchematic\nFigure 2 displays the electrical schematic for the three on-board LEDs using the correct resistor values established in Equation 2. It also presents the electrical connections for the seven-segment display with the proper resistor values determined in Figure 2. The GPIO pins each segment is connected to can act as a power source or a ground.\n\n\n\nFigure 2: Electrical schematic for the on-board LEDs and seven-segment display. LEDs D6-D8 are blue."
+  },
+  {
+    "objectID": "e155-labs/lab1/e155-lab1.html#results-and-discussion",
+    "href": "e155-labs/lab1/e155-lab1.html#results-and-discussion",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nFigure 3 shows the waveforms from the top module. The first line shows the clock cycles, the second highlights the reset state, and the third describes the switch inputs. Notice the switch inputs contain all possible hexadecimal digits that should be displayed on the segments. Since led[2] oscillates at the same frequency regardless of the input values, that component was confirmed separately with the oscilloscope image in Figure 5.\n\n\n\nFigure 3: A screenshot of the QuestaSim simulation demonstrating that the top module exhibits the correct logic for led[1], led[0], and all segment outputs.\n\n\nFigure 4 shows the waveforms generated from the seven-segment module simulation. These waveform simulations also appear in the top module simulation, but it is best to confirm that both modules work properly to aid in debugging combinational logic issues or implementation issues. Notice all segments demonstrate the desired behavior outlined in the test vectors.\n\n\n\nFigure 4: The QuestaSim simulation waveforms showcasing that each segment of the seven segment display produces the correct logic for all possible inputs.\n\n\nFigure 5 outlines the periodic square wave influenced by the oscillating LED. Using built-in functions on the oscilloscope, the frequency is measured to be 2.4 Hz, as desired.\n\n\n\nFigure 5: This oscilloscope image reveals led[2] oscillating at the desired 2.4 Hz, indicating proper division of the high-speed oscillator."
+  },
+  {
+    "objectID": "e155-labs/lab1/e155-lab1.html#conclusion",
+    "href": "e155-labs/lab1/e155-lab1.html#conclusion",
+    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe simulations and hardware implementations show that this lab was successful in all regards. The LEDs activated and behaved in their expected manner and the seven-segment display showed all hexadecimal digits when expected. The lab took roughly 25 hours to complete."
+  },
+  {
+    "objectID": "labs.html",
+    "href": "labs.html",
+    "title": "E155 Labs",
+    "section": "",
+    "text": "Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog.\n\n\n\nThis lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits\n\n\n\nLab 3 description\n\n\n\nLab 4 description\n\n\n\nLab 5 description\n\n\n\nLab 6 description\n\n\n\nLab 7 description"
+  },
+  {
+    "objectID": "labs.html#lab-1-fpga-and-mcu-testing-and-setup",
+    "href": "labs.html#lab-1-fpga-and-mcu-testing-and-setup",
+    "title": "E155 Labs",
+    "section": "",
+    "text": "Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog."
+  },
+  {
+    "objectID": "labs.html#lab-2-multiplexed-7-segment-display",
+    "href": "labs.html#lab-2-multiplexed-7-segment-display",
+    "title": "E155 Labs",
+    "section": "",
+    "text": "This lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits"
+  },
+  {
+    "objectID": "labs.html#lab-3-keypad-scanner",
+    "href": "labs.html#lab-3-keypad-scanner",
+    "title": "E155 Labs",
+    "section": "",
+    "text": "Lab 3 description"
+  },
+  {
+    "objectID": "labs.html#lab-4-digital-audio",
+    "href": "labs.html#lab-4-digital-audio",
+    "title": "E155 Labs",
+    "section": "",
+    "text": "Lab 4 description"
+  },
+  {
+    "objectID": "labs.html#lab-5-interrupts",
+    "href": "labs.html#lab-5-interrupts",
+    "title": "E155 Labs",
+    "section": "",
+    "text": "Lab 5 description"
+  },
+  {
+    "objectID": "labs.html#lab-6-the-internet-of-things-and-serial-peripheral-interface",
+    "href": "labs.html#lab-6-the-internet-of-things-and-serial-peripheral-interface",
+    "title": "E155 Labs",
+    "section": "",
+    "text": "Lab 6 description"
+  },
+  {
+    "objectID": "labs.html#lab-7-the-advanced-encryption-standard",
+    "href": "labs.html#lab-7-the-advanced-encryption-standard",
+    "title": "E155 Labs",
+    "section": "",
+    "text": "Lab 7 description"
+  },
+  {
+    "objectID": "posts/first-post.html",
+    "href": "posts/first-post.html",
+    "title": "Goals for MicroPs",
+    "section": "",
+    "text": "I remember wanting to take MicroPs before I even declared as an engineering major. Not only because the projects from previous cohorts left me in awe, but also because each person I talked to described this as one of their most rewarding experiences. E155 explores so many facets of digital and hardware design and instills coveted skills that apply to all realms of engineering. I hope to use this opportunity to push myself beyond the limits I untinentionally impose on myself and embrace the uncertainty that comes along with the rigorous curriculum. I aspire to learn the techniques, time management, decision-making skills, and debugging practices that industry experts employ on a day-to-day basis. On top of this, I hope to forge new friendships with my peers, bonding over the struggles, challeneges, and long lab hours that we will share throughout the semester."
+  },
+  {
+    "objectID": "posts/lab-1-reflection.html",
+    "href": "posts/lab-1-reflection.html",
+    "title": "Lab 1 Reflection",
+    "section": "",
+    "text": "This lab was a good introduction into E155 and the work and dedication that these labs require. I spent the first few days getting my bearings and figuring out how to solder SMT connections and parse through the lab manual in a constructive way. There were many times where I felt like I was in over my head, but working with others and collaboration made this lab very informative and fun. I feel that I can use the Lattice and Questa software comfortably, which should help a lot in subsequent labs. I got closer with my peers and gained confidence that will at least carry me through the next week. I did not do the best job planning out my work, as I spent most of my time on this lab rather than other commitments. Going into Lab 2, I hope to establish a better plan, utilize grutoring hours more, and maintain more balance with my workload and social commitments."
   },
   {
     "objectID": "e155.html",
@@ -91,172 +329,172 @@
     "text": "Description\nProject Proposal  Final Report  Github"
   },
   {
-    "objectID": "labs/lab2/e155-lab2.html",
-    "href": "labs/lab2/e155-lab2.html",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "objectID": "posts/lab-2-reflection.html",
+    "href": "posts/lab-2-reflection.html",
+    "title": "Lab 2 Reflection",
     "section": "",
-    "text": "In this lab, a time-multiplexer was programmed onto the E155 iCE40 UltraPlus FPGA board with SystemVerilog to control two independent seven-segment displays connected to the same GPIO pins. The displays were capable of showcasing each of the sixteen hexadecimal digits (0-F), and their sum was represented by five external LEDs. This lab introduces a new form of multiplexing and emphasizes the ability to control multiple components with a limited number of available GPIO connections."
+    "text": "After completing lab 1, I felt that I had more of a grasp effort, dedication, and time required to complete this lab to the best of my abilities. I set aside of bulk of my time to work on this lab, while still designating enough time for my other work and commitments. I had a hard time grasping the overall flow of how a time-multiplexer works and how it should be implemented, but thanks Xavier’s clear explanation, I felt the Verilog aspect was not as difficult as I initially assumed. I ran into an odd issue where a majority of the inputs displayed the correct values, but experienced an odd behavior at a few specific combinations. I spent hours trying to debug what was seemingly a hardware issue, but thankfully, a superb grutor, Troy, experienced the same issue I had when he worked on this lab. The issue was that the internal pull-up resistor was too weak and caused a latching behavior. By editing the internal pullup resistor in the Device Constraint Editor, my problem was miraculously solved! Additionally, my experience with testbenches typically involved test vectors, so to test all 256 possible switch combinations for the led sum logic, I manually wrote out close to 200 of them before realizing that there must be a better way. I learned how to write testbenches with assert statements and implemented my first successful iterating for loops in my multiplexer testbench. These experiences, while time-consuming in the moment, added more debugging tools that I can rely on in the future.\nI’ve heard many warnings about lab 3, but I feel confident that I can get through it. There were many times this lab and the last one where I felt like giving up and that I was in over my head, but ultimately, I found a way to get through. I am extremely grateful for my peers, Prof. Spencer, Xavier, and the grutors for helping me walk through certain steps and explaining concepts I initially found perplexing. Lab 3 strikes at an inconvenient time for me, since I have a project deliverable and clinic design review presentation due around the same time as my check-in, but I plan to get an early start, plan out my time to satisfy all commitments, and still allocate time for personal health, like exercising. I am proud of myself for these first two labs, and I maintain that feeling throughout the semester."
   },
   {
-    "objectID": "labs/lab2/e155-lab2.html#introduction",
-    "href": "labs/lab2/e155-lab2.html#introduction",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Thomas Lilygren",
     "section": "",
-    "text": "In this lab, a time-multiplexer was programmed onto the E155 iCE40 UltraPlus FPGA board with SystemVerilog to control two independent seven-segment displays connected to the same GPIO pins. The displays were capable of showcasing each of the sixteen hexadecimal digits (0-F), and their sum was represented by five external LEDs. This lab introduces a new form of multiplexing and emphasizes the ability to control multiple components with a limited number of available GPIO connections."
+    "text": "LinkedIn\n  \n  \n    \n     Github\n  \n  \n    \n     Email"
   },
   {
-    "objectID": "labs/lab2/e155-lab2.html#design-and-testing",
-    "href": "labs/lab2/e155-lab2.html#design-and-testing",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "objectID": "index.html#spring-2026-resume-open-resume-in-new-tab",
+    "href": "index.html#spring-2026-resume-open-resume-in-new-tab",
+    "title": "Thomas Lilygren",
+    "section": "Spring 2026 Resume   Open resume in new tab",
+    "text": "Spring 2026 Resume   Open resume in new tab"
+  },
+  {
+    "objectID": "e155-labs/lab6/e155-lab6.html",
+    "href": "e155-labs/lab6/e155-lab6.html",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
+    "section": "",
+    "text": "This lab introduces SPI communication and the Internet of Things. The DS1722 temperature sensor records the ambient temperature and sends the data to the STM32L432KCU MCU. Temperature data is transferred via USART to a local website hosted by the ESP8266. Temperature resolution and LED control options are presented on the website to modify MCU and temperature sensor behavior."
+  },
+  {
+    "objectID": "e155-labs/lab6/e155-lab6.html#introduction",
+    "href": "e155-labs/lab6/e155-lab6.html#introduction",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
+    "section": "",
+    "text": "This lab introduces SPI communication and the Internet of Things. The DS1722 temperature sensor records the ambient temperature and sends the data to the STM32L432KCU MCU. Temperature data is transferred via USART to a local website hosted by the ESP8266. Temperature resolution and LED control options are presented on the website to modify MCU and temperature sensor behavior."
+  },
+  {
+    "objectID": "e155-labs/lab6/e155-lab6.html#design-and-testing",
+    "href": "e155-labs/lab6/e155-lab6.html#design-and-testing",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
     "section": "Design and Testing",
-    "text": "Design and Testing\nThe independent seven-segment displays were controlled with two four-input DIP switches, which acted as the inputs to the time multiplexer. A clock frequency was generated with the 24 MHz internal high-speed oscillator, which employed an eighteen-bit counter to divide it to a reasonable frequency. This frequency was tailored to prevent bleeding and flickering within the displays while still allowing them to appear simultaneously. With a small degree of trial and error, a frequency of 120 Hz was found to satisfy these display conditions. The 120 Hz modified clock frequency acted as the enable to the multiplexer: when the clock enable was low, it would pass the input logic from the DIP switch controlling the first display, and when high, it would pass the logic from the DIP switch controlling the second. Two PNP transistors behaved as gates that controlled when each display received power: the emitter pins received 3.3 V supplied by the FPGA, the base pins were connected to the GPIO pins on the FPGA with a 1 kOhm resistor in wired in series, and the collector pins were connected to the common anodes on the seven-segment displays.\nThe seven-segment displays shared a common layout, meaning that the pins the controlling corresponding segments were connected to the same GPIOs with a 470 kOhm resistor wired in series with them. These resistors not only limited the current running through each segment, but also protected the FPGA pins which acted as a ground. The two four-input DIP switches also controlled five external green LEDs implemented on the breadboard design. The five LEDs received power from five separate GPIO pins on the FPGA and were wired in series with 200 Ohm resistors to limit their current draw. The LEDs illuminated to showcase the binary sum of the DIP switch positions, and by extension, the sum of the two hexadecimal digits shown on the seven-segment displays.\nCalculations for resistor connected to the base pins of the PNP transistors are shown in Figure 1, while the calculations to limit the current draw of the seven-segment displays and the external LEDs can be found in Figures 2 and 3, respectively.\nThe source code for this lab can be found at this Github Repository."
+    "text": "Design and Testing\nWebsite features for controlling an external LED, the temperature resolution, and temperature display were implemented with HTML code and transferred to the webiste with USART. Temperature resolution can be configured between 8 and 12 bits. Resolution selections write to the configuration register in the DS1722. Temperature data is continuously read as two separate character values, with the signed most significant character being sent first followed by the least significant character repesenting the decimal portion. The least significant character is corrected by a factor of 256 to get it to its intended fractional value. To combat the high-frequency noise interfering MISO communication, a low-pass filter was constrcuted with the 10 pF capcitor and a 1.6 kOhm resistor. These values were selected such that the corner frequency (10 MHz) is 5 times that of the baud rate (2 MHz)."
   },
   {
-    "objectID": "labs/lab2/e155-lab2.html#calculations",
-    "href": "labs/lab2/e155-lab2.html#calculations",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "objectID": "e155-labs/lab6/e155-lab6.html#calculations",
+    "href": "e155-labs/lab6/e155-lab6.html#calculations",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
     "section": "Calculations",
-    "text": "Calculations\nThe maximum allowed current sink for the FPGA GPIO switch pins is 8 mA according to the iCE40 UltraPlus 5K datasheet. Using this knowledge along with the known 3.3 V supply entering the emitter pin and known 0.7 V drop between the emitter and base pin, the resistor in series with the 2N3906 PNP transistor’s base pin and the FPGA can be calculated with the formula in Figure 1. Aiming for a current gain of 10, the voltage sinking in the FPGA should be 0.8 mA, well below the established threshold.\n\n\n\nFigure 1: PNP base transistor calculation\n\n\nThe seven-segment displays are composed of deep red diodes with a forward voltage of 2 V. These diodes exhibit sufficient birghtness when receiving a current between 1-10 mA. To preserve the functionality of the FPGA’s GPIO pins, a sink current above 8 mA is not advisable. Therefore, a resistor controlling the current between 1 and 5 mA was desired. The calculations for the seven-segment resistor values are shown in Figure 2 below.\n\n\n\nFigure 2: Seven-Segment Display current calculations\n\n\nThe five external LEDs were green, meaning they each had a voltage drop of around 1.8 V. Sufficient luminescence is obtained with a current of around 7-10 mA. Understanding that the input voltage from the FPGA is 3.3 V, Ohm’s Law was used to find the satisfactory resistor value of 200 Ohms. This calculation can be found below in Figure 3.\n\n\n\nFigure 3: External LED current calculations"
+    "text": "Calculations\nThe website control a green external LED with two buttons. When the on button is pressed, the LED activates, and turns off once the off button is pressed. The LED is powered with 5V and has a forward voltage drop of 1.88 V. Current must be limited to within 10 mA. Sufficient brightness can be achieved with a current above 5 mA, so a 560 Ohm resistor was selected based on the calculation below.\n\n\n\nFigure 1: LED Resistor Calculation"
   },
   {
-    "objectID": "labs/lab2/e155-lab2.html#technical-documentation",
-    "href": "labs/lab2/e155-lab2.html#technical-documentation",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "objectID": "e155-labs/lab6/e155-lab6.html#technical-documentation",
+    "href": "e155-labs/lab6/e155-lab6.html#technical-documentation",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
     "section": "Technical Documentation",
-    "text": "Technical Documentation\n\nBlock Diagrams\nThe SystemVerilog code to complete the lab deliverables were separated into three modules: one describing the multiplexer logic, another implementing the seven-segment logic from the DIP switch positions, and a third executing the addition for the external LED display. All modules were called in the comprehensive top module outlined below.\n\n\n\nFigure 4: Top module block diagram\n\n\nThe multiplexer modules instantiates the HSOSC and implements the counter for clock division. Within the module, the enable bit, oscillating at the same frequency as the 120 Hz clock, is fed into a mux established with a ternary operator. The mux receives the two DIP switch inputs, and depending on this enable value, passes one of those two inputs to the output.\n\n\n\nFigure 5: Multiplexer module block diagram\n\n\n\n\nElectronic Schematics\nTo ensure all segments are equally illuminated, the segments are wired in parallel to each other, and each is wired in series with a 470 Ohm resistor to limit the current through the display and sunk into the FPGA. The two displays share common pin functions, meaning that counterparts are connected together and fed to the same GPIO.\n\n\n\nFigure 6: Seven-Segment Display electronic schematic\n\n\nThe five green external LEDs are powered with the FPGA based on the summation logic implemented in the leds module. Each diode is wired in series with a 200 Ohm current-limiting resistor and fed to ground. These resistors allow 7 mA of current to flow through each LED, which makes it sufficiently bright when on.\n\n\n\nFigure 7: External LEDs electronic schematic"
+    "text": "Technical Documentation\n\nElectric Schematic\nWith the external LED, the primary connections were between the DS1722 sensor and the MCU. USART connections between the MCU and ESP8266 were handled internally within the E155 development board and are thus excluded. SPI pins, 5V volage, and ground connections were directly connected to the receiving pins within the temperature sensor as indicated below.\n\n\n\nFigure 2: Electric Schematic"
   },
   {
-    "objectID": "labs/lab2/e155-lab2.html#results-and-discussion",
-    "href": "labs/lab2/e155-lab2.html#results-and-discussion",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "objectID": "e155-labs/lab6/e155-lab6.html#results-and-discussion",
+    "href": "e155-labs/lab6/e155-lab6.html#results-and-discussion",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
     "section": "Results and Discussion",
-    "text": "Results and Discussion\nThe external LEDs were confirmed to output the proper binary value through a waveform simulation. All possible switch input combinations were tested and the output sum is present in the waveforms in Figure 8. The two DIP switches were powered low, meaning their bits must be inverted before taking their sum.\n\n\n\nFigure 8: LEDs module waveforms\n\n\nFigure 9 shows a zoomed-in portion of the LED waveforms in Figure 8. This image allows a closer look into the output (led) values at given switch input values.\n\n\n\nFigure 9: LEDs module waveforms zoomed-in\n\n\nThe seven-segment waveforms in Figure 10 are similar to the waveforms showcased in lab 1. Here, the seg outputs and seg_expected outputs are outlined in the same wave signals. Throughout the entire simulation, it is clear that seg is equal to seg_expected, as desired.\n\n\n\nFigure 10: Seven-segment waveforms\n\n\nThe multiplexer module waveforms in Figure 11 were implemented with a nested for loop and assert statements. The simulation duration was lengthy, but the logic and behavior remains consistent.\n\n\n\nFigure 11: Multiplexer waveforms\n\n\nFigure 12, shows a zoomed-in segment of the multiplexer waves in Figure 11. This wave shows that as the multiplexer enable oscillates between zero and one with the modified clock frequency, the output value alternates between the first and second switch values. The nested for loop allows for all possible switch combinations to be tested and confirmed.\n\n\n\nFigure 12: Multiplexer waveforms zoomed-in"
+    "text": "Results and Discussion\nSPI communication was confirmed by reading the MISO and MOSI lines with the Logic Analyzer. The configuration write register is 0x80 which is clear in the first SPI transaction. The MSB value is later received as indicated by the reading of register 0x02 and a dummy variable is sent after to complete the transaction. Between this 16-bit transaction, the clock enable purposefully lowers and rises again to read the LSB values in the 0x01 register. The second values in each MISO transaction indicate the MSB and LSB values, which are then converted to temperature readings.\n\n\n\nFigure 3: SPI Demonstration over Logic Analyzer"
   },
   {
-    "objectID": "labs/lab2/e155-lab2.html#conclusion",
-    "href": "labs/lab2/e155-lab2.html#conclusion",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "objectID": "e155-labs/lab6/e155-lab6.html#conclusion",
+    "href": "e155-labs/lab6/e155-lab6.html#conclusion",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
     "section": "Conclusion",
-    "text": "Conclusion\nThis simulation waveforms paired with the successful hardware implementation indicate that this lab successfully met all design requirements. The displays successfully employ time-multiplexing, show the independent hexadecimal digits simultaneously, and the LEDs show the proper sum of those digits. In all, this lab took roughly 25 hours to complete."
+    "text": "Conclusion\nThis lab took roughly 20 hours complete. While some obscure MISO behavior is recorded on the logic analyzer, the website successfully controls temperature readings and resolution. I learned a lot about SPI behavior, some HTML code, and USART communication, which will come in handy for the final project. There was a lot of tedious and painful debugging that stumped me, even when all individual aspects appeared to be properly implemented."
   },
   {
-    "objectID": "labs/lab2/e155-lab2.html#ai-prototype",
-    "href": "labs/lab2/e155-lab2.html#ai-prototype",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "AI Prototype",
-    "text": "AI Prototype\nChatGPT’s hardware design for the first lab failed after multiple prompts and updates with Lattice Radiant’s error codes. Here, its capabilities are tested again with the following prompt: “Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits.”\n\n\n\nFigure 13: Initial prompt to ChatGPT\n\n\nUnlike last, ChatGPT developed hardware code that synthesized in Lattice Radiant on the first try without any reference code from lab 1. It appears that ChatGPT’s ability to program hardware is improving. Still, its capabilities will be tested when it has a base script to refer to with the following prompt: “Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits. Use the seven segment decoder and oscillator provided in the attached files.”\n\n\n\nFigure 14: ChatGPT prompt with lab 1 reference code\n\n\nAfter providing reference code from lab 1, ChatGPT ran into its first error in that it called a seven-segment display module that it did not create. Once prompted to create the seven-segment display module, it copied the code in the module it had been provided and Lattice Synthesized the project without issue.\nIt is clear that ChatGPT is gaining traction with hardware design and programming whether receiving help with working code or not. Instead of using the ternary operator for a multiplexer, ChatGPT opts for a case statement, which behaves the same, but is less elegant. The AI also uses different instances of variables when calling the seven-segment display module. For example, instead of using “sevensegment display(s, seg),” it uses “sevensegment display(.s(current_intput), .seg(seg)).” The code appears to behave the same, but I prefer my implementation over ChatGPT’s."
-  },
-  {
-    "objectID": "labs/lab1/e155-lab1.html",
-    "href": "labs/lab1/e155-lab1.html",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "objectID": "e155-labs/lab5/e155-lab5.html",
+    "href": "e155-labs/lab5/e155-lab5.html",
+    "title": "Lab 5: Interrupts",
     "section": "",
-    "text": "In this lab, proper functionality of the E155 development board was confirmed by exercising the on-board 48 MHz high-speed oscillator, controlling three embedded LEDs, and manipulating a seven-segment display connected with GPIO pins. The high-speed oscillator behaves as a clock that was divided with a counter to modify the blinking frequency of one of the on-board LEDs. A switch panel on the development board was used to control the other two embedded LEDs and the imaging on the external seven-segment display."
+    "text": "Lab 5 aims to measure the angular velocity and detect the direction of a spinning motor using two built-in quadrature sensors generating identical square wave signals offset by 90º. The STM32L432KCU MCU records the number of pulses input by the quadratures by generating interrupt signals that increase a counter variable without the MCU needing to constantly scan for these events. After each second, the counter tally is converted to angular velocity using dimensional analysis with specifications from the motor’s datasheet before being reset. By keeping track of the rising and falling edges for both quadratures, the motor’s direction can also be determined.\n\n\n\nAnimation of Quadrature Encoder. The original animation can be found here"
   },
   {
-    "objectID": "labs/lab1/e155-lab1.html#introduction",
-    "href": "labs/lab1/e155-lab1.html#introduction",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "objectID": "e155-labs/lab5/e155-lab5.html#introduction",
+    "href": "e155-labs/lab5/e155-lab5.html#introduction",
+    "title": "Lab 5: Interrupts",
     "section": "",
-    "text": "In this lab, proper functionality of the E155 development board was confirmed by exercising the on-board 48 MHz high-speed oscillator, controlling three embedded LEDs, and manipulating a seven-segment display connected with GPIO pins. The high-speed oscillator behaves as a clock that was divided with a counter to modify the blinking frequency of one of the on-board LEDs. A switch panel on the development board was used to control the other two embedded LEDs and the imaging on the external seven-segment display."
+    "text": "Lab 5 aims to measure the angular velocity and detect the direction of a spinning motor using two built-in quadrature sensors generating identical square wave signals offset by 90º. The STM32L432KCU MCU records the number of pulses input by the quadratures by generating interrupt signals that increase a counter variable without the MCU needing to constantly scan for these events. After each second, the counter tally is converted to angular velocity using dimensional analysis with specifications from the motor’s datasheet before being reset. By keeping track of the rising and falling edges for both quadratures, the motor’s direction can also be determined.\n\n\n\nAnimation of Quadrature Encoder. The original animation can be found here"
   },
   {
-    "objectID": "labs/lab1/e155-lab1.html#design-and-testing",
-    "href": "labs/lab1/e155-lab1.html#design-and-testing",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "objectID": "e155-labs/lab5/e155-lab5.html#design-and-testing",
+    "href": "e155-labs/lab5/e155-lab5.html#design-and-testing",
+    "title": "Lab 5: Interrupts",
     "section": "Design and Testing",
-    "text": "Design and Testing\nAs part of confirming the functionality of the FPGA and E155 development board, three embedded LEDs were expected to abide by the logic displayed in the tables below. The S values represent the elements of the 4-input switch on the board.\n\n\n\nS1\nS0\nled[0]\n\n\n\n\n0\n0\n0\n\n\n0\n1\n1\n\n\n1\n0\n1\n\n\n1\n1\n0\n\n\n\n\n\n\nS3\nS2\nled[1]\n\n\n\n\n0\n0\n0\n\n\n0\n1\n0\n\n\n1\n0\n0\n\n\n1\n1\n1\n\n\n\n\n\n\nled[2]\n\n\n\n\nBlink at 2.4 Hz\n\n\n\nWith an on-board switch panel linked to the UPduino 3.1 FPGA board, a SystemVerilog file implemented the conditional logic to illuminate two of the three LEDs. While the third LED operated independent of switch logic, its control was established using the built-in 48 MHz high-speed oscillator (HSOSC) from the iCE40 UltraPlus primitive library. A 24-bit counter was used to divide the 48 MHz clock cycle down to the desired 2.4 Hz.  Further board GPIO testing was conducted by powering an HDSP-511A seven-segment display to uniquely display each hexadecimal digit (0-F). Segments were illuminated depending on the same switch element that governed the first two embedded LEDs, meaning the segment outputs relied solely on combinational logic. The hexadecimal digits displayed mirrored the binary combination that the switches displayed. To ensure uniform brightness, regardless of the number of segments powered, each pin on the display was wired in parallel with 1 kOhm resistors to limit current draw, as calculated in Figure 2.\n Design implementation was executed through two separate modules in Lattice Raidant. The combinational logic governing the seven-segment display was written in an isolated module that was later called upon in the top-level module. The top-level module implemented the 48 MHz HSOSC, the clock divider, the conditional LED logic, and called upon the seven segment display module. The pull-up resistor in the development board means active components have a logical low and those inactive have a logical high.\n Before implementation, the hardware and modules each received through testing. The 3.3 V and 5 V regulators on the board were confirmed to be operational using an external power supply and a multimeter before installing the FPGA and MCU. Testbenches were established for each module to confirm satisfactory waveforms and logic within Questa simulations. The 2.4 Hz oscillating LED was read on an oscilloscope to confirm the clock had been established and properly divded. Current draw calculations for the on-board LEDs and seven-segment display, as well as the clock divider calculations are provided in Figures 1, 2, and 3, respectively.\n\nCalculations\nThe three LEDs on the development board and external seven-segment display are powered with 3.3 V from the FPGA. Each LED requires a current-limiting resistor to preserve the diode while maintaining sufficient brightness. By incorporating the source voltage, voltage drop across each diode, and the desired current, the proper resistor values were obtained with Ohm’s Law (V = IR).\n The LEDs illuminated on the development board during this lab were blue, indicating a forward voltage drop around 2.6 V. These diodes are high-efficiency, meaning they can glow at currents less than 1 mA. The deep red diodes on each segment of the seven-segment display exhibit a forward voltage drop of 2 V. Sufficient and safe illuminesence for those external LEDs can be obtained with a current ranging from 1-10 mA.\n\n\n\nFigure 1: The calculations to limit current draw for the on-board LEDs\n\n\n\n\n\nFigure 2: The calculations to limit current draw for the seven-segment display\n\n\nThe 48 MHz clock was divided with a counter. A counter of length n divides the clock at a rate of \\(2^n\\). Since 48 MHz cannot reach 2.4 Hz simply by dividing by some \\(2^n\\), the counter can be compared to and reset when it reaches a specific decimal value. The decimal value is found to be 5,000,000 as that divides the 48 MHz into an even square signal with a 2.4 Hz frequency."
+    "text": "Design and Testing\nThe 25GA-370 DC Motor contains an encoder disk and two optical quadrature sensors, QA and QB. Both quadratures sensors generate identical square wave pulse trains, but the signal from QB is offset from the QA signal by 90 degrees. The signals from these sensors feed into the PA6 and PA8 pins on the MCU for QA and QB, respectively. The rising and falling edges for each signal generate and interrupts"
   },
   {
-    "objectID": "labs/lab1/e155-lab1.html#technical-documentation",
-    "href": "labs/lab1/e155-lab1.html#technical-documentation",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "objectID": "e155-labs/lab5/e155-lab5.html#calculations",
+    "href": "e155-labs/lab5/e155-lab5.html#calculations",
+    "title": "Lab 5: Interrupts",
+    "section": "Calculations",
+    "text": "Calculations\nThe interrupt configuration increments the counter by one at each rising and falling edge trigger for both quadrature pulses. The total count acheived after one second must be converted to angular velocity in revolutions per second. These interrupt signals increment the counter by four for each measured pulse, meaning a correcting factor of four must be applied to convert the variable from ticks to pulses. According to the motor’s datasheet, the motor has 408 pulses per revolution, which can then be used to get the desired velocity. Accuracy can be confirmed by checking the measured specs within the same datasheet.\n\n\n\nFigure 1: Motor Angular Velocity with a 10 V applied voltage"
+  },
+  {
+    "objectID": "e155-labs/lab5/e155-lab5.html#technical-documentation",
+    "href": "e155-labs/lab5/e155-lab5.html#technical-documentation",
+    "title": "Lab 5: Interrupts",
     "section": "Technical Documentation",
-    "text": "Technical Documentation\n\nBlock Diagrams\nThe source code for the project can be found at Github Repository.\nThe following block diagrams in Figures 3 and 4 show the overall flow, inputs, and outputs within each module of the lab. The top module includes the HSOSC component, the counter, combinational logic for the first two LEDs, and the seven segment display module.\n\n\n\nFigure 3: The block diagram describing the inputs, outputs, and flow within the top module\n\n\nFigure 4 shows the inputs, outputs, and flow of the seven segment display module. This module is purely combinational with only one input and one output.\n\n\n\nFigure 4: The block diagram describing the inputs, outputs, and flow within the sevensegment module\n\n\n\n\nSchematic\nFigure 5 displays the electrical schematic for the three on-board LEDs using the correct resistor values established in Figure 2.\n\n\n\nFigure 5: The electrical schematic for the on-board LEDs to ensure proper illuminesence without extreme current draw\n\n\nFigure 6 presents the electrical schematic for the seven-segment display with the proper resistor values determined in Figure 2. The GPIO pins each segment is connected to can act as a power source or a ground.\n\n\n\nFigure 6: The electrical schematic for the external seven-segment display to ensure proper illuminesence without extreme current draw"
+    "text": "Technical Documentation\n\nInterrupt Flowchart\nThe MCU continuosly operates in the while loop within the main function after configuring the GPIOs, the interrupts, and one-second timer. Within the while loop, the MCU waits for the timer overflow to inidicate 1 second has passed, and when that overflow flag rises, it converts the count value to angular velocity and prints both the velocity and direction. When the rising or falling edge of a quadrature pulse is detected, the MCU pauses its operations within the main function and jumps to the interrupt handler function. There, it resets interrupt flag, increases the counter, and measures the current and previous states of both quadratures to feed into an external comparator to get the motor’s direction. Once the interrupt is properly handled, it returns back to the main function and resumes operation from where it left off.\n\n\n\nFigure 2: Interrupt Flowchart\n\n\n\n\nElectric Schematic\nThe hardware layout for this lab was relatively simple. The motor housed six total connections: an external power supply and ground, two quadrature sensor signals, a 5V quadrature sensor voltage supply, and a quadrature sensor ground. The first two connections were connected to an external power supply capable of generating up to 20V DC. Quadrature A was fed into pin the five-volt tolerant PA6 pin and the signal from Quadrature B was fed into the five-volt tolerant PA8 pin, both on the MCU. The 5V quadrature sensor voltage supply and ground were both provided by the MCU.\n\n\n\nFigure 3: Motor Electrical Schematic"
   },
   {
-    "objectID": "labs/lab1/e155-lab1.html#results-and-discussion",
-    "href": "labs/lab1/e155-lab1.html#results-and-discussion",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "objectID": "e155-labs/lab5/e155-lab5.html#results-and-discussion",
+    "href": "e155-labs/lab5/e155-lab5.html#results-and-discussion",
+    "title": "Lab 5: Interrupts",
     "section": "Results and Discussion",
-    "text": "Results and Discussion\nFigure 7 shows the waveforms from the top module. The first line shows the clock cycles, the second highlights the reset state, and the third describes the switch inputs. Notice the switch inputs contain all possible hexadecimal digits that should be displayed on the segments. Since led[2] oscillates at the same frequency regardless of the input values, that component was confirmed separately with the oscilloscope image in Figure 9.\n\n\n\nFigure 7: A screenshot of the QuestaSim simulation demonstrating that the top module exhibits the correct logic for led[1], led[0], and all segment outputs.\n\n\nFigure 8 shows the waveforms generated from the seven-segment module simulation. These waveform simulations also appear in the top module simulation, but it is best to confirm that both modules work properly to aid in debugging combinational logic issues or implementation issues. Notice all segments demonstrate the desired behavior outlined in the test vectors.\n\n\n\nFigure 8: The QuestaSim simulation waveforms showcasing that each segment of the seven segment display produces the correct logic for all possible inputs.\n\n\nFigure 9 outlines the periodic square wave influenced by the oscillating LED. Using built-in functions on the oscilloscope, the frequency is measured to be 2.4 Hz, as desired.\n\n\n\nFigure 9: This oscilloscope image reveals led[2] oscillating at the desired 2.4 Hz, indicating proper division of the high-speed oscillator."
+    "text": "Results and Discussion\nThe interrupt encoder proved to provide accurate velocity measurements and consistent direction determination, whether operating at very high or low motor speeds. The implementation of interrupts allow the processor within the MCU to carry out other tasks while waiting for an interrupt trigger event to appear, increasing responsiveness, accuracy, and efficiency. In this lab, high-speed resolution was obtained by increasing the counter each time the positive and negative edges of both encoders was detected. Using a traditionally polling method, the MCU would need to constantly monitor and check these flags and operate accordingly. In high-speed and high-precision systems, the polling rate may be too slow and generate incorrect or incomplete data and the CPU requires greater power to consistently circulate through this scanning process and can possibly overheat and diminish performance. Above all, the MCU can only operate as fast as the polling loop allows for, which means that the polling process is not suitable for time-sensitive control.\n\n\n\nFigure 4: Interrupt Quaratures"
   },
   {
-    "objectID": "labs/lab1/e155-lab1.html#conclusion",
-    "href": "labs/lab1/e155-lab1.html#conclusion",
-    "title": "Lab 1: FPGA and MCU Testing and Setup",
+    "objectID": "e155-labs/lab5/e155-lab5.html#conclusion",
+    "href": "e155-labs/lab5/e155-lab5.html#conclusion",
+    "title": "Lab 5: Interrupts",
     "section": "Conclusion",
-    "text": "Conclusion\nThe simulations and hardware implementations show that this lab was successful in all regards. The LEDs activated and behaved in their expected manner and the seven-segment display showed all hexadecimal digits when expected. The lab took roughly 25 hours to complete."
+    "text": "Conclusion\nI can confidently say that Lab 5 was completed to full specifications. This lab, including the write-up process, totalled about 10 hours of productive work. The quadrature pattern identified properly determined the motor’s direction and the interrupt method allowed for high-resolution speed calculations, even at extremely high and low apparent speeds."
   },
   {
-    "objectID": "posts/lab-1-reflection.html",
-    "href": "posts/lab-1-reflection.html",
-    "title": "Lab 1 Reflection",
+    "objectID": "e155-labs/lab3/e155-lab3.html",
+    "href": "e155-labs/lab3/e155-lab3.html",
+    "title": "Lab 3: Keypad Scanner",
     "section": "",
-    "text": "This lab was a good introduction into E155 and the work and dedication that these labs require. I spent the first few days getting my bearings and figuring out how to solder SMT connections and parse through the lab manual in a constructive way. There were many times where I felt like I was in over my head, but working with others and collaboration made this lab very informative and fun. I feel that I can use the Lattice and Questa software comfortably, which should help a lot in subsequent labs. I got closer with my peers and gained confidence that will at least carry me through the next week. I did not do the best job planning out my work, as I spent most of my time on this lab rather than other commitments. Going into Lab 2, I hope to establish a better plan, utilize grutoring hours more, and maintain more balance with my workload and social commitments."
+    "text": "In Lab 3, a 4x4 keypad scanner is encoded in SystemVerilog to showcase two hexadecimal digits on a dual seven-segment display. The lab focuses on addressing issues like metastability from asynchronous inputs and button debouncing, while building on concepts from lab 2 like time-multiplexing and driving like outputs with the same GPIO pins."
   },
   {
-    "objectID": "posts/first-post.html",
-    "href": "posts/first-post.html",
-    "title": "Goals for MicroPs",
+    "objectID": "e155-labs/lab3/e155-lab3.html#introduction",
+    "href": "e155-labs/lab3/e155-lab3.html#introduction",
+    "title": "Lab 3: Keypad Scanner",
     "section": "",
-    "text": "I remember wanting to take MicroPs before I even declared as an engineering major. Not only because the projects from previous cohorts left me in awe, but also because each person I talked to described this as one of their most rewarding experiences. E155 explores so many facets of digital and hardware design and instills coveted skills that apply to all realms of engineering. I hope to use this opportunity to push myself beyond the limits I untinentionally impose on myself and embrace the uncertainty that comes along with the rigorous curriculum. I aspire to learn the techniques, time management, decision-making skills, and debugging practices that industry experts employ on a day-to-day basis. On top of this, I hope to forge new friendships with my peers, bonding over the struggles, challeneges, and long lab hours that we will share throughout the semester."
+    "text": "In Lab 3, a 4x4 keypad scanner is encoded in SystemVerilog to showcase two hexadecimal digits on a dual seven-segment display. The lab focuses on addressing issues like metastability from asynchronous inputs and button debouncing, while building on concepts from lab 2 like time-multiplexing and driving like outputs with the same GPIO pins."
   },
   {
-    "objectID": "labs.html",
-    "href": "labs.html",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog.\n\n\n\nThis lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits\n\n\n\nLab 3 description\n\n\n\nLab 4 description\n\n\n\nLab 5 description\n\n\n\nLab 6 description\n\n\n\nLab 7 description"
+    "objectID": "e155-labs/lab3/e155-lab3.html#design-and-testing",
+    "href": "e155-labs/lab3/e155-lab3.html#design-and-testing",
+    "title": "Lab 3: Keypad Scanner",
+    "section": "Design and Testing",
+    "text": "Design and Testing\nA comprehensive finite state machine serves as the backbone for this lab, and it must be thoroughly understood before implementing any hardware code. This 21-state finite state machine initializes row, column, and enable values, conducts a scanning process to find the key pressed, calls on a separate debouncer finite state machine, controls the display logic, and only one value is recorded regardless of how long a key is pressed. A detailed state transition diagram for this main finite state machine can be found in Figure 1.\nThe keypad scanner itself has no inherent power or ground pins. To bypass this initial hurdle, all rows are initially driven low (powered) while all columns set high with 10 kOhm pull-up resistors embedded in this iCE40UP 5K FPGA board. After this initialization step, the main finite state machine begins the scanning process, powering one row at a time and reading the column behavior. When a button is pressed, it shorts the corresponding row and column that it intersects. If one column remains low for a given powered row, the FSM skips over the rest of the scanning states and enters a debouncing state designated for that particular row. Otherwise, the scanning process continues, setting the next row low and checking the same column condition.\nAfter the scanning portion of the main FSM, it branches into four different paths, one for each of the possible rows that could be shorting one of the columns. These debouncing states activate a debounce enable variable and call on a separate module that implements a counter to delay the key registration process by roughly 20 ms. Buttons are subject to a bouncing phenomenon in which multiple button presses may register even though the user only physically presses it once. Without accounting for this behavior, the same value would appear multiple times on the dual seven-segment display, even though that is not what the user intended. This 20 ms delay is sufficient to eliminate debouncing without prompting the user to hold the button for too long.\nAfter passing through the debouncing states, the FSM moves on to the next states that check whether or not the button is still pressed. The key must be held throughout the debouncing stage to formally register the key value to be displayed. This state toggles a display enable variable that allows a formalized key value, generated from the unique row and column combination, to pass through a time-multiplexer and appear on the dual seven-segment display. The multiplexer ensures that the most recent digit appears on the right side of the display and previous digit to appear on the left.\nOnce the display behavior is settled, the FSM moves to the next states that check whether the key is still pressed. If the key is still pressed, it must remain in that state before returning to the initial state to ensure that multiple instances of that key do not keep cycling through the FSM and that any other auxilary button presses do not interfere with the value that should be displayed.\nThe clock signal driving the entire process is derived from the internal 24 MHz High-Speed Oscillator (HSOSC). A counter was implemented to divide the clock to 120 Hz. This new clock frequency is fast enough such that both displays\n\nFinite State Machines\nThe main finite state machine reads the columns and determines whether that it is a valid input, meaning that only one button is pressed at a time. States 1 through 4 implement a scanner that drives one of the four rows low at a time. These scanning states split the FSM into four branches, one for each of the four possible row bits that cause any of the columns to short. The FSM controls a debounce enable variable that controls when the debounce module is active, a display enable variable the directs when the key value can be displayed, and an internal “pressed” variable that remains when there is a valid input. It also receives a “time passed” variable from the debounce module that indicates whether or not the debounce delay has passed.\n\n\n\nFigure 1: Main State Transition Diagram"
   },
   {
-    "objectID": "labs.html#lab-1-fpga-and-mcu-testing-and-setup",
-    "href": "labs.html#lab-1-fpga-and-mcu-testing-and-setup",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog."
+    "objectID": "e155-labs/lab3/e155-lab3.html#calculations",
+    "href": "e155-labs/lab3/e155-lab3.html#calculations",
+    "title": "Lab 3: Keypad Scanner",
+    "section": "Calculations",
+    "text": "Calculations\nLike the last lab, the power for the dual seven-segment display is controlled with a 2N3906 PNP transistor that behaves as a switch. To preserve the FPGA’s GPIO pin functionality, the current sunk by the PNP base pin should be less than 8 mA. With a known 3.3 V emitter voltage, 0.7 V emitter to base voltage drop, and a desired current gain of 10, Ohms Law can be applied to determine the ideal resistor value.\n\n\n\nFigure 2: PNP Base Resistor Calculations\n\n\nEach segment in the dual display has a forward voltage of 1.8 V. The supplied voltage from the FPGA is 3.3 V and the saturated emitter to collector voltage drop from the transistor is 0.25 V. A current between 1 mA to 8 mA is sufficient to illuminate the LEDs while still protecting the GPIO pins. Using this knowledge, a current-limiting resistor can be calculated with Ohm’s Law, as shown in Figure 4.\n\n\n\nFigure 3: Seven-Segment Display Resistor Calculations"
   },
   {
-    "objectID": "labs.html#lab-2-multiplexed-7-segment-display",
-    "href": "labs.html#lab-2-multiplexed-7-segment-display",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "This lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits"
+    "objectID": "e155-labs/lab3/e155-lab3.html#technical-documentation",
+    "href": "e155-labs/lab3/e155-lab3.html#technical-documentation",
+    "title": "Lab 3: Keypad Scanner",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\n\nBlock Diagrams\nThe completion of this lab involved five separate modules: a top-level module that instantiates the clock and calls all submodules, the main FSM that controls the button logic, a debounce module, a multiplexer module the controls which of the two displays receives the digit, and a seven-segment decoder module that receives the key value and generates the corresponding digit. The interactions between each of these modules is illustrated in Figure 5.\n\n\n\nFigure 4: Top Module Block Diagram\n\n\n\n\nElectrical Schematics\nThe two displays share common outputs. Each corresponding output is fed to a 460 Ohm resistor. To ensure uniform illumination, each output pin pair is wired in parallel with the other output pairs. The current for each segment output is fed into an available GPIO pin on the FPGA board.\n\n\n\nFigure 5: Keypad Scanner and Seven-Segment Display Electrical Schematic"
   },
   {
-    "objectID": "labs.html#lab-3-keypad-scanner",
-    "href": "labs.html#lab-3-keypad-scanner",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 3 description"
+    "objectID": "e155-labs/lab3/e155-lab3.html#results-and-discussion",
+    "href": "e155-labs/lab3/e155-lab3.html#results-and-discussion",
+    "title": "Lab 3: Keypad Scanner",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nThis lab proved to be moderately successful. Absent the synchronizing logic, the keypad successfully scans through all rows to generate the proper key value input. The 20 ms debounce logic requires the button to be pressed slightly longer for the output to fully register. While I could not properly implement the synchronization aspect of the lab, I believe that it is very possible to actually implement in the near future. The primary issue was that the synchronized columns would appear two clock cycles behind the rest of the logic, meaning the set row values would get stuck at specific values. By setting the rows high in one state, implementing a two-clock-cycle delay, and then scanning the synchronized columns, this issue could be solved as the rows and synchronized columns would follow the same timing. This would increase the duration for which the user must depress the button to ensure all necessary state register the button press to display the value."
   },
   {
-    "objectID": "labs.html#lab-4-digital-audio",
-    "href": "labs.html#lab-4-digital-audio",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 4 description"
-  },
-  {
-    "objectID": "labs.html#lab-5-interrupts",
-    "href": "labs.html#lab-5-interrupts",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 5 description"
-  },
-  {
-    "objectID": "labs.html#lab-6-the-internet-of-things-and-serial-peripheral-interface",
-    "href": "labs.html#lab-6-the-internet-of-things-and-serial-peripheral-interface",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 6 description"
-  },
-  {
-    "objectID": "labs.html#lab-7-the-advanced-encryption-standard",
-    "href": "labs.html#lab-7-the-advanced-encryption-standard",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 7 description"
+    "objectID": "e155-labs/lab3/e155-lab3.html#conclusion",
+    "href": "e155-labs/lab3/e155-lab3.html#conclusion",
+    "title": "Lab 3: Keypad Scanner",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis was a tough lab. Even over the course of two weeks and between 35-40 hours of work, timing issues from the synchronizer proved too difficult to overcome. Without the synchronizer the hardware implementation still works well, although there is more room for error and metastability. While the lab may be over, I will continue to work on this project in my free time to implement the synchronizer and expand my verification abilities by writing testbenches for all modules, although that should have been the step before hardware implementation."
   },
   {
     "objectID": "personal.html",
