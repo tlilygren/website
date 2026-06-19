@@ -266,67 +266,151 @@
     "text": "This lab was a good introduction into E155 and the work and dedication that these labs require. I spent the first few days getting my bearings and figuring out how to solder SMT connections and parse through the lab manual in a constructive way. There were many times where I felt like I was in over my head, but working with others and collaboration made this lab very informative and fun. I feel that I can use the Lattice and Questa software comfortably, which should help a lot in subsequent labs. I got closer with my peers and gained confidence that will at least carry me through the next week. I did not do the best job planning out my work, as I spent most of my time on this lab rather than other commitments. Going into Lab 2, I hope to establish a better plan, utilize grutoring hours more, and maintain more balance with my workload and social commitments."
   },
   {
+    "objectID": "e151.html",
+    "href": "e151.html",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About Lab 1\n\n\n\nDescription   Skills: \nRead More About Lab 2\n\n\n\nDescription   Skills: \nRead More About Lab 3\n\n\n\nDescription   Skills: \nRead More About Lab 4\n\n\n\nDescription   Skills: \nRead More About DP 1\n\n\n\nDescription   Skills: \nRead More About Lab 5\n\n\n\nDescription   Skills: \nRead More About Lab 6\n\n\n\nDescription   Skills: \nRead More About Lab 7\n\n\n\nDescription   Skills: \nRead More About Lab 8\n\n\n\nDescription   Skills: \nRead More About Lab 9\n\n\n\nDescription   Skills: \nRead More About DP 2"
+  },
+  {
+    "objectID": "e151.html#lab-1-instrument-loading-and-mystery-box-analysis",
+    "href": "e151.html#lab-1-instrument-loading-and-mystery-box-analysis",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About Lab 1"
+  },
+  {
+    "objectID": "e151.html#lab-2-diode-current-measurements",
+    "href": "e151.html#lab-2-diode-current-measurements",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About Lab 2"
+  },
+  {
+    "objectID": "e151.html#lab-3-measuring-bjt-parameters",
+    "href": "e151.html#lab-3-measuring-bjt-parameters",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About Lab 3"
+  },
+  {
+    "objectID": "e151.html#lab-4-the-common-emitter-amplifier",
+    "href": "e151.html#lab-4-the-common-emitter-amplifier",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About Lab 4"
+  },
+  {
+    "objectID": "e151.html#design-project-i",
+    "href": "e151.html#design-project-i",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About DP 1"
+  },
+  {
+    "objectID": "e151.html#lab-5-mosfets-current-mirrors-and-active-loads",
+    "href": "e151.html#lab-5-mosfets-current-mirrors-and-active-loads",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About Lab 5"
+  },
+  {
+    "objectID": "e151.html#lab-6-voltage-references-vs.-temperature-and-supply-voltage",
+    "href": "e151.html#lab-6-voltage-references-vs.-temperature-and-supply-voltage",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About Lab 6"
+  },
+  {
+    "objectID": "e151.html#lab-7-bjt-dynamics-i",
+    "href": "e151.html#lab-7-bjt-dynamics-i",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About Lab 7"
+  },
+  {
+    "objectID": "e151.html#lab-8-bjt-dynamics-ii",
+    "href": "e151.html#lab-8-bjt-dynamics-ii",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About Lab 8"
+  },
+  {
+    "objectID": "e151.html#lab-9-the-differential-amplifier",
+    "href": "e151.html#lab-9-the-differential-amplifier",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About Lab 9"
+  },
+  {
+    "objectID": "e151.html#design-project-ii",
+    "href": "e151.html#design-project-ii",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: \nRead More About DP 2"
+  },
+  {
     "objectID": "e155.html",
     "href": "e155.html",
     "title": "Microprocessor-Based Systems: Design and Applications",
     "section": "",
-    "text": "Description\nRead More About Lab 1  Github\n\n\n\nDescription\nRead More About Lab 2  Github\n\n\n\nDescription\nRead More About Lab 3  Github\n\n\n\nDescription\nRead More About Lab 4  Github\n\n\n\nDescription\nRead More About Lab 5  Github\n\n\n\nDescription\nRead More About Lab 6  Github\n\n\n\nDescription\nRead More About Lab 7  Github\n\n\n\nDescription\nProject Proposal  Final Report  Github"
+    "text": "Description   Skills: \nRead More About Lab 1  Github\n\n\n\nDescription   Skills: \nRead More About Lab 2  Github\n\n\n\nDescription   Skills: \nRead More About Lab 3  Github\n\n\n\nDescription   Skills: \nRead More About Lab 4  Github\n\n\n\nDescription   Skills: \nRead More About Lab 5  Github\n\n\n\nDescription   Skills: \nRead More About Lab 6  Github\n\n\n\nDescription   Skills: \nRead More About Lab 7  Github\n\n\n\nDescription   Skills: \nProject Proposal  Final Report  Github"
   },
   {
     "objectID": "e155.html#lab-1-fpga-and-mcu-testing-and-setup",
     "href": "e155.html#lab-1-fpga-and-mcu-testing-and-setup",
     "title": "Microprocessor-Based Systems: Design and Applications",
     "section": "",
-    "text": "Description\nRead More About Lab 1  Github"
+    "text": "Description   Skills: \nRead More About Lab 1  Github"
   },
   {
     "objectID": "e155.html#lab-2-multiplexed-7-segment-display",
     "href": "e155.html#lab-2-multiplexed-7-segment-display",
     "title": "Microprocessor-Based Systems: Design and Applications",
     "section": "",
-    "text": "Description\nRead More About Lab 2  Github"
+    "text": "Description   Skills: \nRead More About Lab 2  Github"
   },
   {
     "objectID": "e155.html#lab-3-keypad-scanner",
     "href": "e155.html#lab-3-keypad-scanner",
     "title": "Microprocessor-Based Systems: Design and Applications",
     "section": "",
-    "text": "Description\nRead More About Lab 3  Github"
+    "text": "Description   Skills: \nRead More About Lab 3  Github"
   },
   {
     "objectID": "e155.html#lab-4-digital-audio",
     "href": "e155.html#lab-4-digital-audio",
     "title": "Microprocessor-Based Systems: Design and Applications",
     "section": "",
-    "text": "Description\nRead More About Lab 4  Github"
+    "text": "Description   Skills: \nRead More About Lab 4  Github"
   },
   {
     "objectID": "e155.html#lab-5-interrupts",
     "href": "e155.html#lab-5-interrupts",
     "title": "Microprocessor-Based Systems: Design and Applications",
     "section": "",
-    "text": "Description\nRead More About Lab 5  Github"
+    "text": "Description   Skills: \nRead More About Lab 5  Github"
   },
   {
     "objectID": "e155.html#lab-6-the-internet-of-things-and-serial-peripheral-interface",
     "href": "e155.html#lab-6-the-internet-of-things-and-serial-peripheral-interface",
     "title": "Microprocessor-Based Systems: Design and Applications",
     "section": "",
-    "text": "Description\nRead More About Lab 6  Github"
+    "text": "Description   Skills: \nRead More About Lab 6  Github"
   },
   {
     "objectID": "e155.html#lab-7-the-advanced-encryption-standard",
     "href": "e155.html#lab-7-the-advanced-encryption-standard",
     "title": "Microprocessor-Based Systems: Design and Applications",
     "section": "",
-    "text": "Description\nRead More About Lab 7  Github"
+    "text": "Description   Skills: \nRead More About Lab 7  Github"
   },
   {
     "objectID": "e155.html#barcode-beats-final-project",
     "href": "e155.html#barcode-beats-final-project",
     "title": "Microprocessor-Based Systems: Design and Applications",
     "section": "",
-    "text": "Description\nProject Proposal  Final Report  Github"
+    "text": "Description   Skills: \nProject Proposal  Final Report  Github"
   },
   {
     "objectID": "posts/lab-2-reflection.html",
