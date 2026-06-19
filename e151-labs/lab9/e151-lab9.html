@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Lilygren">
-<meta name="dcterms.date" content="2025-09-02">
-<meta name="description" content="Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog.">
+<meta name="dcterms.date" content="2026-04-22">
+<meta name="description" content="Description">
 
-<title>Lab 1: FPGA and MCU Testing and Setup – Thomas Lilygren</title>
+<title>Lab 9: The Differential Amplifier – Thomas Lilygren</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,35 +71,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -161,12 +132,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lab 1: FPGA and MCU Testing and Setup</h1>
+<h1 class="title">Lab 9: The Differential Amplifier</h1>
 </div>
 
 <div>
   <div class="description">
-    Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog.
+    Description
   </div>
 </div>
 
@@ -183,7 +154,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 2, 2025</p>
+      <p class="date">April 22, 2026</p>
     </div>
   </div>
   
@@ -195,189 +166,8 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In this lab, proper functionality of the E155 development board was confirmed by exercising the on-board 48 MHz high-speed oscillator, controlling three embedded LEDs, and manipulating a seven-segment display connected with GPIO pins. The high-speed oscillator behaves as a clock that was divided with a counter to modify the blinking frequency of one of the on-board LEDs. A switch panel on the development board was used to control the other two embedded LEDs and the imaging on the external seven-segment display.</p>
-</section>
-<section id="design-and-testing" class="level2">
-<h2 class="anchored" data-anchor-id="design-and-testing">Design and Testing</h2>
-<p>As part of confirming the functionality of the FPGA and E155 development board, three embedded LEDs were expected to abide by the logic displayed in the tables below. The S values represent the elements of the 4-input switch on the board.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">S1</th>
-<th style="text-align: center;">S0</th>
-<th style="text-align: center;">led[0]</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">0</td>
-</tr>
-</tbody>
-</table>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">S3</th>
-<th style="text-align: center;">S2</th>
-<th style="text-align: center;">led[1]</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1</td>
-</tr>
-</tbody>
-</table>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">led[2]</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Blink at 2.4 Hz</td>
-</tr>
-</tbody>
-</table>
-<p>With an on-board switch panel linked to the UPduino 3.1 FPGA board, a SystemVerilog file implemented the conditional logic to illuminate two of the three LEDs. While the third LED operated independent of switch logic, its control was established using the built-in 48 MHz high-speed oscillator (HSOSC) from the iCE40 UltraPlus primitive library. A 24-bit counter was used to divide the 48 MHz clock cycle down to the desired 2.4 Hz. Further board GPIO testing was conducted by powering an HDSP-511A seven-segment display to uniquely display each hexadecimal digit (0-F). Segments were illuminated depending on the same switch element that governed the first two embedded LEDs, meaning the segment outputs relied solely on combinational logic. The hexadecimal digits displayed mirrored the binary combination that the switches displayed. To ensure uniform brightness, regardless of the number of segments powered, each pin on the display was wired in parallel with 1 kOhm resistors to limit current draw, as calculated in Figure 2.</p>
-<p>Design implementation was executed through two separate modules in Lattice Raidant. The combinational logic governing the seven-segment display was written in an isolated module that was later called upon in the top-level module. The top-level module implemented the 48 MHz HSOSC, the clock divider, the conditional LED logic, and called upon the seven segment display module. The pull-up resistor in the development board means active components have a logical low and those inactive have a logical high.</p>
-<p>Before implementation, the hardware and modules each received through testing. The 3.3 V and 5 V regulators on the board were confirmed to be operational using an external power supply and a multimeter before installing the FPGA and MCU. Testbenches were established for each module to confirm satisfactory waveforms and logic within Questa simulations. The 2.4 Hz oscillating LED was read on an oscilloscope to confirm the clock had been established and properly divded. Current draw calculations for the on-board LEDs and seven-segment display, as well as the clock divider calculations are provided in Figures 1, 2, and 3, respectively.</p>
-</section>
-<section id="calculations" class="level2">
-<h2 class="anchored" data-anchor-id="calculations">Calculations</h2>
-<p>The three LEDs on the development board and external seven-segment display are powered with 3.3 V from the FPGA. Each LED requires a current-limiting resistor to preserve the diode while maintaining sufficient brightness. By incorporating the source voltage, voltage drop across each diode, and the desired current, the proper resistor values were obtained with Ohm’s Law (Equation 1).</p>
-<p><span class="math display">\[
-R = \frac{V_{in} - V_f}{I_{desired}} \tag{1}
-\]</span></p>
-<p>The LEDs illuminated on the development board during this lab were blue, indicating a forward voltage drop around 2.6 V. These diodes are high-efficiency, meaning they can glow at currents less than 1 mA. The deep red diodes on each segment of the seven-segment display exhibit a forward voltage drop of 2 V. Sufficient and safe illuminesence for those external LEDs can be obtained with a current ranging from 1-10 mA.</p>
-<table class="caption-top table">
-<caption>Table 4: Current-Limiting Resistor Values for Onboard LEDs and Seven-Segment Display</caption>
-<colgroup>
-<col style="width: 22%">
-<col style="width: 19%">
-<col style="width: 17%">
-<col style="width: 22%">
-<col style="width: 19%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;"></th>
-<th style="text-align: center;"><span class="math inline">\(V_{in}\,[V]\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(V_{f}\,[V]\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(I_{desired}\,[mA]\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\mathbf{R\,[{\Omega}]}\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Onboard LEDs</td>
-<td style="text-align: center;">3.3</td>
-<td style="text-align: center;">2.6</td>
-<td style="text-align: center;">0.7</td>
-<td style="text-align: center;"><span class="math inline">\(\mathbf{1000}\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Seven-segment</td>
-<td style="text-align: center;">3.3</td>
-<td style="text-align: center;">1.8</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;"><span class="math inline">\(\mathbf{500}\)</span></td>
-</tr>
-</tbody>
-</table>
-<p>The 48 MHz clock was divided with a counter. A counter of length n divides the clock at a rate of <span class="math inline">\(2^n\)</span>. Since 48 MHz cannot reach 2.4 Hz simply by dividing by some <span class="math inline">\(2^n\)</span>, the counter can be compared to and reset when it reaches a specific decimal value. The decimal value is found to be 5,000,000 as that divides the 48 MHz into an even square signal with a 2.4 Hz frequency.</p>
-</section>
-<section id="technical-documentation" class="level2">
-<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
-<section id="block-diagrams" class="level3">
-<h3 class="anchored" data-anchor-id="block-diagrams">Block Diagrams</h3>
-<p>The source code for the project can be found at <a href="https://github.com/tlilygren/e155-lab1">Github Repository.</a></p>
-<p>The following block diagrams in Figures 1 and 2 show the overall flow, inputs, and outputs within each module of the lab. The top module includes the HSOSC component, the counter, combinational logic for the first two LEDs, and the seven segment display module.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Lab1_block.jpg" class="img-fluid figure-img"></p>
-<figcaption>Figure 1: The block diagram describing the inputs, outputs, and flow within the top module</figcaption>
-</figure>
-</div>
-</section>
-<section id="schematic" class="level3">
-<h3 class="anchored" data-anchor-id="schematic">Schematic</h3>
-<p>Figure 2 displays the electrical schematic for the three on-board LEDs using the correct resistor values established in Equation 2. It also presents the electrical connections for the seven-segment display with the proper resistor values determined in Figure 2. The GPIO pins each segment is connected to can act as a power source or a ground.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Lab1_schematic_new.jpg" class="img-fluid figure-img"></p>
-<figcaption>Figure 2: Electrical schematic for the on-board LEDs and seven-segment display. LEDs D6-D8 are blue.</figcaption>
-</figure>
-</div>
-</section>
-</section>
-<section id="results-and-discussion" class="level2">
-<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
-<p>Figure 3 shows the waveforms from the top module. The first line shows the clock cycles, the second highlights the reset state, and the third describes the switch inputs. Notice the switch inputs contain all possible hexadecimal digits that should be displayed on the segments. Since led[2] oscillates at the same frequency regardless of the input values, that component was confirmed separately with the oscilloscope image in Figure 5.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/top_waves.jpg" class="img-fluid figure-img"></p>
-<figcaption>Figure 3: A screenshot of the QuestaSim simulation demonstrating that the top module exhibits the correct logic for led[1], led[0], and all segment outputs.</figcaption>
-</figure>
-</div>
-<p>Figure 4 shows the waveforms generated from the seven-segment module simulation. These waveform simulations also appear in the top module simulation, but it is best to confirm that both modules work properly to aid in debugging combinational logic issues or implementation issues. Notice all segments demonstrate the desired behavior outlined in the test vectors.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/7seg_waves.jpg" class="img-fluid figure-img"></p>
-<figcaption>Figure 4: The QuestaSim simulation waveforms showcasing that each segment of the seven segment display produces the correct logic for all possible inputs.</figcaption>
-</figure>
-</div>
-<p>Figure 5 outlines the periodic square wave influenced by the oscillating LED. Using built-in functions on the oscilloscope, the frequency is measured to be 2.4 Hz, as desired.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/led2.jpg" class="img-fluid figure-img"></p>
-<figcaption>Figure 5: This oscilloscope image reveals led[2] oscillating at the desired 2.4 Hz, indicating proper division of the high-speed oscillator.</figcaption>
-</figure>
-</div>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>The simulations and hardware implementations show that this lab was successful in all regards. The LEDs activated and behaved in their expected manner and the seven-segment display showed all hexadecimal digits when expected. The lab took roughly 25 hours to complete.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

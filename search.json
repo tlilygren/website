@@ -172,7 +172,7 @@
     "href": "e155-labs/lab1/e155-lab1.html#calculations",
     "title": "Lab 1: FPGA and MCU Testing and Setup",
     "section": "Calculations",
-    "text": "Calculations\nThe three LEDs on the development board and external seven-segment display are powered with 3.3 V from the FPGA. Each LED requires a current-limiting resistor to preserve the diode while maintaining sufficient brightness. By incorporating the source voltage, voltage drop across each diode, and the desired current, the proper resistor values were obtained with Ohm’s Law (Equation 1).\n\\[\nR = \\frac{V_{in} - V_f}{I_{des}} \\tag{1}\n\\]\nThe LEDs illuminated on the development board during this lab were blue, indicating a forward voltage drop around 2.6 V. These diodes are high-efficiency, meaning they can glow at currents less than 1 mA. The deep red diodes on each segment of the seven-segment display exhibit a forward voltage drop of 2 V. Sufficient and safe illuminesence for those external LEDs can be obtained with a current ranging from 1-10 mA.\n\nTable 4: Current-Limiting Resistor Values for Onboard LEDs and Seven-Segment Display\n\n\n\n\n\n\n\n\n\n\n\\(V_{in}\\,[V]\\)\n\\(V_{f}\\,[V]\\)\n\\(I_{des}\\,[mA]\\)\n\\(\\mathbf{R\\,[{\\Omega}]}\\)\n\n\n\n\nOnboard LEDs\n3.3\n2.6\n0.7\n\\(\\mathbf{1000}\\)\n\n\nSeven-segment\n3.3\n1.8\n3\n\\(\\mathbf{500}\\)\n\n\n\nThe 48 MHz clock was divided with a counter. A counter of length n divides the clock at a rate of \\(2^n\\). Since 48 MHz cannot reach 2.4 Hz simply by dividing by some \\(2^n\\), the counter can be compared to and reset when it reaches a specific decimal value. The decimal value is found to be 5,000,000 as that divides the 48 MHz into an even square signal with a 2.4 Hz frequency."
+    "text": "Calculations\nThe three LEDs on the development board and external seven-segment display are powered with 3.3 V from the FPGA. Each LED requires a current-limiting resistor to preserve the diode while maintaining sufficient brightness. By incorporating the source voltage, voltage drop across each diode, and the desired current, the proper resistor values were obtained with Ohm’s Law (Equation 1).\n\\[\nR = \\frac{V_{in} - V_f}{I_{desired}} \\tag{1}\n\\]\nThe LEDs illuminated on the development board during this lab were blue, indicating a forward voltage drop around 2.6 V. These diodes are high-efficiency, meaning they can glow at currents less than 1 mA. The deep red diodes on each segment of the seven-segment display exhibit a forward voltage drop of 2 V. Sufficient and safe illuminesence for those external LEDs can be obtained with a current ranging from 1-10 mA.\n\nTable 4: Current-Limiting Resistor Values for Onboard LEDs and Seven-Segment Display\n\n\n\n\n\n\n\n\n\n\n\\(V_{in}\\,[V]\\)\n\\(V_{f}\\,[V]\\)\n\\(I_{desired}\\,[mA]\\)\n\\(\\mathbf{R\\,[{\\Omega}]}\\)\n\n\n\n\nOnboard LEDs\n3.3\n2.6\n0.7\n\\(\\mathbf{1000}\\)\n\n\nSeven-segment\n3.3\n1.8\n3\n\\(\\mathbf{500}\\)\n\n\n\nThe 48 MHz clock was divided with a counter. A counter of length n divides the clock at a rate of \\(2^n\\). Since 48 MHz cannot reach 2.4 Hz simply by dividing by some \\(2^n\\), the counter can be compared to and reset when it reaches a specific decimal value. The decimal value is found to be 5,000,000 as that divides the 48 MHz into an even square signal with a 2.4 Hz frequency."
   },
   {
     "objectID": "e155-labs/lab1/e155-lab1.html#technical-documentation",
@@ -196,158 +196,11 @@
     "text": "Conclusion\nThe simulations and hardware implementations show that this lab was successful in all regards. The LEDs activated and behaved in their expected manner and the seven-segment display showed all hexadecimal digits when expected. The lab took roughly 25 hours to complete."
   },
   {
-    "objectID": "labs.html",
-    "href": "labs.html",
-    "title": "E155 Labs",
+    "objectID": "posts/lab-2-reflection.html",
+    "href": "posts/lab-2-reflection.html",
+    "title": "Lab 2 Reflection",
     "section": "",
-    "text": "Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog.\n\n\n\nThis lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits\n\n\n\nLab 3 description\n\n\n\nLab 4 description\n\n\n\nLab 5 description\n\n\n\nLab 6 description\n\n\n\nLab 7 description"
-  },
-  {
-    "objectID": "labs.html#lab-1-fpga-and-mcu-testing-and-setup",
-    "href": "labs.html#lab-1-fpga-and-mcu-testing-and-setup",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 1 prompts the assembly of an iCE40 UP5K FPGA development board to house a UPduino v3.1 MCU. Proper board functionality is confirmed through a 7-segment LED display script written in Verilog."
-  },
-  {
-    "objectID": "labs.html#lab-2-multiplexed-7-segment-display",
-    "href": "labs.html#lab-2-multiplexed-7-segment-display",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "This lab employs time-multiplexing to minimize the number of necessary GPIO pin connections to display two indpendent hexadecimal digits"
-  },
-  {
-    "objectID": "labs.html#lab-3-keypad-scanner",
-    "href": "labs.html#lab-3-keypad-scanner",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 3 description"
-  },
-  {
-    "objectID": "labs.html#lab-4-digital-audio",
-    "href": "labs.html#lab-4-digital-audio",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 4 description"
-  },
-  {
-    "objectID": "labs.html#lab-5-interrupts",
-    "href": "labs.html#lab-5-interrupts",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 5 description"
-  },
-  {
-    "objectID": "labs.html#lab-6-the-internet-of-things-and-serial-peripheral-interface",
-    "href": "labs.html#lab-6-the-internet-of-things-and-serial-peripheral-interface",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 6 description"
-  },
-  {
-    "objectID": "labs.html#lab-7-the-advanced-encryption-standard",
-    "href": "labs.html#lab-7-the-advanced-encryption-standard",
-    "title": "E155 Labs",
-    "section": "",
-    "text": "Lab 7 description"
-  },
-  {
-    "objectID": "posts/first-post.html",
-    "href": "posts/first-post.html",
-    "title": "Goals for MicroPs",
-    "section": "",
-    "text": "I remember wanting to take MicroPs before I even declared as an engineering major. Not only because the projects from previous cohorts left me in awe, but also because each person I talked to described this as one of their most rewarding experiences. E155 explores so many facets of digital and hardware design and instills coveted skills that apply to all realms of engineering. I hope to use this opportunity to push myself beyond the limits I untinentionally impose on myself and embrace the uncertainty that comes along with the rigorous curriculum. I aspire to learn the techniques, time management, decision-making skills, and debugging practices that industry experts employ on a day-to-day basis. On top of this, I hope to forge new friendships with my peers, bonding over the struggles, challeneges, and long lab hours that we will share throughout the semester."
-  },
-  {
-    "objectID": "posts/lab-1-reflection.html",
-    "href": "posts/lab-1-reflection.html",
-    "title": "Lab 1 Reflection",
-    "section": "",
-    "text": "This lab was a good introduction into E155 and the work and dedication that these labs require. I spent the first few days getting my bearings and figuring out how to solder SMT connections and parse through the lab manual in a constructive way. There were many times where I felt like I was in over my head, but working with others and collaboration made this lab very informative and fun. I feel that I can use the Lattice and Questa software comfortably, which should help a lot in subsequent labs. I got closer with my peers and gained confidence that will at least carry me through the next week. I did not do the best job planning out my work, as I spent most of my time on this lab rather than other commitments. Going into Lab 2, I hope to establish a better plan, utilize grutoring hours more, and maintain more balance with my workload and social commitments."
-  },
-  {
-    "objectID": "e151.html",
-    "href": "e151.html",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About Lab 1\n\n\n\nDescription   Skills: \nRead More About Lab 2\n\n\n\nDescription   Skills: \nRead More About Lab 3\n\n\n\nDescription   Skills: \nRead More About Lab 4\n\n\n\nDescription   Skills: \nRead More About DP 1\n\n\n\nDescription   Skills: \nRead More About Lab 5\n\n\n\nDescription   Skills: \nRead More About Lab 6\n\n\n\nDescription   Skills: \nRead More About Lab 7\n\n\n\nDescription   Skills: \nRead More About Lab 8\n\n\n\nDescription   Skills: \nRead More About Lab 9\n\n\n\nDescription   Skills: \nRead More About DP 2"
-  },
-  {
-    "objectID": "e151.html#lab-1-instrument-loading-and-mystery-box-analysis",
-    "href": "e151.html#lab-1-instrument-loading-and-mystery-box-analysis",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About Lab 1"
-  },
-  {
-    "objectID": "e151.html#lab-2-diode-current-measurements",
-    "href": "e151.html#lab-2-diode-current-measurements",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About Lab 2"
-  },
-  {
-    "objectID": "e151.html#lab-3-measuring-bjt-parameters",
-    "href": "e151.html#lab-3-measuring-bjt-parameters",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About Lab 3"
-  },
-  {
-    "objectID": "e151.html#lab-4-the-common-emitter-amplifier",
-    "href": "e151.html#lab-4-the-common-emitter-amplifier",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About Lab 4"
-  },
-  {
-    "objectID": "e151.html#design-project-i",
-    "href": "e151.html#design-project-i",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About DP 1"
-  },
-  {
-    "objectID": "e151.html#lab-5-mosfets-current-mirrors-and-active-loads",
-    "href": "e151.html#lab-5-mosfets-current-mirrors-and-active-loads",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About Lab 5"
-  },
-  {
-    "objectID": "e151.html#lab-6-voltage-references-vs.-temperature-and-supply-voltage",
-    "href": "e151.html#lab-6-voltage-references-vs.-temperature-and-supply-voltage",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About Lab 6"
-  },
-  {
-    "objectID": "e151.html#lab-7-bjt-dynamics-i",
-    "href": "e151.html#lab-7-bjt-dynamics-i",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About Lab 7"
-  },
-  {
-    "objectID": "e151.html#lab-8-bjt-dynamics-ii",
-    "href": "e151.html#lab-8-bjt-dynamics-ii",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About Lab 8"
-  },
-  {
-    "objectID": "e151.html#lab-9-the-differential-amplifier",
-    "href": "e151.html#lab-9-the-differential-amplifier",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About Lab 9"
-  },
-  {
-    "objectID": "e151.html#design-project-ii",
-    "href": "e151.html#design-project-ii",
-    "title": "Analog Circuit Design",
-    "section": "",
-    "text": "Description   Skills: \nRead More About DP 2"
+    "text": "After completing lab 1, I felt that I had more of a grasp effort, dedication, and time required to complete this lab to the best of my abilities. I set aside of bulk of my time to work on this lab, while still designating enough time for my other work and commitments. I had a hard time grasping the overall flow of how a time-multiplexer works and how it should be implemented, but thanks Xavier’s clear explanation, I felt the Verilog aspect was not as difficult as I initially assumed. I ran into an odd issue where a majority of the inputs displayed the correct values, but experienced an odd behavior at a few specific combinations. I spent hours trying to debug what was seemingly a hardware issue, but thankfully, a superb grutor, Troy, experienced the same issue I had when he worked on this lab. The issue was that the internal pull-up resistor was too weak and caused a latching behavior. By editing the internal pullup resistor in the Device Constraint Editor, my problem was miraculously solved! Additionally, my experience with testbenches typically involved test vectors, so to test all 256 possible switch combinations for the led sum logic, I manually wrote out close to 200 of them before realizing that there must be a better way. I learned how to write testbenches with assert statements and implemented my first successful iterating for loops in my multiplexer testbench. These experiences, while time-consuming in the moment, added more debugging tools that I can rely on in the future.\nI’ve heard many warnings about lab 3, but I feel confident that I can get through it. There were many times this lab and the last one where I felt like giving up and that I was in over my head, but ultimately, I found a way to get through. I am extremely grateful for my peers, Prof. Spencer, Xavier, and the grutors for helping me walk through certain steps and explaining concepts I initially found perplexing. Lab 3 strikes at an inconvenient time for me, since I have a project deliverable and clinic design review presentation due around the same time as my check-in, but I plan to get an early start, plan out my time to satisfy all commitments, and still allocate time for personal health, like exercising. I am proud of myself for these first two labs, and I maintain that feeling throughout the semester."
   },
   {
     "objectID": "e155.html",
@@ -413,11 +266,102 @@
     "text": "Description   Skills: \nProject Proposal  Final Report  Github"
   },
   {
-    "objectID": "posts/lab-2-reflection.html",
-    "href": "posts/lab-2-reflection.html",
-    "title": "Lab 2 Reflection",
+    "objectID": "e151.html",
+    "href": "e151.html",
+    "title": "Analog Circuit Design",
     "section": "",
-    "text": "After completing lab 1, I felt that I had more of a grasp effort, dedication, and time required to complete this lab to the best of my abilities. I set aside of bulk of my time to work on this lab, while still designating enough time for my other work and commitments. I had a hard time grasping the overall flow of how a time-multiplexer works and how it should be implemented, but thanks Xavier’s clear explanation, I felt the Verilog aspect was not as difficult as I initially assumed. I ran into an odd issue where a majority of the inputs displayed the correct values, but experienced an odd behavior at a few specific combinations. I spent hours trying to debug what was seemingly a hardware issue, but thankfully, a superb grutor, Troy, experienced the same issue I had when he worked on this lab. The issue was that the internal pull-up resistor was too weak and caused a latching behavior. By editing the internal pullup resistor in the Device Constraint Editor, my problem was miraculously solved! Additionally, my experience with testbenches typically involved test vectors, so to test all 256 possible switch combinations for the led sum logic, I manually wrote out close to 200 of them before realizing that there must be a better way. I learned how to write testbenches with assert statements and implemented my first successful iterating for loops in my multiplexer testbench. These experiences, while time-consuming in the moment, added more debugging tools that I can rely on in the future.\nI’ve heard many warnings about lab 3, but I feel confident that I can get through it. There were many times this lab and the last one where I felt like giving up and that I was in over my head, but ultimately, I found a way to get through. I am extremely grateful for my peers, Prof. Spencer, Xavier, and the grutors for helping me walk through certain steps and explaining concepts I initially found perplexing. Lab 3 strikes at an inconvenient time for me, since I have a project deliverable and clinic design review presentation due around the same time as my check-in, but I plan to get an early start, plan out my time to satisfy all commitments, and still allocate time for personal health, like exercising. I am proud of myself for these first two labs, and I maintain that feeling throughout the semester."
+    "text": "Description  Skills: Thevenin models, understanding loading effects from different cables, oscilloscopes, Bode plots \nRead More About Lab 1\n\n\n\nDescription  Skills: Diode I-V relationship characterization, equivalent circuit models, instrument loading, small signal analysis, large signal analysis, analog problem solving\nRead More About Lab 2\n\n\n\nDescription  Skills: NPN and PNP modeling, BJT regions of operation, large and small signal measurements, NPN and PNP transistor biasing\nRead More About Lab 3\n\n\n\nDescription  Skills: Amplifier design, LT Spice simulations, reconciling analysis, simulation, and measurement\nRead More About Lab 4\n\n\n\nDescription   Skills: Common single stage amplifiers, multistage loading, design tradeoffs in a large analog system\nRead More About DP 1\n\n\n\nDescription  Skills: MOSFET amplifier analysis, passively vs. actively loaded amplifiers\nRead More About Lab 5\n\n\n\nDescription  Skills: Understanding bias fluctuations with power supply and temperature variation, band gap references\nRead More About Lab 6\n\n\n\nDescription  Skills: Frequency response of an amplifier, Miller approximations, extracting common parasitics, cascodes, open circuit time constant analysis\nRead More About Lab 7\n\n\n\nDescription  Skills: Frequency response of an amplifier, Miller approximations, extracting common parasitics, cascodes, open circuit time constant analysis\nRead More About Lab 8\n\n\n\nDescription  Skills: Current mirrors, amplifier biasing, differential amplifier analysis, differential design and measurements\nRead More About Lab 9\n\n\n\nDescription  Skills: Design and characterization of a complex analog system, op-amp compensation analysis\nRead More About DP 2"
+  },
+  {
+    "objectID": "e151.html#lab-1-instrument-loading-and-mystery-box-analysis",
+    "href": "e151.html#lab-1-instrument-loading-and-mystery-box-analysis",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description  Skills: Thevenin models, understanding loading effects from different cables, oscilloscopes, Bode plots \nRead More About Lab 1"
+  },
+  {
+    "objectID": "e151.html#lab-2-diode-current-measurements",
+    "href": "e151.html#lab-2-diode-current-measurements",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description  Skills: Diode I-V relationship characterization, equivalent circuit models, instrument loading, small signal analysis, large signal analysis, analog problem solving\nRead More About Lab 2"
+  },
+  {
+    "objectID": "e151.html#lab-3-measuring-bjt-parameters",
+    "href": "e151.html#lab-3-measuring-bjt-parameters",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description  Skills: NPN and PNP modeling, BJT regions of operation, large and small signal measurements, NPN and PNP transistor biasing\nRead More About Lab 3"
+  },
+  {
+    "objectID": "e151.html#lab-4-the-common-emitter-amplifier",
+    "href": "e151.html#lab-4-the-common-emitter-amplifier",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description  Skills: Amplifier design, LT Spice simulations, reconciling analysis, simulation, and measurement\nRead More About Lab 4"
+  },
+  {
+    "objectID": "e151.html#design-project-i",
+    "href": "e151.html#design-project-i",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description   Skills: Common single stage amplifiers, multistage loading, design tradeoffs in a large analog system\nRead More About DP 1"
+  },
+  {
+    "objectID": "e151.html#lab-5-mosfets-current-mirrors-and-active-loads",
+    "href": "e151.html#lab-5-mosfets-current-mirrors-and-active-loads",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description  Skills: MOSFET amplifier analysis, passively vs. actively loaded amplifiers\nRead More About Lab 5"
+  },
+  {
+    "objectID": "e151.html#lab-6-voltage-references-vs.-temperature-and-supply-voltage",
+    "href": "e151.html#lab-6-voltage-references-vs.-temperature-and-supply-voltage",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description  Skills: Understanding bias fluctuations with power supply and temperature variation, band gap references\nRead More About Lab 6"
+  },
+  {
+    "objectID": "e151.html#lab-7-bjt-dynamics-i",
+    "href": "e151.html#lab-7-bjt-dynamics-i",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description  Skills: Frequency response of an amplifier, Miller approximations, extracting common parasitics, cascodes, open circuit time constant analysis\nRead More About Lab 7"
+  },
+  {
+    "objectID": "e151.html#lab-8-bjt-dynamics-ii",
+    "href": "e151.html#lab-8-bjt-dynamics-ii",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description  Skills: Frequency response of an amplifier, Miller approximations, extracting common parasitics, cascodes, open circuit time constant analysis\nRead More About Lab 8"
+  },
+  {
+    "objectID": "e151.html#lab-9-the-differential-amplifier",
+    "href": "e151.html#lab-9-the-differential-amplifier",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description  Skills: Current mirrors, amplifier biasing, differential amplifier analysis, differential design and measurements\nRead More About Lab 9"
+  },
+  {
+    "objectID": "e151.html#design-project-ii",
+    "href": "e151.html#design-project-ii",
+    "title": "Analog Circuit Design",
+    "section": "",
+    "text": "Description  Skills: Design and characterization of a complex analog system, op-amp compensation analysis\nRead More About DP 2"
+  },
+  {
+    "objectID": "posts/lab-1-reflection.html",
+    "href": "posts/lab-1-reflection.html",
+    "title": "Lab 1 Reflection",
+    "section": "",
+    "text": "This lab was a good introduction into E155 and the work and dedication that these labs require. I spent the first few days getting my bearings and figuring out how to solder SMT connections and parse through the lab manual in a constructive way. There were many times where I felt like I was in over my head, but working with others and collaboration made this lab very informative and fun. I feel that I can use the Lattice and Questa software comfortably, which should help a lot in subsequent labs. I got closer with my peers and gained confidence that will at least carry me through the next week. I did not do the best job planning out my work, as I spent most of my time on this lab rather than other commitments. Going into Lab 2, I hope to establish a better plan, utilize grutoring hours more, and maintain more balance with my workload and social commitments."
+  },
+  {
+    "objectID": "posts/first-post.html",
+    "href": "posts/first-post.html",
+    "title": "Goals for MicroPs",
+    "section": "",
+    "text": "I remember wanting to take MicroPs before I even declared as an engineering major. Not only because the projects from previous cohorts left me in awe, but also because each person I talked to described this as one of their most rewarding experiences. E155 explores so many facets of digital and hardware design and instills coveted skills that apply to all realms of engineering. I hope to use this opportunity to push myself beyond the limits I untinentionally impose on myself and embrace the uncertainty that comes along with the rigorous curriculum. I aspire to learn the techniques, time management, decision-making skills, and debugging practices that industry experts employ on a day-to-day basis. On top of this, I hope to forge new friendships with my peers, bonding over the struggles, challeneges, and long lab hours that we will share throughout the semester."
   },
   {
     "objectID": "index.html",
