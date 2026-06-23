@@ -266,6 +266,83 @@
     "text": "Description   Skills: \nProject Proposal  Final Report  Github"
   },
   {
+    "objectID": "e151-labs/dp1/e151-dp1.html",
+    "href": "e151-labs/dp1/e151-dp1.html",
+    "title": "Op-Amp Design Project I",
+    "section": "",
+    "text": "\\(r_{in}\\) &gt; 20 kΩ\n\\(r_{out}\\) &lt; 50 Ω\n\\(a_{v}\\) = 1000 ± 5%\n\\(V_{SW}\\) &gt; 5 V\nTotal Harmonic Distortion (THD) &lt; 5% when \\(V_{SW}\\) = 5 V\nOnly 1 10-V power supply (excluding attenuator)"
+  },
+  {
+    "objectID": "e151-labs/dp1/e151-dp1.html#design-specifications",
+    "href": "e151-labs/dp1/e151-dp1.html#design-specifications",
+    "title": "Op-Amp Design Project I",
+    "section": "",
+    "text": "\\(r_{in}\\) &gt; 20 kΩ\n\\(r_{out}\\) &lt; 50 Ω\n\\(a_{v}\\) = 1000 ± 5%\n\\(V_{SW}\\) &gt; 5 V\nTotal Harmonic Distortion (THD) &lt; 5% when \\(V_{SW}\\) = 5 V\nOnly 1 10-V power supply (excluding attenuator)"
+  },
+  {
+    "objectID": "e151-labs/dp1/e151-dp1.html#design-process",
+    "href": "e151-labs/dp1/e151-dp1.html#design-process",
+    "title": "Op-Amp Design Project I",
+    "section": "Design Process",
+    "text": "Design Process\nGiven the performance specifications for the amplifier, we decided to bookend the stages with emitter followers. These configurations provide minimal output resistances relative to the other model types, making it desirable as the last stage, and significant input resistances, making it capable of satisfying the \\(r_{in}\\) constraint. This relatively high \\(r_{in}\\), also helps mitigate the effects of interstage loading on the final stage, and the relatively low \\(r_{out}\\), decreases interstage loading effects when transitioning to the second stage. In retrospect, these stages could have leveraged the 2N3904 NPN transistors to optimize performance given their \\({\\beta}\\) values (200 for NPN vs 150 for PNP); however, we opted to use the PNP transistors for these stages for no other reason than consistency.\nA key concern when designing the intermediate stages was the effect of interstage loading on the overall gain. The middle two stages were chosen to be some form of common emitters and drove the overall gain of the system as the emitter follower stages only provide a gain of about 1. We initially had the second stage be the common emitter with degeneration and the third as a standard common emitter; however subsequent design optimization and interstage loading comparison indicated that swapping their positions was more ideal and flexible. To minimize power consumption, the collectors were targeted to run with a 1 mA current through them. Using the relationship that the current through the collector is about equal to the current through the emitter, we could tackle more aspects of the overall design. Resistors were the most fluid and interchangeable factor. Selecting reasonably-sized emitter resistors could help us determine which voltage should be at the top of the node. Using a \\(V_{BEON}\\) of 0.7 for the NPN transistors and understanding which voltage should be at the top of the emitter node, we could find the base voltage and the general relationship between the biasing resistors. With a known beta and collector current, we could leverage Equation 1 to find out how big we should make these resistors.\n\\[\n{\\beta}*I_{B} = I_{C} \\tag{1}\n\\]\nMaking the resistors too small would mean that the current stolen by the base was negligible and reduce the droopiness of the voltage, but it would increase the power consumption. Making the resistors too large would reduce current, increasing the proportion of current stolen by the base, and impact the output voltage. Generally, we tried to stick to keeping the biasing network below 100 kΩ, but the last stage required us to modify this constraint to make sure that our analytical, simulation, and measured parameters were all simultaneously within specification.\nTo make the gain more achievable an attenuating circuit was used to decrease a 100 mV peak-to-peak input signal to 1 mV, prior to the amplifier. The attenuator included two resistor divider networks, with the second divider experiencing some loading from the first. This network fed into a dual-rail op-amp in unity gain to reduce signal noise.\nTo reduce interstage loading, the input resistance for each subsequent stage aimed to be at least one order of magnitude higher than the output resistance from the previous. The analytical approximations used to determine analytical performance and drive the design are present in Table 1. The \\(r_{in}\\) values were modified to account for the biaising network, and the r0 resistor was assumed to be significantly large with minimal impact on performance.\n\n\n\n\n\nTable 1 - Common Amplifier Properties\n\n\nAmplifier\nInput Resistance\nOutput Resistance\nVoltage Gain\n\n\n\n\nCommon Emitter\nrπ\nro || RC ≈ RC\n-gmRC\n\n\nCommon Emitter with Degeneration\nrπ + (β + 1)(RE || ro) ≈ βRE\nRC\n20.8\n\n\nEmitter Follower\nrπ + (β + 1)(RE || ro) ≈ βRE\n17.86\n22.3\n\n\nCommon Base\n$\\frac{1}{g_m}$\n≈ RC || βro\ngmRC\n\n\nCascode\nrπ1\nRC || (rπ1 || ro1 + ro2 + β2ro2) ≈ RC\n-gmRC\n\n\n\n\n\nThe design process proceeded by first designing the analytical aspects, using equations, relationships, and intuition to understand the general layout and components necessary to meet the performance specifications. The resistor choices at the biasing point, the collector, and the emitter were the primary vehicles for modifying amplifier designs. Once all specifications were met analytically, we transitioned to the simulation phase where we conducted DC simulations to verify our bias points, AC simulations to verify our amplifier gain, and then transient simulations to verify the shape and voltage swing of the circuit. We tested each stage individually to isolate any problematic parts, then tested the entire amplifier as a whole to ensure the all specifications were met. After these simulations, we used the transient behavior to validate \\(r_{in}\\), \\(r_{out}\\), and the Total Harmonic Distortion. After the simulations were all within specifications, we mirrored that process with the physical implementations and measurements. Any necessary design tweaks revealed in later stages of the design, prompted a reset, returning to the analytical components and climbing our way back again.\nFigure 1 below showcases the final design decisions that satisfy all project specifications, accounting for interstage loading effects.\n\n\n\nFigure 1 - Analytical Amplifier Parameters\n\n\n\nAttenuator Design\nThe attenuator was designed with two voltage dividers to convert 100mV into 1mV. After the two voltage divider stages a unity gain buffer was created with an op-amp in order to isolate the circuits and prevent loading. The second stage of the divider accounts for loading from the first.\nFIGURE OF ATTENUATOR CALCULATIONS HERE\n\n\nSchematics and Circuit\nFIGURE OF DRAWN CIRCUIT + AMPLIFIER MODEL LT SPICE SCHEMATICS HERE PIC OF PHYSICAL CIRCUIT HERE\n\n\nCircuit Operation\nSCOPE PHOTO DEMONSTRATING AMPLIFIER OPERATION"
+  },
+  {
+    "objectID": "e151-labs/dp1/e151-dp1.html#bias-point-confirmation",
+    "href": "e151-labs/dp1/e151-dp1.html#bias-point-confirmation",
+    "title": "Op-Amp Design Project I",
+    "section": "Bias Point Confirmation",
+    "text": "Bias Point Confirmation"
+  },
+  {
+    "objectID": "e151-labs/dp1/e151-dp1.html#input-resistance",
+    "href": "e151-labs/dp1/e151-dp1.html#input-resistance",
+    "title": "Op-Amp Design Project I",
+    "section": "Input Resistance",
+    "text": "Input Resistance"
+  },
+  {
+    "objectID": "e151-labs/dp1/e151-dp1.html#output-resistance",
+    "href": "e151-labs/dp1/e151-dp1.html#output-resistance",
+    "title": "Op-Amp Design Project I",
+    "section": "Output Resistance",
+    "text": "Output Resistance"
+  },
+  {
+    "objectID": "e151-labs/dp1/e151-dp1.html#voltage-gain-and-band-pass",
+    "href": "e151-labs/dp1/e151-dp1.html#voltage-gain-and-band-pass",
+    "title": "Op-Amp Design Project I",
+    "section": "Voltage Gain and Band Pass",
+    "text": "Voltage Gain and Band Pass"
+  },
+  {
+    "objectID": "e151-labs/dp1/e151-dp1.html#voltage-swing",
+    "href": "e151-labs/dp1/e151-dp1.html#voltage-swing",
+    "title": "Op-Amp Design Project I",
+    "section": "Voltage Swing",
+    "text": "Voltage Swing\n\\[\nV_{SW} = 2*min(V_{CC} - V_{OUT}, V_{OUT} - V_{C, Stage 4} - V_{CESAT})\\tag{2}\n\\]"
+  },
+  {
+    "objectID": "e151-labs/dp1/e151-dp1.html#total-harmonic-distortion",
+    "href": "e151-labs/dp1/e151-dp1.html#total-harmonic-distortion",
+    "title": "Op-Amp Design Project I",
+    "section": "Total Harmonic Distortion",
+    "text": "Total Harmonic Distortion\n\\[\nTHD = \\sqrt{\\frac{V_{2}^2 + V_{3}^2 + V_{4}^2 + ...}{V_{1}^2}}\\tag{3}\n\\]"
+  },
+  {
+    "objectID": "e151-labs/dp1/e151-dp1.html#power-consumption",
+    "href": "e151-labs/dp1/e151-dp1.html#power-consumption",
+    "title": "Op-Amp Design Project I",
+    "section": "Power Consumption",
+    "text": "Power Consumption\n\\[\nPower = V_{CC}*(I_{C1} + I_{C2} + I_{C3} + I_{C4})\\tag{4}\n\\]"
+  },
+  {
+    "objectID": "e151-labs/dp1/e151-dp1.html#results-and-discussion",
+    "href": "e151-labs/dp1/e151-dp1.html#results-and-discussion",
+    "title": "Op-Amp Design Project I",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\n\n\n\n\n\nTable 2 - Summary of Analytical, Simulated, and Measured Parameter Values for Amplifier\n\n\nParameter\nAnalytical\nSimulated\nMeasured\n\n\n\n\nVoltage Gain [V/V]\n1049.17\n1010\n1050\n\n\nInput Resistance [kΩ]\n21.5\n20.8\n20.8\n\n\nOutput Resistance [Ω]\n17.95\n17.86\n22.3\n\n\nOutput Voltage Swing [V]\n9.17\n8.5\n8.8\n\n\nTHD at 5 V Output Swing [%]\nN/A\n0.17\n1.183\n\n\nLow Corner Frequency [kHz]\nN/A\n2\n2.5\n\n\nHigh Corner Frequency [kHz]\nN/A\n800\n800\n\n\nPower Consumption [mW]\n48.2\n50.5\n52\n\n\nStage 1 Collector Current [mA]\n0.9803\n0.959\n0.961\n\n\nStage 2 Collector Current [mA]\n1.342\n1.28\n1.283\n\n\nStage 3 Collector Current [mA]\n1.05\n0.112\n0.9616\n\n\nStage 4 Collector Curent [mA]\n1.45\n1.55\n1.421"
+  },
+  {
     "objectID": "e151.html",
     "href": "e151.html",
     "title": "Analog Circuit Design",
