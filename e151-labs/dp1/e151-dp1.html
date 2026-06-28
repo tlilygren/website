@@ -214,72 +214,86 @@ window.Quarto = {
 <section id="design-process" class="level2">
 <h2 class="anchored" data-anchor-id="design-process">Design Process</h2>
 <p>Given the performance specifications for the amplifier, we decided to bookend the stages with emitter followers. These configurations provide minimal output resistances relative to the other model types, making it desirable as the last stage, and significant input resistances, making it capable of satisfying the <span class="math inline">\(r_{in}\)</span> constraint. This relatively high <span class="math inline">\(r_{in}\)</span>, also helps mitigate the effects of interstage loading on the final stage, and the relatively low <span class="math inline">\(r_{out}\)</span>, decreases interstage loading effects when transitioning to the second stage. In retrospect, these stages could have leveraged the 2N3904 NPN transistors to optimize performance given their <span class="math inline">\({\beta}\)</span> values (200 for NPN vs 150 for PNP); however, we opted to use the PNP transistors for these stages for no other reason than consistency.</p>
-<p>A key concern when designing the intermediate stages was the effect of interstage loading on the overall gain. The middle two stages were chosen to be some form of common emitters and drove the overall gain of the system as the emitter follower stages only provide a gain of about 1. We initially had the second stage be the common emitter with degeneration and the third as a standard common emitter; however subsequent design optimization and interstage loading comparison indicated that swapping their positions was more ideal and flexible. To minimize power consumption, the collectors were targeted to run with a 1 mA current through them. Using the relationship that the current through the collector is about equal to the current through the emitter, we could tackle more aspects of the overall design. Resistors were the most fluid and interchangeable factor. Selecting reasonably-sized emitter resistors could help us determine which voltage should be at the top of the node. Using a <span class="math inline">\(V_{BEON}\)</span> of 0.7 for the NPN transistors and understanding which voltage should be at the top of the emitter node, we could find the base voltage and the general relationship between the biasing resistors. With a known beta and collector current, we could leverage Equation 1 to find out how big we should make these resistors.</p>
+<p>A key concern when designing the intermediate stages was the effect of interstage loading on the overall gain. The middle two stages were chosen to be some form of common emitter and drove the overall gain of the system as the emitter follower stages only provide a gain of about 1. We initially had the second stage be the common emitter with degeneration and the third as a standard common emitter; however subsequent design optimization and interstage loading comparison indicated that swapping their positions was more ideal and flexible. To minimize power consumption, the collectors were targeted to run with a 1 mA current through them. Using the relationship that the current through the collector is about equal to the current through the emitter, we could tackle more aspects of the overall design. Resistors were the most fluid and interchangeable factor. Selecting reasonably-sized emitter resistors could help us determine which voltage should be at the top of the node. Using a <span class="math inline">\(V_{BEON}\)</span> of 0.7 for the NPN transistors and understanding which voltage should be at the top of the emitter node, we could find the base voltage and the general relationship between the biasing resistors. With a known beta and collector current, we could leverage Equation 1 to find out how big we should make these resistors.</p>
 <p><span class="math display">\[
 {\beta}*I_{B} = I_{C} \tag{1}
 \]</span></p>
 <p>Making the resistors too small would mean that the current stolen by the base was negligible and reduce the droopiness of the voltage, but it would increase the power consumption. Making the resistors too large would reduce current, increasing the proportion of current stolen by the base, and impact the output voltage. Generally, we tried to stick to keeping the biasing network below 100 kΩ, but the last stage required us to modify this constraint to make sure that our analytical, simulation, and measured parameters were all simultaneously within specification.</p>
 <p>To make the gain more achievable an attenuating circuit was used to decrease a 100 mV peak-to-peak input signal to 1 mV, prior to the amplifier. The attenuator included two resistor divider networks, with the second divider experiencing some loading from the first. This network fed into a dual-rail op-amp in unity gain to reduce signal noise.</p>
 <p>To reduce interstage loading, the input resistance for each subsequent stage aimed to be at least one order of magnitude higher than the output resistance from the previous. The analytical approximations used to determine analytical performance and drive the design are present in Table 1. The <span class="math inline">\(r_{in}\)</span> values were modified to account for the biaising network, and the r0 resistor was assumed to be significantly large with minimal impact on performance.</p>
-<div class="cell" data-tbl-cap="<em><strong>Table 1</strong> - Common Amplifier Properties</em>" data-execution_count="1">
+<div class="cell" data-tbl-cap="<em><strong>Table 1:</strong> Common Amplifier Properties</em>" data-execution_count="1">
 <div class="cell-output cell-output-display" data-execution_count="1">
 <style type="text/css">
-#T_f91f6 th {
+#T_3689e th {
   text-align: center;
+  padding: 8px 12px;
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
-#T_f91f6  {
+#T_3689e  {
   border-collapse: collapse;
   border: 1px solid black;
+  table-layout: fixed;
+  width: 100%;
 }
-#T_f91f6_row0_col0, #T_f91f6_row0_col1, #T_f91f6_row0_col2, #T_f91f6_row0_col3, #T_f91f6_row1_col0, #T_f91f6_row1_col1, #T_f91f6_row1_col2, #T_f91f6_row1_col3, #T_f91f6_row2_col0, #T_f91f6_row2_col1, #T_f91f6_row2_col2, #T_f91f6_row2_col3, #T_f91f6_row3_col0, #T_f91f6_row3_col1, #T_f91f6_row3_col2, #T_f91f6_row3_col3, #T_f91f6_row4_col0, #T_f91f6_row4_col1, #T_f91f6_row4_col2, #T_f91f6_row4_col3 {
+#T_3689e_row0_col0, #T_3689e_row1_col0, #T_3689e_row2_col0, #T_3689e_row3_col0, #T_3689e_row4_col0 {
   text-align: center;
+  vertical-align: middle;
+  padding: 8px 12px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  width: 160px;
+  white-space: normal;
+}
+#T_3689e_row0_col1, #T_3689e_row0_col2, #T_3689e_row0_col3, #T_3689e_row1_col1, #T_3689e_row1_col2, #T_3689e_row1_col3, #T_3689e_row2_col1, #T_3689e_row2_col2, #T_3689e_row2_col3, #T_3689e_row3_col1, #T_3689e_row3_col2, #T_3689e_row3_col3, #T_3689e_row4_col1, #T_3689e_row4_col2, #T_3689e_row4_col3 {
+  text-align: center;
+  vertical-align: middle;
+  padding: 8px 12px;
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
 </style>
 
-<table id="T_f91f6" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
-<caption><em><strong>Table 1</strong> - Common Amplifier Properties</em></caption>
+<table id="T_3689e" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption><em><strong>Table 1:</strong> Common Amplifier Properties</em></caption>
 <thead>
 <tr class="header">
-<th id="T_f91f6_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Amplifier</th>
-<th id="T_f91f6_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Input Resistance</th>
-<th id="T_f91f6_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Output Resistance</th>
-<th id="T_f91f6_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Voltage Gain</th>
+<th id="T_3689e_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Amplifier</th>
+<th id="T_3689e_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Input Resistance</th>
+<th id="T_3689e_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Output Resistance</th>
+<th id="T_3689e_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Voltage Gain</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_f91f6_row0_col0" class="data row0 col0">Common Emitter</td>
-<td id="T_f91f6_row0_col1" class="data row0 col1">r<sub>π</sub></td>
-<td id="T_f91f6_row0_col2" class="data row0 col2">r<sub>o</sub> || R<sub>C</sub> ≈ R<sub>C</sub></td>
-<td id="T_f91f6_row0_col3" class="data row0 col3">-g<sub>m</sub>R<sub>C</sub></td>
+<td id="T_3689e_row0_col0" class="data row0 col0">Common Emitter</td>
+<td id="T_3689e_row0_col1" class="data row0 col1">r<sub>π</sub></td>
+<td id="T_3689e_row0_col2" class="data row0 col2">r<sub>o</sub>‖R<sub>C</sub> ≈ R<sub>C</sub></td>
+<td id="T_3689e_row0_col3" class="data row0 col3">-g<sub>m</sub>R<sub>C</sub></td>
 </tr>
 <tr class="even">
-<td id="T_f91f6_row1_col0" class="data row1 col0">Common Emitter with Degeneration</td>
-<td id="T_f91f6_row1_col1" class="data row1 col1">r<sub>π</sub> + (β + 1)(R<sub>E</sub> || r<sub>o</sub>) ≈ βR<sub>E</sub></td>
-<td id="T_f91f6_row1_col2" class="data row1 col2">R<sub>C</sub></td>
-<td id="T_f91f6_row1_col3" class="data row1 col3">20.8</td>
+<td id="T_3689e_row1_col0" class="data row1 col0">Common Emitter with Degen (neglecting r<sub>o</sub>)</td>
+<td id="T_3689e_row1_col1" class="data row1 col1">r<sub>π</sub> + (β + 1)(R<sub>E</sub>‖r<sub>o</sub>) ≈ βR<sub>E</sub></td>
+<td id="T_3689e_row1_col2" class="data row1 col2">R<sub>C</sub></td>
+<td id="T_3689e_row1_col3" class="data row1 col3"><span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid">-βR<sub>C</sub></span><span style="display:block">r<sub>π</sub> + (β + 1)(R<sub>E</sub>‖r<sub>o</sub>)</span></span> ≈ -<span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid">R<sub>C</sub></span><span style="display:block">R<sub>E</sub></span></span></td>
 </tr>
 <tr class="odd">
-<td id="T_f91f6_row2_col0" class="data row2 col0">Emitter Follower</td>
-<td id="T_f91f6_row2_col1" class="data row2 col1">r<sub>π</sub> + (β + 1)(R<sub>E</sub> || r<sub>o</sub>) ≈ βR<sub>E</sub></td>
-<td id="T_f91f6_row2_col2" class="data row2 col2">17.86</td>
-<td id="T_f91f6_row2_col3" class="data row2 col3">22.3</td>
+<td id="T_3689e_row2_col0" class="data row2 col0">Emitter Follower</td>
+<td id="T_3689e_row2_col1" class="data row2 col1">r<sub>π</sub> + (β + 1)(R<sub>E</sub>‖r<sub>o</sub>) ≈ βR<sub>E</sub></td>
+<td id="T_3689e_row2_col2" class="data row2 col2">r<sub>o</sub>‖R<sub>E</sub>‖(<span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid">1</span><span style="display:block">g<sub>m</sub></span></span> + <span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid">R<sub>S</sub></span><span style="display:block">β</span></span>) ≈ <span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid">1</span><span style="display:block">g<sub>m</sub></span></span></td>
+<td id="T_3689e_row2_col3" class="data row2 col3"><span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid">(β + 1)(R<sub>E</sub>‖r<sub>o</sub>)</span><span style="display:block">r<sub>π</sub> + (β + 1)(R<sub>E</sub>‖r<sub>o</sub>)</span></span> ≈ 1</td>
 </tr>
 <tr class="even">
-<td id="T_f91f6_row3_col0" class="data row3 col0">Common Base</td>
-<td id="T_f91f6_row3_col1" class="data row3 col1">$\frac{1}{g_m}$</td>
-<td id="T_f91f6_row3_col2" class="data row3 col2">≈ R<sub>C</sub> || βr<sub>o</sub></td>
-<td id="T_f91f6_row3_col3" class="data row3 col3">g<sub>m</sub>R<sub>C</sub></td>
+<td id="T_3689e_row3_col0" class="data row3 col0">Common Base</td>
+<td id="T_3689e_row3_col1" class="data row3 col1"><span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid">1</span><span style="display:block">g<sub>m</sub></span></span> + <span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid">R<sub>C</sub></span><span style="display:block">g<sub>m</sub>r<sub>o</sub></span></span></td>
+<td id="T_3689e_row3_col2" class="data row3 col2">≈ R<sub>C</sub>‖βr<sub>o</sub></td>
+<td id="T_3689e_row3_col3" class="data row3 col3">g<sub>m</sub>R<sub>C</sub></td>
 </tr>
 <tr class="odd">
-<td id="T_f91f6_row4_col0" class="data row4 col0">Cascode</td>
-<td id="T_f91f6_row4_col1" class="data row4 col1">r<sub>π1</sub></td>
-<td id="T_f91f6_row4_col2" class="data row4 col2">R<sub>C</sub> || (r<sub>π1</sub> || r<sub>o1</sub> + r<sub>o2</sub> + β<sub>2</sub>r<sub>o2</sub>) ≈ R<sub>C</sub></td>
-<td id="T_f91f6_row4_col3" class="data row4 col3">-g<sub>m</sub>R<sub>C</sub></td>
+<td id="T_3689e_row4_col0" class="data row4 col0">Cascode</td>
+<td id="T_3689e_row4_col1" class="data row4 col1">r<sub>π1</sub></td>
+<td id="T_3689e_row4_col2" class="data row4 col2">R<sub>C</sub>‖(r<sub>π1</sub>‖r<sub>o1</sub> + r<sub>o2</sub> + β<sub>2</sub>r<sub>o2</sub>) ≈ R<sub>C</sub></td>
+<td id="T_3689e_row4_col3" class="data row4 col3">-g<sub>m</sub>R<sub>C</sub></td>
 </tr>
 </tbody>
 </table>
@@ -287,37 +301,232 @@ window.Quarto = {
 </div>
 <p>The design process proceeded by first designing the analytical aspects, using equations, relationships, and intuition to understand the general layout and components necessary to meet the performance specifications. The resistor choices at the biasing point, the collector, and the emitter were the primary vehicles for modifying amplifier designs. Once all specifications were met analytically, we transitioned to the simulation phase where we conducted DC simulations to verify our bias points, AC simulations to verify our amplifier gain, and then transient simulations to verify the shape and voltage swing of the circuit. We tested each stage individually to isolate any problematic parts, then tested the entire amplifier as a whole to ensure the all specifications were met. After these simulations, we used the transient behavior to validate <span class="math inline">\(r_{in}\)</span>, <span class="math inline">\(r_{out}\)</span>, and the Total Harmonic Distortion. After the simulations were all within specifications, we mirrored that process with the physical implementations and measurements. Any necessary design tweaks revealed in later stages of the design, prompted a reset, returning to the analytical components and climbing our way back again.</p>
 <p>Figure 1 below showcases the final design decisions that satisfy all project specifications, accounting for interstage loading effects.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/dp1_value_table.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><em><strong>Figure 1</strong> - Analytical Amplifier Parameters</em></figcaption>
+<div id="fig-values" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-values-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_value_table.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-values-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Analytical Amplifier Parameters
+</figcaption>
 </figure>
 </div>
 <section id="attenuator-design" class="level3">
 <h3 class="anchored" data-anchor-id="attenuator-design">Attenuator Design</h3>
-<p>The attenuator was designed with two voltage dividers to convert 100mV into 1mV. After the two voltage divider stages a unity gain buffer was created with an op-amp in order to isolate the circuits and prevent loading. The second stage of the divider accounts for loading from the first.</p>
-<p>FIGURE OF ATTENUATOR CALCULATIONS HERE</p>
+<p>The attenuator was designed with two cascading voltage dividers to convert a 100-mV peak-to-peak signal into a 1-mV sinusoid. Resistor values for the second divider account for the loading effects introduced by the first. The attenuator also leverages an OP07 op-amp wired in unity gain to serve as a buffer, isolating the amplifier from undesireable loading. A 50 <span class="math inline">\({\ohm}\)</span> resistor was placed at the output of the op-amp to mimick the source resistance provided by the oscilloscope’s wave generator.</p>
+<div id="fig-attencalc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-attencalc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src=".png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-attencalc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: 100:1 Attenuator Resistor Calculations
+</figcaption>
+</figure>
+</div>
+<p>Resistor values for the attenuator were selected carefully to preserve the ratio determined in the figure above and fall within standard resistances.</p>
 </section>
 <section id="schematics-and-circuit" class="level3">
 <h3 class="anchored" data-anchor-id="schematics-and-circuit">Schematics and Circuit</h3>
-<p>FIGURE OF DRAWN CIRCUIT + AMPLIFIER MODEL LT SPICE SCHEMATICS HERE PIC OF PHYSICAL CIRCUIT HERE</p>
+<p>The full circuit with appropriate values is realized in Figure 3.</p>
+<div id="fig-circuit" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src=".png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Full Amplifier Circuit Design
+</figcaption>
+</figure>
+</div>
+<p>An abstracted amplifier model is also provided in Figure 4 to better visualize key design parameters and the interstage loading between transistor stages.</p>
+<div id="fig-amplifier" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-amplifier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src=".png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-amplifier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Abstracted Amplifier Model
+</figcaption>
+</figure>
+</div>
+<p>The circuit model from Figure 3 was translated into LT Spice to validate specification satsifaction prior to physical implementation. Each stage was segmented into separate blocks, connected with AC coupling capacitors, to allow for accelerated error isolation. The full model is showcased in Figure 5 and the</p>
+<div id="fig-ltspice" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ltspice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ltspice" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-a" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_LTschem_atten_NEW.png" class="img-fluid figure-img" data-ref-parent="fig-ltspice">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Attenuator
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ltspice" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-b" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_LTschem_s1_NEW.png" class="img-fluid figure-img" data-ref-parent="fig-ltspice">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Stage 1
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ltspice" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-c" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-c-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_LTschem_s2_NEW.png" class="img-fluid figure-img" data-ref-parent="fig-ltspice">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-c-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Stage 2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ltspice" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-d" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_LTschem_s3_NEW.png" class="img-fluid figure-img" data-ref-parent="fig-ltspice">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Stage 3
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ltspice" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-e" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-e-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_LTschem_s4_NEW.png" class="img-fluid figure-img" data-ref-parent="fig-ltspice">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-e-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(e) Stage 4
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ltspice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Attenuator and Individual Amplifier Stages Realized in LT Spice
+</figcaption>
+</figure>
+</div>
+<p>Figure X below illustrates the materialized circuit implementation. BJT terminals were placed at every other row to mitigate parasitic breadboard capacitance. Decoupling capacitors were placed at the breadboard rails to stabilize the power supply and minimize coupling feedback between each amplifier stage.</p>
+<div id="fig-physical" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-physical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_circuit.jpg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-physical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Physical Circuit Implementation
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="circuit-operation" class="level3">
 <h3 class="anchored" data-anchor-id="circuit-operation">Circuit Operation</h3>
-<p>SCOPE PHOTO DEMONSTRATING AMPLIFIER OPERATION</p>
+<p>The DC bias points at the base, emitter, and collector of each transistor were validated with a multimeter. Prior to measuring voltage swing, total harmonic distortion, and small signal parameters, proper amplification was confirmed with oscilloscope measurements. Figure X below shows a 1 mV peak-to-peak input scaled to a 1.05 V output, indicating proper voltage gain with spec.</p>
+<div id="fig-scopeout" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scopeout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_scope_out.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scopeout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Input (yellow) and Output (green) Traces from the Amplifier with a 1,050 Gain
+</figcaption>
+</figure>
+</div>
 </section>
-</section>
-<section id="bias-point-confirmation" class="level2">
-<h2 class="anchored" data-anchor-id="bias-point-confirmation">Bias Point Confirmation</h2>
 </section>
 <section id="input-resistance" class="level2">
 <h2 class="anchored" data-anchor-id="input-resistance">Input Resistance</h2>
+<section id="analytical" class="level3">
+<h3 class="anchored" data-anchor-id="analytical">Analytical</h3>
+<p>The amplifier’s input resistance depends solely on the input resistance characterizing the first stage of the design. The general <span class="math inline">\(r_{in}\)</span> expression for the emitter follower outlined in Table 1 was weighted in conjunction with the biasing resistor network at the base node&nbsp;(<span class="math inline">\(R_{11}\)</span> and <span class="math inline">\(R_{12}\)</span>) by combining these elements in parallel. The equivalent resistance of about 21.5&nbsp;<span class="math inline">\({k\ohm}\)</span> represents the analytical input resistance.</p>
+</section>
+<section id="simulated" class="level3">
+<h3 class="anchored" data-anchor-id="simulated">Simulated</h3>
+<p>Determining the simulated input test voltage required applying a test 1 V peak-to-peak test voltage AC-coupled to the input of the first stage. The attenuator was omitted in this process; however, the 50&nbsp;<span class="math inline">\({\ohm}\)</span> sense resistor was included. The node at the exit terminal of this resistor, labeled <span class="math inline">\(v_{in}\)</span> in Figure X below, was probed to record the current flowing into the amplifier and the voltage at the input. By rearranging Ohm’s Law and plugging in these values, the simulated input resistance was calculated.</p>
+<div id="fig-rinsim" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rinsim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src=".png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rinsim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: <span class="math inline">\(r_{in}\)</span> Testbench Setup in LT Spice
+</figcaption>
+</figure>
+</div>
+<p>The recorded <span class="math inline">\(v_{in}\)</span> and <span class="math inline">\(i_{in}\)</span> at the labeled node were 1 V and 48 µA, respectively, indicating an input resistance of 20.8&nbsp;<span class="math inline">\({k\ohm}\)</span>. While the ideal nature of this simulation enables high fidelity in the recorded output (especially given its congruence with the analytical calculation), better practice would include using a sense resistor closer to the estimated <span class="math inline">\(r_{in}\)</span> value or AC-coupling a test current source and probing for the input voltage.</p>
+</section>
+<section id="measured" class="level3">
+<h3 class="anchored" data-anchor-id="measured">Measured</h3>
+<p>The setup for the experimental input resistance sought to emulate the same configuration</p>
+</section>
 </section>
 <section id="output-resistance" class="level2">
 <h2 class="anchored" data-anchor-id="output-resistance">Output Resistance</h2>
+<section id="analytical-1" class="level3">
+<h3 class="anchored" data-anchor-id="analytical-1">Analytical</h3>
+<p>The output resistance for the amplifier is characterized by its final stage (an emitter follower). The <span class="math inline">\(\frac{1}{g_{m}}\)</span> approximation listed in Table 1 was used to provide an analytical estimate for this specification. As indicated in Figure 1, the calculated <span class="math inline">\(r_{out}\)</span> is 18.2 <span class="math inline">\({\ohm}\)</span> with this approximation.</p>
+</section>
+<section id="simulated-1" class="level3">
+<h3 class="anchored" data-anchor-id="simulated-1">Simulated</h3>
+</section>
+<section id="measured-1" class="level3">
+<h3 class="anchored" data-anchor-id="measured-1">Measured</h3>
+</section>
 </section>
 <section id="voltage-gain-and-band-pass" class="level2">
 <h2 class="anchored" data-anchor-id="voltage-gain-and-band-pass">Voltage Gain and Band Pass</h2>
+<section id="analytical-2" class="level3">
+<h3 class="anchored" data-anchor-id="analytical-2">Analytical</h3>
+<p>ANALYTICAL VOLTAGE GAIN CALCULATIONS</p>
+</section>
+<section id="simulated-2" class="level3">
+<h3 class="anchored" data-anchor-id="simulated-2">Simulated</h3>
+<p>**Talk about how we measured the AC gains for each signal individually and only the entire gain thing is shown in the figure below.</p>
+<div id="fig-bodesim" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bodesim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_bode_sim.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bodesim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Simulated Gain and Corner Frequencies
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="measured-2" class="level3">
+<h3 class="anchored" data-anchor-id="measured-2">Measured</h3>
+<p>To generate the magnitude Bode plot for the physical design, a 1 mV peak-to-peak sinusoidal input was fed into the first stage of the amplifier and swept across multiple orders of magnitudes of frequencies. This procedure revealed the amplifier’s low and high cutoff frequencies (about 2.5 kHz and 800 kHz, respectively) and confirmed the gain recorded in FIGURE FROM CIRCUIT OPERATION #.</p>
+<div id="fig-bodemeas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bodemeas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_bode_good.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bodemeas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Measured Gain and Corner Frequencies
+</figcaption>
+</figure>
+</div>
+<p>Both the simulated and physical frequency responses agree on corner frequencies and present voltage gains within spec and within 10 percent of each other. Notably, the resonant peak from the AC simulation is absent in the physical representation. This behavior may stem from increased damping from real components or capacitive and resistive loading from the 10X scope probe for which the idealized simulation does not account.</p>
+</section>
 </section>
 <section id="voltage-swing" class="level2">
 <h2 class="anchored" data-anchor-id="voltage-swing">Voltage Swing</h2>
@@ -327,119 +536,188 @@ V_{SW} = 2*min(V_{CC} - V_{OUT}, V_{OUT} - V_{C, Stage 4} - V_{CESAT})\tag{2}
 </section>
 <section id="total-harmonic-distortion" class="level2">
 <h2 class="anchored" data-anchor-id="total-harmonic-distortion">Total Harmonic Distortion</h2>
-<p><span class="math display">\[
+<p>The primary purpose of this linear amplifier is to faithfully preserve the characteristics of the input sinusoid, only scaling its amplitude. Nonlinearities within the circuit’s transfer characteristics introduce additional harmonic contributions that contaminate the output signal. Equation 3 below yields a ratio indicating how significant these higher harmonics are relative to the fundamental component. As indicated by the project specificaitons, THD measurements were extrapolated at a 5-V voltage swing. <span class="math display">\[
 THD = \sqrt{\frac{V_{2}^2 + V_{3}^2 + V_{4}^2 + ...}{V_{1}^2}}\tag{3}
 \]</span></p>
+<section id="simulated-3" class="level3">
+<h3 class="anchored" data-anchor-id="simulated-3">Simulated</h3>
+<p>The amplifier’s simulated total harmonic distortion was extracted by running the Fourier command after executing the transient response function. Figure X below illustrates the resulting FFT spectra, and the THD percentage calculated internally within LT Spice.</p>
+<div id="fig-thdsim" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-thdsim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_thd_sim.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-thdsim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Simulated THD Frequency Spectra
+</figcaption>
+</figure>
+</div>
+<p>Simulations yielded a THD of 0.1747% with a clear dominant peak at the 70 kHz operating frequency and minimal harmonic contributions.</p>
+</section>
+<section id="measured-3" class="level3">
+<h3 class="anchored" data-anchor-id="measured-3">Measured</h3>
+<p>The total harmonic distortion was experimentally determined by employing the oscilloscope’s FFT function on the output sinusoid. The peaks of the fundamental component and perceptible higher-order harmonics were recorded with the scope’s cursors, and Equation 3 was subsequently enacted.</p>
+<div id="fig-thdmeas" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-thdmeas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-thdmeas" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-a" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_thd_meas_v1.png" class="img-fluid figure-img" data-ref-parent="fig-thdmeas">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Fundamental Measurement
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-thdmeas" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-b" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/dp1_thd_meas_v2.png" class="img-fluid figure-img" data-ref-parent="fig-thdmeas">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Higher-Order Measurements
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-thdmeas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Experimental THD Measurements with FFT
+</figcaption>
+</figure>
+</div>
+<p>With a <span class="math inline">\(V_{1}\)</span> of 1.53 V, a <span class="math inline">\(V_{2}\)</span> of 0.0181 V, and negligible harmonics beyond that, the experimental THD for the full circuit is 1.183% at a 5-Volt swing. While deviating considerably from the modest simulated figure, this can likely be attributed to the additional noise and nonidealities introduced by real components. This value was determined at 70 kHz, but further testing at other frequencies within the passband may uncover additional interesting insights.</p>
+</section>
 </section>
 <section id="power-consumption" class="level2">
 <h2 class="anchored" data-anchor-id="power-consumption">Power Consumption</h2>
-<p><span class="math display">\[
+<section id="analytical-3" class="level3">
+<h3 class="anchored" data-anchor-id="analytical-3">Analytical</h3>
+<p>The analytical power consumption was determined with Equation 4. Given the negligibile current drawn by the base terminal of BJTs, the collector current for each is representative of the total current flowing through that stage. With a known supply voltage, output (collector) voltage, and collector resistor, these currents could be analytically determined with Ohm’s Law.<br>
+<span class="math display">\[
 Power = V_{CC}*(I_{C1} + I_{C2} + I_{C3} + I_{C4})\tag{4}
-\]</span></p>
+\]</span> The quiescent current from the OP07-based attenuator is about 2.7 mA, extrapolating from the <a href="https://www.ti.com/lit/ds/symlink/op07.pdf?ts=1782368039872&amp;ref_url=https%253A%252F%252Fwww.mouser.jp%252F">manufacturer’s datasheet.</a> With <span class="math inline">\(\pm\)</span> 10 V supplied at the rails, the attenuator contributes about 54 mW of power consumption. Power drawn by the resistor divider network is assumed to be neglibible and is not included in the overall analytical figure.</p>
+<p>Since the attenuation component is treated as an auxiliary component to the amplifier, its power contributions, while worth noting, are not included in the reported power consumption value.</p>
+</section>
+<section id="simulated-4" class="level3">
+<h3 class="anchored" data-anchor-id="simulated-4">Simulated</h3>
+<p>Simulated power consumption determination mirrored the DC bias point confirmation process. The DC operating point function (.op) also incorporates current measurements. Summing the current at each collector and multiplying that figure by <span class="math inline">\(V_{CC}\)</span>, similar to the analytical process, yielded the circuit’s simulated power consumption.</p>
+</section>
+<section id="measured-4" class="level3">
+<h3 class="anchored" data-anchor-id="measured-4">Measured</h3>
+<p>Ohm’s Law was also enacted when experimentally determining the overall power consumption. With a multimeter, exact collector resistance values were recorded and the voltage drop across them were also noted. With a known supply voltage and extropolated current figures, Equation 4 was enacted once more.</p>
+<p>Analytical, simulated, and experimental power consumption metrics are listed in Table 2 within the Results and Discussion section.</p>
+</section>
 </section>
 <section id="results-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
-<div class="cell" data-tbl-cap="<em><strong>Table 2</strong> - Summary of Analytical, Simulated, and Measured Parameter Values for Amplifier</em>" data-execution_count="2">
+<div class="cell" data-tbl-cap="<em><strong>Table 2:</strong> Summary of Analytical, Simulated, and Measured Parameter Values for Amplifier</em>" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <style type="text/css">
-#T_c7c95 th {
+#T_eb80a th {
   text-align: center;
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
-#T_c7c95  {
+#T_eb80a  {
   border-collapse: collapse;
   border: 1px solid black;
 }
-#T_c7c95_row0_col0, #T_c7c95_row0_col1, #T_c7c95_row0_col2, #T_c7c95_row0_col3, #T_c7c95_row1_col0, #T_c7c95_row1_col1, #T_c7c95_row1_col2, #T_c7c95_row1_col3, #T_c7c95_row2_col0, #T_c7c95_row2_col1, #T_c7c95_row2_col2, #T_c7c95_row2_col3, #T_c7c95_row3_col0, #T_c7c95_row3_col1, #T_c7c95_row3_col2, #T_c7c95_row3_col3, #T_c7c95_row4_col0, #T_c7c95_row4_col1, #T_c7c95_row4_col2, #T_c7c95_row4_col3, #T_c7c95_row5_col0, #T_c7c95_row5_col1, #T_c7c95_row5_col2, #T_c7c95_row5_col3, #T_c7c95_row6_col0, #T_c7c95_row6_col1, #T_c7c95_row6_col2, #T_c7c95_row6_col3, #T_c7c95_row7_col0, #T_c7c95_row7_col1, #T_c7c95_row7_col2, #T_c7c95_row7_col3, #T_c7c95_row8_col0, #T_c7c95_row8_col1, #T_c7c95_row8_col2, #T_c7c95_row8_col3, #T_c7c95_row9_col0, #T_c7c95_row9_col1, #T_c7c95_row9_col2, #T_c7c95_row9_col3, #T_c7c95_row10_col0, #T_c7c95_row10_col1, #T_c7c95_row10_col2, #T_c7c95_row10_col3, #T_c7c95_row11_col0, #T_c7c95_row11_col1, #T_c7c95_row11_col2, #T_c7c95_row11_col3 {
+#T_eb80a_row0_col0, #T_eb80a_row0_col1, #T_eb80a_row0_col2, #T_eb80a_row0_col3, #T_eb80a_row1_col0, #T_eb80a_row1_col1, #T_eb80a_row1_col2, #T_eb80a_row1_col3, #T_eb80a_row2_col0, #T_eb80a_row2_col1, #T_eb80a_row2_col2, #T_eb80a_row2_col3, #T_eb80a_row3_col0, #T_eb80a_row3_col1, #T_eb80a_row3_col2, #T_eb80a_row3_col3, #T_eb80a_row4_col0, #T_eb80a_row4_col1, #T_eb80a_row4_col2, #T_eb80a_row4_col3, #T_eb80a_row5_col0, #T_eb80a_row5_col1, #T_eb80a_row5_col2, #T_eb80a_row5_col3, #T_eb80a_row6_col0, #T_eb80a_row6_col1, #T_eb80a_row6_col2, #T_eb80a_row6_col3, #T_eb80a_row7_col0, #T_eb80a_row7_col1, #T_eb80a_row7_col2, #T_eb80a_row7_col3, #T_eb80a_row8_col0, #T_eb80a_row8_col1, #T_eb80a_row8_col2, #T_eb80a_row8_col3, #T_eb80a_row9_col0, #T_eb80a_row9_col1, #T_eb80a_row9_col2, #T_eb80a_row9_col3, #T_eb80a_row10_col0, #T_eb80a_row10_col1, #T_eb80a_row10_col2, #T_eb80a_row10_col3, #T_eb80a_row11_col0, #T_eb80a_row11_col1, #T_eb80a_row11_col2, #T_eb80a_row11_col3 {
   text-align: center;
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
 </style>
 
-<table id="T_c7c95" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
-<caption><em><strong>Table 2</strong> - Summary of Analytical, Simulated, and Measured Parameter Values for Amplifier</em></caption>
+<table id="T_eb80a" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption><em><strong>Table 2:</strong> Summary of Analytical, Simulated, and Measured Parameter Values for Amplifier</em></caption>
 <thead>
 <tr class="header">
-<th id="T_c7c95_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Parameter</th>
-<th id="T_c7c95_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Analytical</th>
-<th id="T_c7c95_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Simulated</th>
-<th id="T_c7c95_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Measured</th>
+<th id="T_eb80a_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Parameter</th>
+<th id="T_eb80a_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Analytical</th>
+<th id="T_eb80a_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Simulated</th>
+<th id="T_eb80a_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Measured</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_c7c95_row0_col0" class="data row0 col0">Voltage Gain [V/V]</td>
-<td id="T_c7c95_row0_col1" class="data row0 col1">1049.17</td>
-<td id="T_c7c95_row0_col2" class="data row0 col2">1010</td>
-<td id="T_c7c95_row0_col3" class="data row0 col3">1050</td>
+<td id="T_eb80a_row0_col0" class="data row0 col0">Voltage Gain [V/V]</td>
+<td id="T_eb80a_row0_col1" class="data row0 col1">1049.17</td>
+<td id="T_eb80a_row0_col2" class="data row0 col2">1010</td>
+<td id="T_eb80a_row0_col3" class="data row0 col3">1050</td>
 </tr>
 <tr class="even">
-<td id="T_c7c95_row1_col0" class="data row1 col0">Input Resistance [kΩ]</td>
-<td id="T_c7c95_row1_col1" class="data row1 col1">21.5</td>
-<td id="T_c7c95_row1_col2" class="data row1 col2">20.8</td>
-<td id="T_c7c95_row1_col3" class="data row1 col3">20.8</td>
+<td id="T_eb80a_row1_col0" class="data row1 col0">Input Resistance [kΩ]</td>
+<td id="T_eb80a_row1_col1" class="data row1 col1">21.5</td>
+<td id="T_eb80a_row1_col2" class="data row1 col2">20.8</td>
+<td id="T_eb80a_row1_col3" class="data row1 col3">20.8</td>
 </tr>
 <tr class="odd">
-<td id="T_c7c95_row2_col0" class="data row2 col0">Output Resistance [Ω]</td>
-<td id="T_c7c95_row2_col1" class="data row2 col1">17.95</td>
-<td id="T_c7c95_row2_col2" class="data row2 col2">17.86</td>
-<td id="T_c7c95_row2_col3" class="data row2 col3">22.3</td>
+<td id="T_eb80a_row2_col0" class="data row2 col0">Output Resistance [Ω]</td>
+<td id="T_eb80a_row2_col1" class="data row2 col1">17.95</td>
+<td id="T_eb80a_row2_col2" class="data row2 col2">17.86</td>
+<td id="T_eb80a_row2_col3" class="data row2 col3">22.3</td>
 </tr>
 <tr class="even">
-<td id="T_c7c95_row3_col0" class="data row3 col0">Output Voltage Swing [V]</td>
-<td id="T_c7c95_row3_col1" class="data row3 col1">9.17</td>
-<td id="T_c7c95_row3_col2" class="data row3 col2">8.5</td>
-<td id="T_c7c95_row3_col3" class="data row3 col3">8.8</td>
+<td id="T_eb80a_row3_col0" class="data row3 col0">Output Voltage Swing [V]</td>
+<td id="T_eb80a_row3_col1" class="data row3 col1">9.17</td>
+<td id="T_eb80a_row3_col2" class="data row3 col2">8.5</td>
+<td id="T_eb80a_row3_col3" class="data row3 col3">8.8</td>
 </tr>
 <tr class="odd">
-<td id="T_c7c95_row4_col0" class="data row4 col0">THD at 5 V Output Swing [%]</td>
-<td id="T_c7c95_row4_col1" class="data row4 col1">N/A</td>
-<td id="T_c7c95_row4_col2" class="data row4 col2">0.17</td>
-<td id="T_c7c95_row4_col3" class="data row4 col3">1.183</td>
+<td id="T_eb80a_row4_col0" class="data row4 col0">THD at 5 V Output Swing [%]</td>
+<td id="T_eb80a_row4_col1" class="data row4 col1">N/A</td>
+<td id="T_eb80a_row4_col2" class="data row4 col2">0.17</td>
+<td id="T_eb80a_row4_col3" class="data row4 col3">1.183</td>
 </tr>
 <tr class="even">
-<td id="T_c7c95_row5_col0" class="data row5 col0">Low Corner Frequency [kHz]</td>
-<td id="T_c7c95_row5_col1" class="data row5 col1">N/A</td>
-<td id="T_c7c95_row5_col2" class="data row5 col2">2</td>
-<td id="T_c7c95_row5_col3" class="data row5 col3">2.5</td>
+<td id="T_eb80a_row5_col0" class="data row5 col0">Low Corner Frequency [kHz]</td>
+<td id="T_eb80a_row5_col1" class="data row5 col1">N/A</td>
+<td id="T_eb80a_row5_col2" class="data row5 col2">2</td>
+<td id="T_eb80a_row5_col3" class="data row5 col3">2.5</td>
 </tr>
 <tr class="odd">
-<td id="T_c7c95_row6_col0" class="data row6 col0">High Corner Frequency [kHz]</td>
-<td id="T_c7c95_row6_col1" class="data row6 col1">N/A</td>
-<td id="T_c7c95_row6_col2" class="data row6 col2">800</td>
-<td id="T_c7c95_row6_col3" class="data row6 col3">800</td>
+<td id="T_eb80a_row6_col0" class="data row6 col0">High Corner Frequency [kHz]</td>
+<td id="T_eb80a_row6_col1" class="data row6 col1">N/A</td>
+<td id="T_eb80a_row6_col2" class="data row6 col2">800</td>
+<td id="T_eb80a_row6_col3" class="data row6 col3">800</td>
 </tr>
 <tr class="even">
-<td id="T_c7c95_row7_col0" class="data row7 col0">Power Consumption [mW]</td>
-<td id="T_c7c95_row7_col1" class="data row7 col1">48.2</td>
-<td id="T_c7c95_row7_col2" class="data row7 col2">50.5</td>
-<td id="T_c7c95_row7_col3" class="data row7 col3">52</td>
+<td id="T_eb80a_row7_col0" class="data row7 col0">Power Consumption [mW]</td>
+<td id="T_eb80a_row7_col1" class="data row7 col1">48.2</td>
+<td id="T_eb80a_row7_col2" class="data row7 col2">50.5</td>
+<td id="T_eb80a_row7_col3" class="data row7 col3">52</td>
 </tr>
 <tr class="odd">
-<td id="T_c7c95_row8_col0" class="data row8 col0">Stage 1 Collector Current [mA]</td>
-<td id="T_c7c95_row8_col1" class="data row8 col1">0.9803</td>
-<td id="T_c7c95_row8_col2" class="data row8 col2">0.959</td>
-<td id="T_c7c95_row8_col3" class="data row8 col3">0.961</td>
+<td id="T_eb80a_row8_col0" class="data row8 col0">Stage 1 Collector Current [mA]</td>
+<td id="T_eb80a_row8_col1" class="data row8 col1">0.9803</td>
+<td id="T_eb80a_row8_col2" class="data row8 col2">0.959</td>
+<td id="T_eb80a_row8_col3" class="data row8 col3">0.961</td>
 </tr>
 <tr class="even">
-<td id="T_c7c95_row9_col0" class="data row9 col0">Stage 2 Collector Current [mA]</td>
-<td id="T_c7c95_row9_col1" class="data row9 col1">1.342</td>
-<td id="T_c7c95_row9_col2" class="data row9 col2">1.28</td>
-<td id="T_c7c95_row9_col3" class="data row9 col3">1.283</td>
+<td id="T_eb80a_row9_col0" class="data row9 col0">Stage 2 Collector Current [mA]</td>
+<td id="T_eb80a_row9_col1" class="data row9 col1">1.342</td>
+<td id="T_eb80a_row9_col2" class="data row9 col2">1.28</td>
+<td id="T_eb80a_row9_col3" class="data row9 col3">1.283</td>
 </tr>
 <tr class="odd">
-<td id="T_c7c95_row10_col0" class="data row10 col0">Stage 3 Collector Current [mA]</td>
-<td id="T_c7c95_row10_col1" class="data row10 col1">1.05</td>
-<td id="T_c7c95_row10_col2" class="data row10 col2">0.112</td>
-<td id="T_c7c95_row10_col3" class="data row10 col3">0.9616</td>
+<td id="T_eb80a_row10_col0" class="data row10 col0">Stage 3 Collector Current [mA]</td>
+<td id="T_eb80a_row10_col1" class="data row10 col1">1.05</td>
+<td id="T_eb80a_row10_col2" class="data row10 col2">0.112</td>
+<td id="T_eb80a_row10_col3" class="data row10 col3">0.9616</td>
 </tr>
 <tr class="even">
-<td id="T_c7c95_row11_col0" class="data row11 col0">Stage 4 Collector Curent [mA]</td>
-<td id="T_c7c95_row11_col1" class="data row11 col1">1.45</td>
-<td id="T_c7c95_row11_col2" class="data row11 col2">1.55</td>
-<td id="T_c7c95_row11_col3" class="data row11 col3">1.421</td>
+<td id="T_eb80a_row11_col0" class="data row11 col0">Stage 4 Collector Curent [mA]</td>
+<td id="T_eb80a_row11_col1" class="data row11 col1">1.45</td>
+<td id="T_eb80a_row11_col2" class="data row11 col2">1.55</td>
+<td id="T_eb80a_row11_col3" class="data row11 col3">1.421</td>
 </tr>
 </tbody>
 </table>

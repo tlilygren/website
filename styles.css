@@ -2,3 +2,12 @@
 figcaption {
   text-align: center;
 }
+
+figcaption {
+  font-style: italic;
+}
+
+figcaption .quarto-figure-number,
+.figure-caption .quarto-figure-number {
+  font-weight: bold;
+}
